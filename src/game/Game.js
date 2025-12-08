@@ -27,6 +27,10 @@ export class Game {
         document.getElementById('next-level-btn').addEventListener('click', () => this.nextLevel());
         document.getElementById('reset-btn').addEventListener('click', () => this.loadLevel(this.currentLevel));
         document.getElementById('undo-btn').addEventListener('click', () => this.undo());
+        document.getElementById('restart-game-btn').addEventListener('click', () => {
+            document.getElementById('victory-popup').classList.add('hidden');
+            this.loadLevel(0);
+        });
 
         this.loadLevel(0);
     }
@@ -144,7 +148,9 @@ export class Game {
         if (this.currentLevel + 1 < levels.length) {
             this.loadLevel(this.currentLevel + 1);
         } else {
-            alert("You have beaten all levels!");
+            // Victory
+            document.getElementById('victory-popup').classList.remove('hidden');
+            this.audioSystem.playLevelComplete(); // Or a victory sound
         }
     }
 }
