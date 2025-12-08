@@ -1,0 +1,109 @@
+:root {
+  --bg-color: #050510;
+  --grid-line: #1a1a2e;
+  --neon-cyan: #00f3ff;
+  --neon-magenta: #ff00ff;
+  --neon-green: #00ff9d;
+  --text-color: #e0e0e0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+  user-select: none;
+}
+
+#app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas {
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
+  border: 1px solid var(--grid-line);
+}
+
+#ui-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+#level-info {
+  text-align: center;
+  text-shadow: 0 0 10px var(--neon-cyan);
+}
+
+#controls {
+  pointer-events: auto;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 1px solid var(--grid-line);
+  align-self: center;
+  backdrop-filter: blur(5px);
+}
+
+.inventory-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px 10px;
+  border: 1px solid var(--neon-cyan);
+  border-radius: 5px;
+  color: var(--neon-cyan);
+  transition: all 0.2s;
+}
+
+.inventory-item:hover {
+  background: rgba(0, 243, 255, 0.1);
+  box-shadow: 0 0 10px var(--neon-cyan);
+}
+
+.inventory-item .icon {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+button {
+  background: transparent;
+  border: 1px solid var(--neon-magenta);
+  color: var(--neon-magenta);
+  padding: 5px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+button:hover:not(:disabled) {
+  background: rgba(255, 0, 255, 0.1);
+  box-shadow: 0 0 10px var(--neon-magenta);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-color: #555;
+  color: #555;
+}

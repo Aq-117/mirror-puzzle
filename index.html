@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laser Mirror Puzzle</title>
+  <link rel="stylesheet" href="./src/style.css">
+</head>
+
+<body>
+  <div id="app">
+    <div id="ui-layer">
+      <div id="level-info">
+        <h1 id="level-title">Level 1</h1>
+        <p id="level-desc">Guide the laser to the target.</p>
+      </div>
+      <div id="controls">
+        <div class="inventory-item" data-type="mirror" data-dir="0">
+          <span class="icon">/</span>
+          <span class="count" id="mirror-count">0</span>
+        </div>
+        <button id="undo-btn">Undo</button>
+        <button id="reset-btn">Reset</button>
+        <button id="next-level-btn" disabled>Next Level</button>
+      </div>
+    </div>
+    <canvas id="game-canvas"></canvas>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
