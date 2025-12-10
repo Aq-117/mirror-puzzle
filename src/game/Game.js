@@ -37,7 +37,23 @@ export class Game {
         document.getElementById('select-m1').addEventListener('click', () => this.selectMirror(CELL_TYPES.MIRROR_TRIANGLE));
         document.getElementById('select-m2').addEventListener('click', () => this.selectMirror(CELL_TYPES.MIRROR_LINE));
 
+        // Debug
+        document.getElementById('level-jump-btn').addEventListener('click', () => {
+            const val = parseInt(document.getElementById('level-jump-input').value);
+            if (!isNaN(val)) this.jumpToLevel(val);
+        });
+
         this.loadLevel(0);
+        window.game = this; // Expose for debugging
+    }
+
+    jumpToLevel(n) {
+        // n is 1-based level number
+        if (n >= 1 && n <= levels.length) {
+            this.loadLevel(n - 1);
+        } else {
+            console.warn("Level out of range");
+        }
     }
 
     selectMirror(type) {

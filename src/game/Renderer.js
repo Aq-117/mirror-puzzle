@@ -313,32 +313,24 @@ export class Renderer {
     }
 
     drawLasers(laserSystem) {
+        // Draw laser segments
         this.ctx.lineWidth = 3;
         this.ctx.lineCap = 'round';
 
         laserSystem.segments.forEach(seg => {
-            const x1 = this.offsetX + seg.x1 * this.cellSize;
-            const y1 = this.offsetY + seg.y1 * this.cellSize;
-            const x2 = this.offsetX + seg.x2 * this.cellSize;
-            const y2 = this.offsetY + seg.y2 * this.cellSize;
-
-            // Glow effect
+            this.ctx.strokeStyle = seg.color || '#00f3ff';
+            this.ctx.shadowColor = seg.color || '#00f3ff';
             this.ctx.shadowBlur = 10;
-            this.ctx.shadowColor = '#ff0055';
-            this.ctx.strokeStyle = '#ff0055';
 
             this.ctx.beginPath();
-            this.ctx.moveTo(x1, y1);
-            this.ctx.lineTo(x2, y2);
-            this.ctx.stroke();
-
-            // Inner core
-            this.ctx.shadowBlur = 0;
-            this.ctx.lineWidth = 1;
-            this.ctx.strokeStyle = '#ffffff';
-            this.ctx.beginPath();
-            this.ctx.moveTo(x1, y1);
-            this.ctx.lineTo(x2, y2);
+            this.ctx.moveTo(
+                this.offsetX + seg.x1 * this.cellSize,
+                this.offsetY + seg.y1 * this.cellSize
+            );
+            this.ctx.lineTo(
+                this.offsetX + seg.x2 * this.cellSize,
+                this.offsetY + seg.y2 * this.cellSize
+            );
             this.ctx.stroke();
         });
 

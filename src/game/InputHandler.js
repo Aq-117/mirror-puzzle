@@ -53,21 +53,23 @@ export class InputHandler {
                 } else {
                     this.game.audioSystem.playError();
                 }
-            } else if (cell.type === CELL_TYPES.MIRROR || cell.type === CELL_TYPES.MIRROR_LINE || cell.type === CELL_TYPES.MIRROR_TRIANGLE) {
+            } else if (cell.type === CELL_TYPES.MIRROR_LINE || cell.type === CELL_TYPES.MIRROR || cell.type === CELL_TYPES.MIRROR_TRIANGLE) {
                 // Rotate mirror
                 this.game.pushHistory(x, y);
-                // M1 has 4 rotations, M2 has 2 (effectively, but we can allow 4 for simplicity or mod 2)
-                // Actually M2 only needs 2 states (/ and \). 0 and 1.
-                // M1 needs 4 states.
-
                 if (cell.type === CELL_TYPES.MIRROR_LINE || cell.type === CELL_TYPES.MIRROR) {
                     cell.rotation = (cell.rotation + 1) % 2;
                 } else {
                     // Reverse rotation (Counter-Clockwise)
                     cell.rotation = (cell.rotation + 3) % 4;
                 }
-
                 this.game.audioSystem.playMirrorRotate();
+            } else if (cell.type === CELL_TYPES.EMITTER) {
+                // Rotate emitter
+                this.game.pushHistory(x, y);
+                // Rotate clockwise: UP -> RIGHT -> DOWN -> LEFT
+                // DIRECTIONS: UP=0, RIGHT=1, DOWN=2, LEFT=3
+                cell.direction = (cell.direction + 1) % 4;
+                this.game.audioSystem.playMirrorRotate(); // Reuse sound
             }
         }
     }

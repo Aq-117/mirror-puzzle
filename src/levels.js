@@ -249,7 +249,7 @@ export const levels = [
         grid: { width: 7, height: 7 },
         items: [
             { x: 1, y: 4, type: CELL_TYPES.RECEIVER },
-            { x: 4, y: 6, type: CELL_TYPES.RECEIVER },
+            { x: 5, y: 6, type: CELL_TYPES.RECEIVER },
             // Walls
             // 0,2 to 4,2
             { x: 0, y: 2, type: CELL_TYPES.WALL },
@@ -315,5 +315,44 @@ export const levels = [
             { x: 7, y: 3, direction: DIRECTIONS.LEFT }
         ],
         inventory: { mirror1: 2, mirror2: 1 }
+    },
+    {
+        id: 16,
+        name: "Level 16",
+        grid: { width: 5, height: 5 },
+        items: [
+            { x: 2, y: 2, type: CELL_TYPES.EMITTER, direction: DIRECTIONS.DOWN }, // e 2,2 (Internal)
+            { x: 0, y: 2, type: CELL_TYPES.RECEIVER } // r 0,2
+        ],
+        emitters: [], // No external emitters
+        inventory: { mirror1: 0, mirror2: 0 }
+    },
+    {
+        id: 17,
+        name: "Level 17",
+        grid: { width: 5, height: 5 },
+        items: [
+            { x: 2, y: 3, type: CELL_TYPES.EMITTER, direction: DIRECTIONS.DOWN }, // e 2,3
+            { x: 1, y: 1, type: CELL_TYPES.RECEIVER }, // r 1,1
+            { x: 1, y: 2, type: CELL_TYPES.WALL }, // w 1,2
+            { x: 3, y: 2, type: CELL_TYPES.WALL }, // w 3,2
+        ],
+        emitters: [],
+        inventory: { mirror1: 1, mirror2: 0 }
+    },
+    {
+        id: 18,
+        name: "Level 18",
+        grid: { width: 5, height: 5 },
+        items: [
+            { x: 3, y: 1, type: CELL_TYPES.EMITTER, direction: DIRECTIONS.DOWN }, // e 3,1
+            // r 1,3 to 4,3 -> (1,3), (2,3), (3,3), (4,3)
+            { x: 1, y: 3, type: CELL_TYPES.RECEIVER },
+            { x: 2, y: 3, type: CELL_TYPES.RECEIVER },
+            { x: 3, y: 3, type: CELL_TYPES.RECEIVER },
+            { x: 4, y: 3, type: CELL_TYPES.RECEIVER },
+        ],
+        emitters: [],
+        inventory: { mirror1: 2, mirror2: 0 }
     }
 ];
