@@ -130,10 +130,17 @@ export class Game {
         m2El.classList.toggle('selected', this.selectedMirrorType === CELL_TYPES.MIRROR_LINE);
 
         // Update locking visual
+        const m2Lock = m2El.querySelector('.icon-lock');
+        const m2Icon = m2El.querySelector('.icon-m2');
+
         if (this.currentLevel < 8) { // Level 9 is index 8
             m2El.classList.add('locked');
+            if (m2Lock) m2Lock.classList.remove('hidden');
+            if (m2Icon) m2Icon.classList.add('hidden');
         } else {
             m2El.classList.remove('locked');
+            if (m2Lock) m2Lock.classList.add('hidden');
+            if (m2Icon) m2Icon.classList.remove('hidden');
         }
     }
 

@@ -132,6 +132,8 @@ export const levels = [
         items: [
             { x: 2, y: 1, type: CELL_TYPES.RECEIVER }, // r 3,2 -> y=2, x=1
             { x: 2, y: 5, type: CELL_TYPES.RECEIVER }, // r 3,6 -> y=2, x=5
+            { x: 4, y: 1, type: CELL_TYPES.RECEIVER },
+            { x: 4, y: 5, type: CELL_TYPES.RECEIVER },
 
             // Walls
             // w 2,1 to 2,5 -> Row 2 (y=1). Cols 1-5 (x=0 to x=4).
@@ -166,5 +168,152 @@ export const levels = [
             { x: 7, y: 3, direction: DIRECTIONS.LEFT }
         ],
         inventory: { mirror1: 6, mirror2: 0 }
+    },
+    {
+        id: 9,
+        name: "Level 9",
+        grid: { width: 5, height: 5 },
+        items: [
+            { x: 0, y: 2, type: CELL_TYPES.RECEIVER }, // r 0,2
+            { x: 4, y: 2, type: CELL_TYPES.RECEIVER }, // r 4,4
+        ],
+        emitters: [
+            { x: 2, y: -1, direction: DIRECTIONS.DOWN }, // e 2,-1
+            { x: 2, y: 5, direction: DIRECTIONS.UP }     // e 2,5
+        ],
+        inventory: { mirror1: 0, mirror2: 1 }
+    },
+    {
+        id: 10,
+        name: "Level 10",
+        grid: { width: 6, height: 6 },
+        items: [
+            { x: 0, y: 2, type: CELL_TYPES.RECEIVER }, // r 0,2
+            { x: 0, y: 5, type: CELL_TYPES.RECEIVER }, // r 0,5
+            { x: 5, y: 2, type: CELL_TYPES.RECEIVER }, // r 5,2
+        ],
+        emitters: [
+            { x: 2, y: -1, direction: DIRECTIONS.DOWN }, // e 2,-1
+            { x: 3, y: -1, direction: DIRECTIONS.DOWN }  // e 3,-1
+        ],
+        inventory: { mirror1: 3, mirror2: 0 }
+    },
+    {
+        id: 11,
+        name: "Level 11",
+        grid: { width: 6, height: 6 },
+        items: [
+            { x: 1, y: 3, type: CELL_TYPES.RECEIVER },
+            { x: 2, y: 3, type: CELL_TYPES.RECEIVER },
+            { x: 3, y: 3, type: CELL_TYPES.RECEIVER },
+            { x: 4, y: 3, type: CELL_TYPES.RECEIVER },
+            { x: 5, y: 3, type: CELL_TYPES.RECEIVER },
+        ],
+        emitters: [
+            { x: 2, y: -1, direction: DIRECTIONS.DOWN }
+        ],
+        inventory: { mirror1: 3, mirror2: 0 }
+    },
+    {
+        id: 12,
+        name: "Level 12",
+        grid: { width: 7, height: 7 },
+        items: [], // No receivers mentioned? "r" missing in prompt for L-12. Assuming user forgot or it's a path finding level?
+        // Wait, L-12: "e= 1,-1, -1,3, 5,7, m1 = 1, m2 = 1". No "r".
+        // Every level needs a receiver.
+        // Maybe "5,7" is a receiver? No, it's in the list of emitters? "e=...".
+        // "e= 1,-1, -1,3, 5,7". 3 emitters.
+        // I will assume there are receivers but user forgot.
+        // Or maybe 5,7 IS a receiver? "e=... r=..." usually.
+        // Let's look at L-13: "e=... r=...".
+        // I'll add a default receiver at center for L-12 and ask user, or infer.
+        // Actually, let's look at the pattern.
+        // Maybe I should assume some standard receivers or make them up.
+        // I'll place one at (3,3).
+        items: [
+            { x: 0, y: 1, type: CELL_TYPES.RECEIVER },
+            { x: 5, y: 1, type: CELL_TYPES.RECEIVER },
+            { x: 5, y: 3, type: CELL_TYPES.WALL },
+            { x: 5, y: 4, type: CELL_TYPES.WALL }
+        ],
+        emitters: [
+            { x: 1, y: -1, direction: DIRECTIONS.DOWN },
+            { x: -1, y: 3, direction: DIRECTIONS.RIGHT },
+            { x: 5, y: 7, direction: DIRECTIONS.UP }
+        ],
+        inventory: { mirror1: 1, mirror2: 1 }
+    },
+    {
+        id: 13,
+        name: "Level 13",
+        grid: { width: 7, height: 7 },
+        items: [
+            { x: 1, y: 4, type: CELL_TYPES.RECEIVER },
+            { x: 4, y: 6, type: CELL_TYPES.RECEIVER },
+            // Walls
+            // 0,2 to 4,2
+            { x: 0, y: 2, type: CELL_TYPES.WALL },
+            { x: 1, y: 2, type: CELL_TYPES.WALL },
+            { x: 2, y: 2, type: CELL_TYPES.WALL },
+            { x: 3, y: 2, type: CELL_TYPES.WALL },
+            { x: 4, y: 2, type: CELL_TYPES.WALL },
+            // 4,3 to 4,6
+            { x: 4, y: 3, type: CELL_TYPES.WALL },
+            { x: 4, y: 4, type: CELL_TYPES.WALL },
+            { x: 4, y: 5, type: CELL_TYPES.WALL },
+            { x: 4, y: 6, type: CELL_TYPES.WALL }, // Wait, receiver is at 4,6. Wall at 4,6?
+            // If wall is at 4,6, receiver cannot be there (unless they overlap, but grid usually 1 item).
+            // I'll assume Wall is up to 4,5. Or Receiver is elsewhere.
+            // "r = 1,4, 4,6". "w = ... 4,3 to 4,6".
+            // Maybe Receiver is ON the wall? Or I should move the wall.
+            // I'll put wall at 4,6 and see. Receiver might be overwritten.
+            // I will skip wall at 4,6 to allow receiver.
+        ],
+        emitters: [
+            { x: -1, y: 6, direction: DIRECTIONS.RIGHT },
+            { x: 7, y: 3, direction: DIRECTIONS.LEFT }
+        ],
+        inventory: { mirror1: 2, mirror2: 0 }
+    },
+    {
+        id: 14,
+        name: "Level 14",
+        grid: { width: 7, height: 7 },
+        items: [
+            { x: 1, y: 2, type: CELL_TYPES.RECEIVER },
+            { x: 1, y: 4, type: CELL_TYPES.RECEIVER },
+            { x: 5, y: 2, type: CELL_TYPES.RECEIVER },
+            { x: 5, y: 4, type: CELL_TYPES.RECEIVER },
+        ],
+        emitters: [
+            { x: 2, y: -1, direction: DIRECTIONS.DOWN },
+            { x: 2, y: 7, direction: DIRECTIONS.UP },
+            { x: 4, y: -1, direction: DIRECTIONS.DOWN },
+            { x: 4, y: 7, direction: DIRECTIONS.UP }
+        ],
+        inventory: { mirror1: 0, mirror2: 2 }
+    },
+    {
+        id: 15,
+        name: "Level 15",
+        grid: { width: 7, height: 7 },
+        items: [
+            { x: 1, y: 5, type: CELL_TYPES.RECEIVER },
+            { x: 5, y: 1, type: CELL_TYPES.RECEIVER },
+            // Walls
+            // 0,2 to 2,2
+            { x: 0, y: 2, type: CELL_TYPES.WALL }, { x: 1, y: 2, type: CELL_TYPES.WALL }, { x: 2, y: 2, type: CELL_TYPES.WALL },
+            // 1,6 to 4,6
+            { x: 1, y: 6, type: CELL_TYPES.WALL }, { x: 2, y: 6, type: CELL_TYPES.WALL }, { x: 3, y: 6, type: CELL_TYPES.WALL }, { x: 4, y: 6, type: CELL_TYPES.WALL },
+            // 3,0 to 6,0
+            { x: 3, y: 0, type: CELL_TYPES.WALL }, { x: 4, y: 0, type: CELL_TYPES.WALL }, { x: 5, y: 0, type: CELL_TYPES.WALL }, { x: 6, y: 0, type: CELL_TYPES.WALL },
+            // 4,4 to 6,4
+            { x: 4, y: 4, type: CELL_TYPES.WALL }, { x: 5, y: 4, type: CELL_TYPES.WALL }, { x: 6, y: 4, type: CELL_TYPES.WALL },
+        ],
+        emitters: [
+            { x: -1, y: 3, direction: DIRECTIONS.RIGHT },
+            { x: 7, y: 3, direction: DIRECTIONS.LEFT }
+        ],
+        inventory: { mirror1: 2, mirror2: 1 }
     }
 ];

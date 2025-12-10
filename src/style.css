@@ -148,9 +148,69 @@ canvas {
   }
 }
 
-.inventory-item .icon {
-  font-size: 24px;
-  font-weight: bold;
+.inventory-item .icon-box {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* M1 Icon: Triangle */
+.icon-m1 {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 20px solid #ff00ff;
+}
+
+/* M2 Icon: Line */
+.icon-m2 {
+  width: 2px;
+  height: 24px;
+  background-color: #ff00ff;
+  transform: rotate(45deg);
+}
+
+/* Lock Icon */
+.icon-lock {
+  width: 16px;
+  height: 12px;
+  border: 2px solid #555;
+  border-radius: 3px;
+  position: absolute;
+  background: #0a0a20;
+}
+
+.icon-lock::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 2px;
+  width: 8px;
+  height: 8px;
+  border: 2px solid #555;
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+}
+
+.inventory-item.locked .icon-m2 {
+  display: none;
+}
+
+.inventory-item.locked .icon-lock {
+  display: block;
+  border-color: #888;
+}
+
+.inventory-item.locked .icon-lock::before {
+  border-color: #888;
+}
+
+.icon-lock.hidden {
+  display: none;
 }
 
 button {

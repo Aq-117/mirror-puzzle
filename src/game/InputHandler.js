@@ -63,7 +63,8 @@ export class InputHandler {
                 if (cell.type === CELL_TYPES.MIRROR_LINE || cell.type === CELL_TYPES.MIRROR) {
                     cell.rotation = (cell.rotation + 1) % 2;
                 } else {
-                    cell.rotation = (cell.rotation + 1) % 4;
+                    // Reverse rotation (Counter-Clockwise)
+                    cell.rotation = (cell.rotation + 3) % 4;
                 }
 
                 this.game.audioSystem.playMirrorRotate();
