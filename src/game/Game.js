@@ -38,10 +38,10 @@ export class Game {
         document.getElementById('select-m2').addEventListener('click', () => this.selectMirror(CELL_TYPES.MIRROR_LINE));
 
         // Debug
-        document.getElementById('level-jump-btn').addEventListener('click', () => {
-            const val = parseInt(document.getElementById('level-jump-input').value);
-            if (!isNaN(val)) this.jumpToLevel(val);
-        });
+        // document.getElementById('level-jump-btn').addEventListener('click', () => {
+        //     const val = parseInt(document.getElementById('level-jump-input').value);
+        //     if (!isNaN(val)) this.jumpToLevel(val);
+        // });
 
         this.loadLevel(0);
         window.game = this; // Expose for debugging

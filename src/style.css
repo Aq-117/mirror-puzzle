@@ -78,6 +78,12 @@ canvas {
   box-shadow: 0 0 10px var(--neon-cyan);
 }
 
+.inventory-item.selected {
+  background: rgba(0, 243, 255, 0.2);
+  box-shadow: 0 0 15px var(--neon-cyan);
+  border-color: #fff;
+}
+
 /* Victory Popup */
 #victory-popup {
   position: absolute;

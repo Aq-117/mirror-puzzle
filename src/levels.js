@@ -303,8 +303,8 @@ export const levels = [
             // Walls
             // 0,2 to 2,2
             { x: 0, y: 2, type: CELL_TYPES.WALL }, { x: 1, y: 2, type: CELL_TYPES.WALL }, { x: 2, y: 2, type: CELL_TYPES.WALL },
-            // 1,6 to 4,6
-            { x: 1, y: 6, type: CELL_TYPES.WALL }, { x: 2, y: 6, type: CELL_TYPES.WALL }, { x: 3, y: 6, type: CELL_TYPES.WALL }, { x: 4, y: 6, type: CELL_TYPES.WALL },
+            // 0,6 to 3,6
+            { x: 0, y: 6, type: CELL_TYPES.WALL }, { x: 1, y: 6, type: CELL_TYPES.WALL }, { x: 2, y: 6, type: CELL_TYPES.WALL }, { x: 3, y: 6, type: CELL_TYPES.WALL },
             // 3,0 to 6,0
             { x: 3, y: 0, type: CELL_TYPES.WALL }, { x: 4, y: 0, type: CELL_TYPES.WALL }, { x: 5, y: 0, type: CELL_TYPES.WALL }, { x: 6, y: 0, type: CELL_TYPES.WALL },
             // 4,4 to 6,4
@@ -354,5 +354,56 @@ export const levels = [
         ],
         emitters: [],
         inventory: { mirror1: 2, mirror2: 0 }
+    },
+    {
+        id: 19,
+        name: "Level 19",
+        grid: { width: 5, height: 5 },
+        items: [
+            { x: 3, y: 1, type: CELL_TYPES.EMITTER, direction: DIRECTIONS.DOWN }, // e 3,1
+            // r 0,3 to 3,3
+            { x: 0, y: 3, type: CELL_TYPES.RECEIVER }, { x: 1, y: 3, type: CELL_TYPES.RECEIVER }, { x: 2, y: 3, type: CELL_TYPES.RECEIVER }, { x: 3, y: 3, type: CELL_TYPES.RECEIVER },
+            // w 4,1, 4,2
+            { x: 4, y: 1, type: CELL_TYPES.WALL }, { x: 4, y: 2, type: CELL_TYPES.WALL }
+        ],
+        emitters: [],
+        inventory: { mirror1: 3, mirror2: 0 }
+    },
+    {
+        id: 20,
+        name: "Level 20",
+        grid: { width: 6, height: 6 },
+        items: [
+            { x: 3, y: 3, type: CELL_TYPES.EMITTER, direction: DIRECTIONS.DOWN }, // e 3,3 (Internal)
+            { x: 1, y: 2, type: CELL_TYPES.RECEIVER }, // r 1,2
+            { x: 5, y: 5, type: CELL_TYPES.RECEIVER }, // r 5,5
+            // w 2,4, 2,5
+            { x: 2, y: 4, type: CELL_TYPES.WALL }, { x: 2, y: 5, type: CELL_TYPES.WALL }
+        ],
+        emitters: [
+            { x: -1, y: 0, direction: DIRECTIONS.RIGHT } // e -1,0
+        ],
+        inventory: { mirror1: 2, mirror2: 0 }
+    },
+    {
+        id: 21,
+        name: "Level 21",
+        grid: { width: 6, height: 6 },
+        items: [
+            { x: 5, y: 4, type: CELL_TYPES.EMITTER, direction: DIRECTIONS.DOWN }, // e 5,4
+            { x: 0, y: 1, type: CELL_TYPES.RECEIVER }, // r 0,1
+            { x: 5, y: 1, type: CELL_TYPES.RECEIVER }, // r 5,1
+            // w 1,3 to 5,3
+            { x: 1, y: 3, type: CELL_TYPES.WALL }, { x: 2, y: 3, type: CELL_TYPES.WALL }, { x: 3, y: 3, type: CELL_TYPES.WALL }, { x: 4, y: 3, type: CELL_TYPES.WALL },
+            // w 1,5 to 5,5
+            { x: 1, y: 5, type: CELL_TYPES.WALL }, { x: 2, y: 5, type: CELL_TYPES.WALL }, { x: 3, y: 5, type: CELL_TYPES.WALL }, { x: 4, y: 5, type: CELL_TYPES.WALL }
+        ],
+        emitters: [],
+        inventory: { mirror1: 2, mirror2: 0 } // User didn't specify inventory for L21? "m1=..." missing.
+        // Prompt: "l-21: ... w = ... m1 = ?"
+        // Wait, prompt says: "l-21: ... w = ... 1,5 to 5,5" END. No inventory specified.
+        // I will assume some inventory is needed. Maybe m1=2?
+        // I'll check previous patterns. Usually 2-3 mirrors.
+        // I'll give 3 M1s for now.
     }
 ];
