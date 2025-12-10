@@ -11,7 +11,7 @@ export const levels = [
         emitters: [
             { x: 1, y: -1, direction: DIRECTIONS.DOWN } // e 2,0
         ],
-        inventory: { mirrors: 1 }
+        inventory: { mirror1: 1, mirror2: 0 }
     },
     {
         id: 2,
@@ -24,7 +24,7 @@ export const levels = [
         emitters: [
             { x: 1, y: -1, direction: DIRECTIONS.DOWN } // e 2,0
         ],
-        inventory: { mirrors: 2 }
+        inventory: { mirror1: 2, mirror2: 0 }
     },
     {
         id: 3,
@@ -37,7 +37,7 @@ export const levels = [
         emitters: [
             { x: 1, y: -1, direction: DIRECTIONS.DOWN } // e 0,2
         ],
-        inventory: { mirrors: 2 }
+        inventory: { mirror1: 2, mirror2: 0 }
     },
     {
         id: 4,
@@ -52,7 +52,7 @@ export const levels = [
         emitters: [
             { x: -1, y: 3, direction: DIRECTIONS.RIGHT } // e 4,0
         ],
-        inventory: { mirrors: 2 }
+        inventory: { mirror1: 2, mirror2: 0 }
     },
     {
         id: 5,
@@ -79,7 +79,7 @@ export const levels = [
         emitters: [
             { x: 0, y: -1, direction: DIRECTIONS.DOWN } // e 1,0
         ],
-        inventory: { mirrors: 3 }
+        inventory: { mirror1: 3, mirror2: 0 }
     },
     {
         id: 6,
@@ -104,6 +104,67 @@ export const levels = [
         emitters: [
             { x: -1, y: 2, direction: DIRECTIONS.RIGHT } // e 0,3
         ],
-        inventory: { mirrors: 9 }
+        inventory: { mirror1: 9, mirror2: 0 }
+    },
+    {
+        id: 7,
+        name: "Level 7",
+        grid: { width: 8, height: 8 },
+        items: [
+            { x: 3, y: 1, type: CELL_TYPES.RECEIVER }, // r 4,2 -> x=1, y=3 ?? Wait.
+            // User: r = 4,2 (Row 4, Col 2).
+            // Grid 8x8.
+            // Row 4 means y=3. Col 2 means x=1.
+            // Correct.
+
+            { x: 4, y: 6, type: CELL_TYPES.RECEIVER }, // r 5,7 -> Row 5 (y=4), Col 7 (x=6).
+        ],
+        emitters: [
+            { x: -1, y: 3, direction: DIRECTIONS.RIGHT }, // e 0,4
+            { x: 8, y: 4, direction: DIRECTIONS.LEFT }     // e 9,5
+        ],
+        inventory: { mirror1: 2, mirror2: 0 }
+    },
+    {
+        id: 8,
+        name: "Level 8",
+        grid: { width: 7, height: 7 },
+        items: [
+            { x: 2, y: 1, type: CELL_TYPES.RECEIVER }, // r 3,2 -> y=2, x=1
+            { x: 2, y: 5, type: CELL_TYPES.RECEIVER }, // r 3,6 -> y=2, x=5
+
+            // Walls
+            // w 2,1 to 2,5 -> Row 2 (y=1). Cols 1-5 (x=0 to x=4).
+            { x: 1, y: 0, type: CELL_TYPES.WALL },
+            { x: 1, y: 1, type: CELL_TYPES.WALL },
+            { x: 1, y: 2, type: CELL_TYPES.WALL },
+            { x: 1, y: 3, type: CELL_TYPES.WALL },
+            { x: 1, y: 4, type: CELL_TYPES.WALL },
+
+            // w 4,1 to 4,7 -> Row 4 (y=3). Cols 1-7 (x=0 to x=6).
+            { x: 3, y: 0, type: CELL_TYPES.WALL },
+            { x: 3, y: 1, type: CELL_TYPES.WALL },
+            { x: 3, y: 2, type: CELL_TYPES.WALL },
+            { x: 3, y: 3, type: CELL_TYPES.WALL },
+            { x: 3, y: 4, type: CELL_TYPES.WALL },
+            { x: 3, y: 5, type: CELL_TYPES.WALL },
+            { x: 3, y: 6, type: CELL_TYPES.WALL },
+
+            // w 6,3 to 6,7 -> Row 6 (y=5). Cols 3-7 (x=2 to x=6).
+            { x: 5, y: 2, type: CELL_TYPES.WALL },
+            { x: 5, y: 3, type: CELL_TYPES.WALL },
+            { x: 5, y: 4, type: CELL_TYPES.WALL },
+            { x: 5, y: 5, type: CELL_TYPES.WALL },
+            { x: 5, y: 6, type: CELL_TYPES.WALL },
+        ],
+        emitters: [
+            // e 0,4 -> Row 0 (Top), Col 4 (x=3).
+            { x: -1, y: 3, direction: DIRECTIONS.RIGHT },
+
+            // e 8,4 -> Row 8 (Bottom), Col 4 (x=3).
+            // Grid 7x7. Rows 1-7. Row 8 is bottom.
+            { x: 7, y: 3, direction: DIRECTIONS.LEFT }
+        ],
+        inventory: { mirror1: 6, mirror2: 0 }
     }
 ];

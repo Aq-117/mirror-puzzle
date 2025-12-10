@@ -18,7 +18,8 @@ export class Game {
         this.audioSystem = new AudioSystem();
         this.currentLevel = 0;
         this.currentLevel = 0;
-        this.inventory = { mirrors: 0 };
+        this.inventory = { mirror1: 0, mirror2: 0 };
+        this.selectedMirrorType = CELL_TYPES.MIRROR_TRIANGLE; // Default to M1
         this.history = []; // Undo stack
 
         this.resize();
@@ -32,15 +33,26 @@ export class Game {
             this.loadLevel(0);
         });
 
+        // Mirror Selection UI
+        document.getElementById('select-m1').addEventListener('click', () => this.selectMirror(CELL_TYPES.MIRROR_TRIANGLE));
+        document.getElementById('select-m2').addEventListener('click', () => this.selectMirror(CELL_TYPES.MIRROR_LINE));
+
         this.loadLevel(0);
+    }
+
+    selectMirror(type) {
+        // Check if locked
+        if (type === CELL_TYPES.MIRROR_LINE && this.currentLevel < 8) { // Level 9 is index 8
+            this.audioSystem.playError();
+            return;
+        }
+        this.selectedMirrorType = type;
+        this.updateInventoryUI();
     }
 
     undo() {
         if (this.history.length > 0) {
             const action = this.history.pop();
-            // Action: { type: 'place'|'remove'|'rotate', x, y, prevCell, prevInventory }
-            // Actually, simplest is to store cell state and inventory before change.
-
             const { x, y, prevCell, prevInventory } = action;
 
             if (prevCell) {
@@ -51,7 +63,7 @@ export class Game {
 
             this.inventory = { ...prevInventory };
             this.updateInventoryUI();
-            this.audioSystem.playMirrorRotate(); // Feedback
+            this.audioSystem.playMirrorRotate();
         }
     }
 
@@ -63,7 +75,7 @@ export class Game {
             prevCell: cell ? { ...cell } : null,
             prevInventory: { ...this.inventory }
         });
-        if (this.history.length > 10) this.history.shift(); // Limit history
+        if (this.history.length > 10) this.history.shift();
     }
 
     resize() {
@@ -79,7 +91,20 @@ export class Game {
             this.renderer.calculateLayout(this.grid);
 
             // Inventory
-            this.inventory = { ...level.inventory };
+            // Default to 0 if not specified
+            this.inventory = {
+                mirror1: level.inventory.mirror1 || 0,
+                mirror2: level.inventory.mirror2 || 0
+            };
+
+            // If old format (mirrors), map to mirror1
+            if (level.inventory.mirrors !== undefined) {
+                this.inventory.mirror1 = level.inventory.mirrors;
+            }
+
+            // Reset selection to M1
+            this.selectedMirrorType = CELL_TYPES.MIRROR_TRIANGLE;
+
             this.updateInventoryUI();
             this.history = []; // Clear history
 
@@ -93,7 +118,23 @@ export class Game {
     }
 
     updateInventoryUI() {
-        document.getElementById('mirror-count').innerText = this.inventory.mirrors;
+        // Update counts
+        document.getElementById('m1-count').innerText = this.inventory.mirror1;
+        document.getElementById('m2-count').innerText = this.inventory.mirror2;
+
+        // Update selection styling
+        const m1El = document.getElementById('select-m1');
+        const m2El = document.getElementById('select-m2');
+
+        m1El.classList.toggle('selected', this.selectedMirrorType === CELL_TYPES.MIRROR_TRIANGLE);
+        m2El.classList.toggle('selected', this.selectedMirrorType === CELL_TYPES.MIRROR_LINE);
+
+        // Update locking visual
+        if (this.currentLevel < 8) { // Level 9 is index 8
+            m2El.classList.add('locked');
+        } else {
+            m2El.classList.remove('locked');
+        }
     }
 
     start() {

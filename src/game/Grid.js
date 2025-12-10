@@ -3,7 +3,9 @@ export const CELL_TYPES = {
     WALL: 1,
     EMITTER: 2,
     RECEIVER: 3,
-    MIRROR: 4,
+    MIRROR: 4, // Deprecated, use specific types
+    MIRROR_TRIANGLE: 6,
+    MIRROR_LINE: 7,
     BLOCK: 5 // Blocks laser but not a wall (maybe movable later)
 };
 

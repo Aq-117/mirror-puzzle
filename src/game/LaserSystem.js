@@ -96,8 +96,9 @@ export class LaserSystem {
                     }
                 }
                 // Laser passes through receiver, so we DO NOT break here.
-            } else if (cell.type === CELL_TYPES.MIRROR) {
-                // Reflect
+            } else if (cell.type === CELL_TYPES.MIRROR || cell.type === CELL_TYPES.MIRROR_LINE) {
+                // Reflect (Line Mirror - M2)
+                // Behaves like the old mirror, reflecting from both sides
                 if (cell.rotation === 0) { // /
                     if (dir === DIRECTIONS.RIGHT) dir = DIRECTIONS.UP;
                     else if (dir === DIRECTIONS.UP) dir = DIRECTIONS.RIGHT;
@@ -108,6 +109,42 @@ export class LaserSystem {
                     else if (dir === DIRECTIONS.DOWN) dir = DIRECTIONS.RIGHT;
                     else if (dir === DIRECTIONS.LEFT) dir = DIRECTIONS.UP;
                     else if (dir === DIRECTIONS.UP) dir = DIRECTIONS.LEFT;
+                }
+            } else if (cell.type === CELL_TYPES.MIRROR_TRIANGLE) {
+                // Reflect (Triangle Mirror - M1)
+                // Reflects from one face, blocks from the other
+                // Rotation 0: / (Reflects Right->Up, Up->Right. Blocks Left/Down)
+                // Rotation 1: \ (Reflects Right->Down, Down->Right. Blocks Left/Up)
+                // Rotation 2: / (Reflects Left->Down, Down->Left. Blocks Right/Up)
+                // Rotation 3: \ (Reflects Left->Up, Up->Left. Blocks Right/Down)
+
+                let reflected = false;
+                const rot = cell.rotation % 4; // Ensure 0-3 range
+
+                if (rot === 0) { // / (Bottom-Left is solid)
+                    if (dir === DIRECTIONS.RIGHT) { dir = DIRECTIONS.UP; reflected = true; }
+                    else if (dir === DIRECTIONS.DOWN) { dir = DIRECTIONS.LEFT; reflected = true; }
+                } else if (rot === 1) { // \ (Top-Left is solid)
+                    if (dir === DIRECTIONS.RIGHT) { dir = DIRECTIONS.DOWN; reflected = true; }
+                    else if (dir === DIRECTIONS.UP) { dir = DIRECTIONS.LEFT; reflected = true; }
+                } else if (rot === 2) { // / (Top-Right is solid)
+                    if (dir === DIRECTIONS.LEFT) { dir = DIRECTIONS.DOWN; reflected = true; }
+                    else if (dir === DIRECTIONS.UP) { dir = DIRECTIONS.RIGHT; reflected = true; }
+                } else if (rot === 3) { // \ (Bottom-Right is solid)
+                    if (dir === DIRECTIONS.LEFT) { dir = DIRECTIONS.UP; reflected = true; }
+                    else if (dir === DIRECTIONS.DOWN) { dir = DIRECTIONS.RIGHT; reflected = true; }
+                }
+
+                if (!reflected) {
+                    // Blocked!
+                    if (particleSystem && renderer) {
+                        const px = renderer.offsetX + (nextX + 0.5) * renderer.cellSize;
+                        const py = renderer.offsetY + (nextY + 0.5) * renderer.cellSize;
+                        if (Math.random() < 0.3) {
+                            particleSystem.emit(px, py, '#ffaa00', 2);
+                        }
+                    }
+                    break;
                 }
             }
 
