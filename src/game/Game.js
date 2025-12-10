@@ -17,7 +17,7 @@ export class Game {
         this.particleSystem = new ParticleSystem();
         this.audioSystem = new AudioSystem();
         this.currentLevel = 0;
-        this.currentLevel = 0;
+        this.maxLevelReached = parseInt(localStorage.getItem('maxLevelReached')) || 0;
         this.inventory = { mirror1: 0, mirror2: 0 };
         this.selectedMirrorType = CELL_TYPES.MIRROR_TRIANGLE; // Default to M1
         this.history = []; // Undo stack
@@ -25,26 +25,75 @@ export class Game {
         this.resize();
         window.addEventListener('resize', () => this.resize());
 
+        // Game UI Buttons
         document.getElementById('next-level-btn').addEventListener('click', () => this.nextLevel());
         document.getElementById('reset-btn').addEventListener('click', () => this.loadLevel(this.currentLevel));
         document.getElementById('undo-btn').addEventListener('click', () => this.undo());
         document.getElementById('restart-game-btn').addEventListener('click', () => {
             document.getElementById('victory-popup').classList.add('hidden');
-            this.loadLevel(0);
+            this.showHome();
         });
+        document.getElementById('game-home-btn').addEventListener('click', () => this.showHome());
+
+        // Home Screen Buttons
+        document.getElementById('home-levels-btn').addEventListener('click', () => this.showLevels());
+        document.getElementById('home-settings-btn').addEventListener('click', () => this.showSettings());
+
+        // Level Select Buttons
+        document.getElementById('back-home-btn').addEventListener('click', () => this.showHome());
+
+        // Settings Buttons
+        document.getElementById('back-home-settings-btn').addEventListener('click', () => this.showHome());
+        document.getElementById('music-vol').addEventListener('input', (e) => this.audioSystem.setMusicVolume(e.target.value));
+        document.getElementById('sfx-vol').addEventListener('input', (e) => this.audioSystem.setSoundVolume(e.target.value));
 
         // Mirror Selection UI
         document.getElementById('select-m1').addEventListener('click', () => this.selectMirror(CELL_TYPES.MIRROR_TRIANGLE));
         document.getElementById('select-m2').addEventListener('click', () => this.selectMirror(CELL_TYPES.MIRROR_LINE));
 
-        // Debug
-        // document.getElementById('level-jump-btn').addEventListener('click', () => {
-        //     const val = parseInt(document.getElementById('level-jump-input').value);
-        //     if (!isNaN(val)) this.jumpToLevel(val);
-        // });
-
-        this.loadLevel(0);
+        this.showHome(); // Start at home
         window.game = this; // Expose for debugging
+    }
+
+    showHome() {
+        document.getElementById('home-screen').classList.remove('hidden');
+        document.getElementById('level-select-screen').classList.add('hidden');
+        document.getElementById('settings-screen').classList.add('hidden');
+        document.getElementById('ui-layer').classList.add('hidden');
+        this.audioSystem.playMusic();
+    }
+
+    showLevels() {
+        document.getElementById('home-screen').classList.add('hidden');
+        document.getElementById('level-select-screen').classList.remove('hidden');
+        this.renderLevelGrid();
+    }
+
+    showSettings() {
+        document.getElementById('home-screen').classList.add('hidden');
+        document.getElementById('settings-screen').classList.remove('hidden');
+    }
+
+    renderLevelGrid() {
+        const grid = document.getElementById('level-grid');
+        grid.innerHTML = '';
+        levels.forEach((level, index) => {
+            const btn = document.createElement('div');
+            btn.className = 'level-btn';
+            if (index > this.maxLevelReached) {
+                btn.classList.add('locked');
+            } else {
+                const span = document.createElement('span');
+                span.innerText = index + 1;
+                btn.appendChild(span);
+                btn.addEventListener('click', () => {
+                    this.loadLevel(index);
+                    document.getElementById('level-select-screen').classList.add('hidden');
+                    document.getElementById('ui-layer').classList.remove('hidden');
+                });
+            }
+            grid.appendChild(btn);
+        });
     }
 
     jumpToLevel(n) {
@@ -168,13 +217,21 @@ export class Game {
         requestAnimationFrame(() => this.loop());
 
         // Logic updates
-        const currentLevelData = levels[this.currentLevel];
-        this.laserSystem.update(this.particleSystem, this.renderer, currentLevelData.emitters);
-        this.particleSystem.update();
-        this.checkWinCondition();
+        // Only update if in game mode (UI layer visible)
+        if (!document.getElementById('ui-layer').classList.contains('hidden')) {
+            const currentLevelData = levels[this.currentLevel];
+            this.laserSystem.update(this.particleSystem, this.renderer, currentLevelData.emitters);
+            this.particleSystem.update();
+            this.checkWinCondition();
 
-        // Render
-        this.renderer.draw(this.grid, this.laserSystem, this.particleSystem, currentLevelData.emitters);
+            // Render
+            this.renderer.draw(this.grid, this.laserSystem, this.particleSystem, currentLevelData.emitters);
+        } else {
+            // Render background or something?
+            // Just clear
+            this.ctx.fillStyle = '#050510';
+            this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        }
     }
 
     checkWinCondition() {
@@ -197,6 +254,12 @@ export class Game {
             // Level Complete
             if (document.getElementById('next-level-btn').disabled) {
                 this.audioSystem.playLevelComplete();
+
+                // Unlock next level
+                if (this.currentLevel + 1 > this.maxLevelReached) {
+                    this.maxLevelReached = this.currentLevel + 1;
+                    localStorage.setItem('maxLevelReached', this.maxLevelReached);
+                }
             }
             document.getElementById('next-level-btn').disabled = false;
             document.getElementById('level-desc').innerText = "LEVEL COMPLETE! Press Next Level.";

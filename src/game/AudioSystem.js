@@ -2,8 +2,44 @@ export class AudioSystem {
     constructor() {
         this.ctx = new (window.AudioContext || window.webkitAudioContext)();
         this.masterGain = this.ctx.createGain();
-        this.masterGain.gain.value = 0.3; // Lower volume
+        this.musicGain = this.ctx.createGain();
+        this.sfxGain = this.ctx.createGain();
+
         this.masterGain.connect(this.ctx.destination);
+        this.musicGain.connect(this.masterGain);
+        this.sfxGain.connect(this.masterGain);
+
+        this.musicVolume = 0.5;
+        this.sfxVolume = 0.5;
+
+        this.musicGain.gain.value = this.musicVolume;
+        this.sfxGain.gain.value = this.sfxVolume;
+
+        // Music placeholder (Oscillator for now, or HTML Audio)
+        // Using HTML Audio for easier looping and file management
+        this.bgMusic = new Audio();
+        this.bgMusic.loop = true;
+        // Ideally we load a file. For now, we'll leave it empty or user can provide one.
+        // this.bgMusic.src = 'assets/music.mp3'; 
+    }
+
+    setMusicVolume(vol) {
+        this.musicVolume = vol;
+        this.musicGain.gain.value = vol;
+        this.bgMusic.volume = vol;
+    }
+
+    setSoundVolume(vol) {
+        this.sfxVolume = vol;
+        this.sfxGain.gain.value = vol;
+    }
+
+    playMusic() {
+        // Resume context if needed
+        if (this.ctx.state === 'suspended') {
+            this.ctx.resume();
+        }
+        // this.bgMusic.play().catch(e => console.log("Audio play failed", e));
     }
 
     playTone(freq, type, duration) {
@@ -20,7 +56,7 @@ export class AudioSystem {
         gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + duration);
 
         osc.connect(gain);
-        gain.connect(this.masterGain);
+        gain.connect(this.sfxGain); // Connect to SFX gain
 
         osc.start();
         osc.stop(this.ctx.currentTime + duration);
@@ -31,11 +67,7 @@ export class AudioSystem {
     }
 
     playLaserHit() {
-        // Low hum or zap?
-        // Maybe just a very short high pitch for spark
-        // But continuous laser hit might be annoying if triggered every frame.
-        // We should only play it on impact or loop a hum.
-        // For now, let's skip continuous hit sound to avoid noise.
+        // Skipped
     }
 
     playLevelComplete() {
