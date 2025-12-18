@@ -140,7 +140,13 @@ export class Renderer {
                     this.ctx.stroke();
                 } else if (cell.type === CELL_TYPES.MIRROR || cell.type === CELL_TYPES.MIRROR_LINE) {
                     // Line Mirror (M2)
-                    this.ctx.strokeStyle = '#ff00ff';
+                    let hue = '#ff00ff'; // Default Magenta
+                    if (cell.locked) {
+                        if (cell.fixedRotation) hue = '#ff3333'; // Red for Fixed
+                        else hue = '#ffff00'; // Yellow for Fixed-Rotatable
+                    }
+
+                    this.ctx.strokeStyle = hue;
                     this.ctx.lineWidth = 3;
                     this.ctx.beginPath();
                     const half = size / 2;
@@ -154,8 +160,21 @@ export class Renderer {
                     this.ctx.stroke();
                 } else if (cell.type === CELL_TYPES.MIRROR_TRIANGLE) {
                     // Triangle Mirror (M1)
-                    this.ctx.fillStyle = 'rgba(255, 0, 255, 0.3)';
-                    this.ctx.strokeStyle = '#ff00ff';
+                    let hue = '#ff00ff'; // Default Magenta
+                    let fillHue = 'rgba(255, 0, 255, 0.3)';
+
+                    if (cell.locked) {
+                        if (cell.fixedRotation) {
+                            hue = '#ff3333'; // Red
+                            fillHue = 'rgba(255, 51, 51, 0.3)';
+                        } else {
+                            hue = '#ffff00'; // Yellow
+                            fillHue = 'rgba(255, 255, 0, 0.3)';
+                        }
+                    }
+
+                    this.ctx.fillStyle = fillHue;
+                    this.ctx.strokeStyle = hue;
                     this.ctx.lineWidth = 2;
                     this.ctx.beginPath();
 
