@@ -135,39 +135,23 @@ export class LaserSystem {
                 // Reflects Orthogonal inputs into Diagonals (45 deg deflection)
                 const rot = cell.rotation % 4;
 
-                if (rot === 0) { // NE (Horizontal <-> Diagonal /)
-                    // RIGHT <-> UP_RIGHT
-                    if (dir === DIRECTIONS.RIGHT) dir = DIRECTIONS.UP_RIGHT;
-                    else if (dir === DIRECTIONS.UP_RIGHT) dir = DIRECTIONS.RIGHT;
-                    // LEFT <-> DOWN_LEFT
-                    else if (dir === DIRECTIONS.LEFT) dir = DIRECTIONS.DOWN_LEFT;
-                    else if (dir === DIRECTIONS.DOWN_LEFT) dir = DIRECTIONS.LEFT;
-                    else break;
-                } else if (rot === 1) { // SE (Horizontal <-> Diagonal \)
-                    // RIGHT <-> DOWN_RIGHT
-                    if (dir === DIRECTIONS.RIGHT) dir = DIRECTIONS.DOWN_RIGHT;
-                    else if (dir === DIRECTIONS.DOWN_RIGHT) dir = DIRECTIONS.RIGHT;
-                    // LEFT <-> UP_LEFT
-                    else if (dir === DIRECTIONS.LEFT) dir = DIRECTIONS.UP_LEFT;
-                    else if (dir === DIRECTIONS.UP_LEFT) dir = DIRECTIONS.LEFT;
-                    else break;
-                } else if (rot === 2) { // SW (Vertical <-> Diagonal /)
-                    // UP <-> UP_RIGHT
-                    if (dir === DIRECTIONS.UP) dir = DIRECTIONS.UP_RIGHT;
-                    else if (dir === DIRECTIONS.UP_RIGHT) dir = DIRECTIONS.UP;
-                    // DOWN <-> DOWN_LEFT
-                    else if (dir === DIRECTIONS.DOWN) dir = DIRECTIONS.DOWN_LEFT;
-                    else if (dir === DIRECTIONS.DOWN_LEFT) dir = DIRECTIONS.DOWN;
-                    else break;
-                } else if (rot === 3) { // NW (Vertical <-> Diagonal \)
-                    // UP <-> UP_LEFT
-                    if (dir === DIRECTIONS.UP) dir = DIRECTIONS.UP_LEFT;
-                    else if (dir === DIRECTIONS.UP_LEFT) dir = DIRECTIONS.UP;
-                    // DOWN <-> DOWN_RIGHT
-                    else if (dir === DIRECTIONS.DOWN) dir = DIRECTIONS.DOWN_RIGHT;
-                    else if (dir === DIRECTIONS.DOWN_RIGHT) dir = DIRECTIONS.DOWN;
-                    else break;
+                if (rot === 0) { // NE Output
+                    dir = DIRECTIONS.UP_RIGHT;
+                } else if (rot === 1) { // SE Output
+                    dir = DIRECTIONS.DOWN_RIGHT;
+                } else if (rot === 2) { // SW Output
+                    dir = DIRECTIONS.DOWN_LEFT;
+                } else if (rot === 3) { // NW Output
+                    dir = DIRECTIONS.UP_LEFT;
                 }
+
+                // Allow Diagonal -> Orthogonal?
+                // The prompt says "reflects orthogonal... into specific diagonal".
+                // It does NOT say M3 converts Diagonal back to Orthogonal.
+                // If the user wants to "close the loop", they might need M3 to be bidirectional.
+                // But "reflection in all 4 directions" usually implies the ACTIVE role is Orth->Diag.
+                // We will stick to strictly directing to Diagonals for now to satisfy the "all 4 directions" constraint.
+                // If a diagonal enters, it just gets redirected to the new diagonal (or passes through if same).
             }
 
             // Move to next cell
