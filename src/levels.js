@@ -16,6 +16,20 @@ export const levels = [
     {
         id: 2,
         name: "Level 2",
+        grid: { width: 4, height: 4 },
+        items: [
+            { x: 1, y: 1, type: CELL_TYPES.RECEIVER },
+            { x: 2, y: 2, type: CELL_TYPES.RECEIVER },
+        ],
+        emitters: [
+            { x: 1, y: -1, direction: DIRECTIONS.DOWN } // e 2,0
+        ],
+        inventory: { mirror1: 1, mirror2: 0 }
+    },
+
+    {
+        id: 3,
+        name: "Level 3",
         grid: { width: 5, height: 5 },
         items: [
             { x: 2, y: 2, type: CELL_TYPES.RECEIVER }, // r 3,3
@@ -27,8 +41,8 @@ export const levels = [
         inventory: { mirror1: 2, mirror2: 0 }
     },
     {
-        id: 3,
-        name: "Level 3",
+        id: 4,
+        name: "Level 4",
         grid: { width: 5, height: 5 },
         items: [
             { x: 2, y: 2, type: CELL_TYPES.RECEIVER }, // r 3,3
@@ -40,8 +54,8 @@ export const levels = [
         inventory: { mirror1: 2, mirror2: 0 }
     },
     {
-        id: 4,
-        name: "Level 4",
+        id: 5,
+        name: "Level 5",
         grid: { width: 6, height: 6 },
         items: [
             { x: 4, y: 1, type: CELL_TYPES.RECEIVER }, // r 2,5
@@ -55,8 +69,8 @@ export const levels = [
         inventory: { mirror1: 2, mirror2: 0 }
     },
     {
-        id: 5,
-        name: "Level 5",
+        id: 6,
+        name: "Level 6",
         grid: { width: 8, height: 8 },
         items: [
             { x: 3, y: 0, type: CELL_TYPES.RECEIVER }, // r 1,4
@@ -82,8 +96,8 @@ export const levels = [
         inventory: { mirror1: 3, mirror2: 0 }
     },
     {
-        id: 6,
-        name: "Level 6",
+        id: 7,
+        name: "Level 7",
         grid: { width: 12, height: 6 },
         items: [
             { x: 10, y: 3, type: CELL_TYPES.RECEIVER }, // r 11,4
@@ -107,8 +121,8 @@ export const levels = [
         inventory: { mirror1: 9, mirror2: 0 }
     },
     {
-        id: 7,
-        name: "Level 7",
+        id: 8,
+        name: "Level 8",
         grid: { width: 8, height: 8 },
         items: [
             { x: 3, y: 1, type: CELL_TYPES.RECEIVER }, // r 4,2 -> x=1, y=3 ?? Wait.
@@ -126,8 +140,8 @@ export const levels = [
         inventory: { mirror1: 2, mirror2: 0 }
     },
     {
-        id: 8,
-        name: "Level 8",
+        id: 9,
+        name: "Level 9",
         grid: { width: 7, height: 7 },
         items: [
             { x: 2, y: 1, type: CELL_TYPES.RECEIVER }, // r 3,2 -> y=2, x=1
@@ -170,8 +184,8 @@ export const levels = [
         inventory: { mirror1: 6, mirror2: 0 }
     },
     {
-        id: 9,
-        name: "Level 9",
+        id: 10,
+        name: "Level 10",
         grid: { width: 5, height: 5 },
         items: [
             { x: 0, y: 2, type: CELL_TYPES.RECEIVER }, // r 0,2
@@ -184,8 +198,8 @@ export const levels = [
         inventory: { mirror1: 0, mirror2: 1 }
     },
     {
-        id: 10,
-        name: "Level 10",
+        id: 11,
+        name: "Level 11",
         grid: { width: 6, height: 6 },
         items: [
             { x: 0, y: 2, type: CELL_TYPES.RECEIVER }, // r 0,2
@@ -199,8 +213,8 @@ export const levels = [
         inventory: { mirror1: 3, mirror2: 0 }
     },
     {
-        id: 11,
-        name: "Level 11",
+        id: 12,
+        name: "Level 12",
         grid: { width: 6, height: 6 },
         items: [
             { x: 1, y: 3, type: CELL_TYPES.RECEIVER },
@@ -215,8 +229,8 @@ export const levels = [
         inventory: { mirror1: 3, mirror2: 0 }
     },
     {
-        id: 12,
-        name: "Level 12",
+        id: 13,
+        name: "Level 13",
         grid: { width: 7, height: 7 },
         items: [], // No receivers mentioned? "r" missing in prompt for L-12. Assuming user forgot or it's a path finding level?
         // Wait, L-12: "e= 1,-1, -1,3, 5,7, m1 = 1, m2 = 1". No "r".
@@ -244,8 +258,8 @@ export const levels = [
         inventory: { mirror1: 1, mirror2: 1 }
     },
     {
-        id: 13,
-        name: "Level 13",
+        id: 14,
+        name: "Level 14",
         grid: { width: 7, height: 7 },
         items: [
             { x: 1, y: 4, type: CELL_TYPES.RECEIVER },
@@ -276,8 +290,8 @@ export const levels = [
         inventory: { mirror1: 2, mirror2: 0 }
     },
     {
-        id: 14,
-        name: "Level 14",
+        id: 15,
+        name: "Level 15",
         grid: { width: 7, height: 7 },
         items: [
             { x: 1, y: 2, type: CELL_TYPES.RECEIVER },
@@ -294,8 +308,8 @@ export const levels = [
         inventory: { mirror1: 0, mirror2: 2 }
     },
     {
-        id: 15,
-        name: "Level 15",
+        id: 16,
+        name: "Level 16",
         grid: { width: 7, height: 7 },
         items: [
             { x: 1, y: 5, type: CELL_TYPES.RECEIVER },
@@ -309,6 +323,8 @@ export const levels = [
             { x: 3, y: 0, type: CELL_TYPES.WALL }, { x: 4, y: 0, type: CELL_TYPES.WALL }, { x: 5, y: 0, type: CELL_TYPES.WALL }, { x: 6, y: 0, type: CELL_TYPES.WALL },
             // 4,4 to 6,4
             { x: 4, y: 4, type: CELL_TYPES.WALL }, { x: 5, y: 4, type: CELL_TYPES.WALL }, { x: 6, y: 4, type: CELL_TYPES.WALL },
+            { x: 0, y: 4, type: CELL_TYPES.WALL }, { x: 1, y: 4, type: CELL_TYPES.WALL },
+            { x: 5, y: 2, type: CELL_TYPES.WALL }, { x: 6, y: 2, type: CELL_TYPES.WALL }
         ],
         emitters: [
             { x: -1, y: 3, direction: DIRECTIONS.RIGHT },
@@ -317,8 +333,8 @@ export const levels = [
         inventory: { mirror1: 2, mirror2: 1 }
     },
     {
-        id: 16,
-        name: "Level 16",
+        id: 17,
+        name: "Level 17",
         grid: { width: 5, height: 5 },
         items: [
             { x: 2, y: 2, type: CELL_TYPES.EMITTER, direction: DIRECTIONS.DOWN }, // e 2,2 (Internal)
@@ -328,8 +344,8 @@ export const levels = [
         inventory: { mirror1: 0, mirror2: 0 }
     },
     {
-        id: 17,
-        name: "Level 17",
+        id: 18,
+        name: "Level 18",
         grid: { width: 5, height: 5 },
         items: [
             { x: 2, y: 3, type: CELL_TYPES.EMITTER, direction: DIRECTIONS.DOWN }, // e 2,3
@@ -341,8 +357,8 @@ export const levels = [
         inventory: { mirror1: 1, mirror2: 0 }
     },
     {
-        id: 18,
-        name: "Level 18",
+        id: 19,
+        name: "Level 19",
         grid: { width: 5, height: 5 },
         items: [
             { x: 3, y: 1, type: CELL_TYPES.EMITTER, direction: DIRECTIONS.DOWN }, // e 3,1
@@ -356,8 +372,8 @@ export const levels = [
         inventory: { mirror1: 2, mirror2: 0 }
     },
     {
-        id: 19,
-        name: "Level 19",
+        id: 20,
+        name: "Level 20",
         grid: { width: 5, height: 5 },
         items: [
             { x: 3, y: 1, type: CELL_TYPES.EMITTER, direction: DIRECTIONS.DOWN }, // e 3,1
@@ -369,25 +385,28 @@ export const levels = [
         emitters: [],
         inventory: { mirror1: 3, mirror2: 0 }
     },
+
     {
-        id: 20,
-        name: "Level 20",
+        id: 21,
+        name: "Level 21",
         grid: { width: 6, height: 6 },
         items: [
             { x: 3, y: 3, type: CELL_TYPES.EMITTER, direction: DIRECTIONS.DOWN }, // e 3,3 (Internal)
             { x: 1, y: 2, type: CELL_TYPES.RECEIVER }, // r 1,2
             { x: 5, y: 5, type: CELL_TYPES.RECEIVER }, // r 5,5
             // w 2,4, 2,5
-            { x: 2, y: 4, type: CELL_TYPES.WALL }, { x: 2, y: 5, type: CELL_TYPES.WALL }
+            { x: 2, y: 4, type: CELL_TYPES.WALL }, { x: 2, y: 5, type: CELL_TYPES.WALL },
+            { x: 4, y: 4, type: CELL_TYPES.WALL }, { x: 4, y: 5, type: CELL_TYPES.WALL }
         ],
         emitters: [
             { x: -1, y: 0, direction: DIRECTIONS.RIGHT } // e -1,0
         ],
         inventory: { mirror1: 2, mirror2: 0 }
     },
+
     {
-        id: 21,
-        name: "Level 21",
+        id: 22,
+        name: "Level 22",
         grid: { width: 6, height: 6 },
         items: [
             { x: 5, y: 4, type: CELL_TYPES.EMITTER, direction: DIRECTIONS.DOWN }, // e 5,4
