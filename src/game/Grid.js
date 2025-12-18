@@ -3,17 +3,22 @@ export const CELL_TYPES = {
     WALL: 1,
     EMITTER: 2,
     RECEIVER: 3,
-    MIRROR: 4, // Deprecated, use specific types
+    MIRROR: 4, // Deprecated
     MIRROR_TRIANGLE: 6,
     MIRROR_LINE: 7,
-    BLOCK: 5 // Blocks laser but not a wall (maybe movable later)
+    MIRROR_OCTAGON: 8, // M3 - Diagonal Mirror
+    BLOCK: 5
 };
 
 export const DIRECTIONS = {
     UP: 0,
     RIGHT: 1,
     DOWN: 2,
-    LEFT: 3
+    LEFT: 3,
+    UP_RIGHT: 4,
+    DOWN_RIGHT: 5,
+    DOWN_LEFT: 6,
+    UP_LEFT: 7
 };
 
 export class Grid {

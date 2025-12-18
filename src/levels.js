@@ -628,5 +628,93 @@ export const levels = [
             { x: 4, y: -1, direction: DIRECTIONS.DOWN }
         ],
         inventory: { mirror1: 1, mirror2: 0 }
+    },
+    {
+        id: 34,
+        name: "Level 34",
+        grid: { width: 5, height: 5 },
+        items: [
+            { x: 2, y: 1, type: CELL_TYPES.RECEIVER }
+        ],
+        emitters: [
+            { x: -1, y: 2, direction: DIRECTIONS.RIGHT }
+        ],
+        inventory: { mirror1: 0, mirror2: 0, mirror3: 1 }
+    },
+    {
+        id: 35,
+        name: "Level 35",
+        grid: { width: 5, height: 5 },
+        items: [
+            { x: 0, y: 1, type: CELL_TYPES.RECEIVER },
+            { x: 0, y: 3, type: CELL_TYPES.RECEIVER },
+            { x: 4, y: 1, type: CELL_TYPES.RECEIVER },
+            { x: 4, y: 3, type: CELL_TYPES.RECEIVER }
+        ],
+        emitters: [
+            { x: 1, y: -1, direction: DIRECTIONS.DOWN },
+            { x: 3, y: -1, direction: DIRECTIONS.DOWN },
+            { x: 1, y: 5, direction: DIRECTIONS.UP },
+            { x: 3, y: 5, direction: DIRECTIONS.UP }
+        ],
+        inventory: { mirror1: 0, mirror2: 0, mirror3: 4 }
+    },
+    {
+        id: 36,
+        name: "Level 36",
+        grid: { width: 5, height: 5 },
+        items: [
+            { x: 2, y: 0, type: CELL_TYPES.RECEIVER },
+            { x: 1, y: 2, type: CELL_TYPES.WALL }, { x: 2, y: 2, type: CELL_TYPES.WALL }, { x: 3, y: 2, type: CELL_TYPES.WALL }
+        ],
+        emitters: [
+            { x: 2, y: 5, direction: DIRECTIONS.UP }
+        ],
+        inventory: { mirror1: 2, mirror2: 0, mirror3: 1 }
+    },
+    {
+        id: 37,
+        name: "Level 37",
+        grid: { width: 7, height: 7 },
+        items: [
+            { x: 2, y: 1, type: CELL_TYPES.RECEIVER },
+            { x: 3, y: 5, type: CELL_TYPES.RECEIVER },
+            { x: 1, y: 0, type: CELL_TYPES.WALL }, { x: 2, y: 0, type: CELL_TYPES.WALL }, { x: 3, y: 0, type: CELL_TYPES.WALL },
+            { x: 1, y: 1, type: CELL_TYPES.WALL },
+            { x: 1, y: 2, type: CELL_TYPES.WALL },
+            { x: 2, y: 6, type: CELL_TYPES.WALL }, { x: 3, y: 6, type: CELL_TYPES.WALL }, { x: 4, y: 6, type: CELL_TYPES.WALL },
+            { x: 4, y: 4, type: CELL_TYPES.WALL },
+            { x: 4, y: 5, type: CELL_TYPES.WALL }
+        ],
+        emitters: [
+            { x: -1, y: 3, direction: DIRECTIONS.RIGHT },
+            { x: 7, y: 3, direction: DIRECTIONS.LEFT }
+        ],
+        inventory: { mirror1: 0, mirror2: 1, mirror3: 1 }
+    },
+    {
+        id: 38,
+        name: "Level 38",
+        grid: { width: 7, height: 7 },
+        items: [
+            { x: 1, y: 2, type: CELL_TYPES.RECEIVER },
+            { x: 2, y: 5, type: CELL_TYPES.RECEIVER },
+            { x: 4, y: 5, type: CELL_TYPES.RECEIVER },
+            { x: 5, y: 2, type: CELL_TYPES.RECEIVER },
+            { x: 1, y: 3, type: CELL_TYPES.WALL },
+            { x: 2, y: 3, type: CELL_TYPES.WALL },
+            { x: 4, y: 3, type: CELL_TYPES.WALL },
+            { x: 5, y: 3, type: CELL_TYPES.WALL },
+            { x: 3, y: 4, type: CELL_TYPES.WALL },
+            { x: 3, y: 5, type: CELL_TYPES.WALL },
+            { x: 1, y: 5, type: CELL_TYPES.WALL },
+            { x: 1, y: 6, type: CELL_TYPES.WALL },
+            { x: 5, y: 5, type: CELL_TYPES.WALL },
+            { x: 5, y: 6, type: CELL_TYPES.WALL }
+        ],
+        emitters: [
+            { x: 3, y: -1, direction: DIRECTIONS.DOWN }
+        ],
+        inventory: { mirror1: 3, mirror2: 0, mirror3: 4 }
     }
 ];

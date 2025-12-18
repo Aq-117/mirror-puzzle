@@ -51,6 +51,12 @@ export class Game {
         document.getElementById('select-m1').addEventListener('click', () => this.selectMirror(CELL_TYPES.MIRROR_TRIANGLE));
         document.getElementById('select-m2').addEventListener('click', () => this.selectMirror(CELL_TYPES.MIRROR_LINE));
 
+        const m3Btn = document.getElementById('select-m3');
+        if (m3Btn) m3Btn.addEventListener('click', () => this.selectMirror(CELL_TYPES.MIRROR_OCTAGON));
+
+        const homeBtn = document.getElementById('game-home-btn');
+        if (homeBtn) homeBtn.addEventListener('click', () => this.showHome());
+
         this.showHome(); // Start at home
         window.game = this; // Expose for debugging
     }
@@ -111,6 +117,10 @@ export class Game {
             this.audioSystem.playError();
             return;
         }
+        if (type === CELL_TYPES.MIRROR_OCTAGON && this.currentLevel < 33) { // Level 34 is index 33
+            this.audioSystem.playError();
+            return;
+        }
         this.selectedMirrorType = type;
         this.updateInventoryUI();
     }
@@ -159,7 +169,8 @@ export class Game {
             // Default to 0 if not specified
             this.inventory = {
                 mirror1: level.inventory.mirror1 || 0,
-                mirror2: level.inventory.mirror2 || 0
+                mirror2: level.inventory.mirror2 || 0,
+                mirror3: level.inventory.mirror3 || 0
             };
 
             // If old format (mirrors), map to mirror1
@@ -183,22 +194,37 @@ export class Game {
     }
 
     updateInventoryUI() {
-        // Update counts
-        document.getElementById('m1-count').innerText = this.inventory.mirror1;
-        document.getElementById('m2-count').innerText = this.inventory.mirror2;
+        if (!this.inventory) return;
 
-        // Update selection styling
-        const m1El = document.getElementById('select-m1');
+        const m1Count = document.getElementById('m1-count');
+        const m2Count = document.getElementById('m2-count');
+        const m3Count = document.getElementById('m3-count');
+
+        if (m1Count) m1Count.textContent = this.inventory.mirror1;
+        if (m2Count) m2Count.textContent = this.inventory.mirror2;
+        if (m3Count) m3Count.textContent = this.inventory.mirror3 || 0;
+
+        // Highlight selected
+        document.querySelectorAll('.inventory-item').forEach(el => el.classList.remove('selected'));
+        if (this.selectedMirrorType === CELL_TYPES.MIRROR_TRIANGLE) {
+            document.getElementById('select-m1').classList.add('selected');
+        } else if (this.selectedMirrorType === CELL_TYPES.MIRROR_LINE) {
+            document.getElementById('select-m2').classList.add('selected');
+        } else if (this.selectedMirrorType === CELL_TYPES.MIRROR_OCTAGON) {
+            const el = document.getElementById('select-m3');
+            if (el) el.classList.add('selected');
+        }
+
+        // Handle Locks Visibility
         const m2El = document.getElementById('select-m2');
-
-        m1El.classList.toggle('selected', this.selectedMirrorType === CELL_TYPES.MIRROR_TRIANGLE);
-        m2El.classList.toggle('selected', this.selectedMirrorType === CELL_TYPES.MIRROR_LINE);
-
-        // Update locking visual
         const m2Lock = m2El.querySelector('.icon-lock');
         const m2Icon = m2El.querySelector('.icon-m2');
 
-        if (this.currentLevel < 8) { // Level 9 is index 8
+        const m3El = document.getElementById('select-m3');
+        const m3Lock = m3El ? m3El.querySelector('.icon-lock') : null;
+        const m3Icon = m3El ? m3El.querySelector('.icon-m3') : null;
+
+        if (this.currentLevel < 8) { // Lock M2
             m2El.classList.add('locked');
             if (m2Lock) m2Lock.classList.remove('hidden');
             if (m2Icon) m2Icon.classList.add('hidden');
@@ -206,6 +232,16 @@ export class Game {
             m2El.classList.remove('locked');
             if (m2Lock) m2Lock.classList.add('hidden');
             if (m2Icon) m2Icon.classList.remove('hidden');
+        }
+
+        if (this.currentLevel < 33) { // Lock M3
+            if (m3El) m3El.classList.add('locked');
+            if (m3Lock) m3Lock.classList.remove('hidden');
+            if (m3Icon) m3Icon.classList.add('hidden');
+        } else {
+            if (m3El) m3El.classList.remove('locked');
+            if (m3Lock) m3Lock.classList.add('hidden');
+            if (m3Icon) m3Icon.classList.remove('hidden');
         }
     }
 

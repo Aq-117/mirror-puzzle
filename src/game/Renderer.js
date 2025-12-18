@@ -307,9 +307,57 @@ export class Renderer {
                     if (rot === 0 || rot === 2) {
                         this.ctx.moveTo(cx - half, cy + half);
                         this.ctx.lineTo(cx + half, cy - half);
-                    } else {
-                        this.ctx.moveTo(cx - half, cy - half);
-                        this.ctx.lineTo(cx + half, cy + half);
+                    }
+                    this.ctx.stroke();
+                } else if (cell.type === CELL_TYPES.MIRROR_OCTAGON) {
+                    // Octagon Mirror (M3)
+                    let hue = '#00f3ff'; // Cyan
+                    if (cell.locked) hue = '#ff3333'; // Red if locked
+                    else if (cell.locked === false && cell.fixedRotation) hue = '#ffaaaa'; // Not standard but fallback
+
+                    this.ctx.strokeStyle = hue;
+                    this.ctx.lineWidth = 2;
+                    this.ctx.beginPath();
+
+                    const rot = cell.rotation % 4;
+                    // Draw schematic based on logic
+                    // Rot 0: Card -> / (Forward Axis)
+                    // Rot 1: Card -> \ (Back Axis)
+                    // Rot 2: Diag -> | (Vert)
+                    // Rot 3: Diag -> - (Horiz)
+
+                    // Let's draw a symbol representing the flow
+                    // Rot 0: Two arrows Merging to / ?
+                    // Simple: Draw the Axis Line + Arrows?
+                    // Or an Octagon shape with an inner line?
+
+                    // Draw Octagon outline
+                    const quarter = size / 3;
+                    this.ctx.moveTo(cx - quarter, cy - size / 2);
+                    this.ctx.lineTo(cx + quarter, cy - size / 2);
+                    this.ctx.lineTo(cx + size / 2, cy - quarter);
+                    this.ctx.lineTo(cx + size / 2, cy + quarter);
+                    this.ctx.lineTo(cx + quarter, cy + size / 2);
+                    this.ctx.lineTo(cx - quarter, cy + size / 2);
+                    this.ctx.lineTo(cx - size / 2, cy + quarter);
+                    this.ctx.lineTo(cx - size / 2, cy - quarter);
+                    this.ctx.closePath();
+                    this.ctx.stroke();
+
+                    // Draw Inner Axis
+                    this.ctx.beginPath();
+                    if (rot === 0) { // /
+                        this.ctx.moveTo(cx - size / 3, cy + size / 3);
+                        this.ctx.lineTo(cx + size / 3, cy - size / 3);
+                    } else if (rot === 1) { // \
+                        this.ctx.moveTo(cx - size / 3, cy - size / 3);
+                        this.ctx.lineTo(cx + size / 3, cy + size / 3);
+                    } else if (rot === 2) { // |
+                        this.ctx.moveTo(cx, cy - size / 3);
+                        this.ctx.lineTo(cx, cy + size / 3);
+                    } else if (rot === 3) { // -
+                        this.ctx.moveTo(cx - size / 3, cy);
+                        this.ctx.lineTo(cx + size / 3, cy);
                     }
                     this.ctx.stroke();
                 }
