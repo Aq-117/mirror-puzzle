@@ -424,5 +424,47 @@ export const levels = [
         // I will assume some inventory is needed. Maybe m1=2?
         // I'll check previous patterns. Usually 2-3 mirrors.
         // I'll give 3 M1s for now.
+    },
+    {
+        id: 23,
+        name: "Level 23",
+        grid: { width: 5, height: 5 },
+        items: [
+            { x: 1, y: 4, type: CELL_TYPES.RECEIVER }, // r=1,4
+            { x: 0, y: 3, type: CELL_TYPES.WALL },
+            { x: 1, y: 3, type: CELL_TYPES.WALL },
+            { x: 2, y: 3, type: CELL_TYPES.WALL },
+            // fm1ul = 3,4 (x=3, y=4, rot=3)
+            { x: 3, y: 4, type: CELL_TYPES.MIRROR_TRIANGLE, rotation: 4, locked: true, fixedRotation: true },
+            // fm1dl = 3,2 (x=3, y=2, rot=2)
+            { x: 3, y: 2, type: CELL_TYPES.MIRROR_TRIANGLE, rotation: 1, locked: true, fixedRotation: true }
+        ],
+        emitters: [
+            { x: 1, y: -1, direction: DIRECTIONS.DOWN } // x=1, y=-1
+        ],
+        inventory: { mirror1: 1, mirror2: 0 }
+    },
+    {
+        id: 24,
+        name: "Level 24",
+        grid: { width: 6, height: 6 },
+        items: [
+            { x: 2, y: 1, type: CELL_TYPES.RECEIVER },
+            { x: 2, y: 3, type: CELL_TYPES.RECEIVER },
+            // Wall 1,0 to 3,0
+            { x: 1, y: 0, type: CELL_TYPES.WALL }, { x: 2, y: 0, type: CELL_TYPES.WALL }, { x: 3, y: 0, type: CELL_TYPES.WALL },
+            // Wall 1,2 to 3,2
+            { x: 1, y: 2, type: CELL_TYPES.WALL }, { x: 2, y: 2, type: CELL_TYPES.WALL }, { x: 3, y: 2, type: CELL_TYPES.WALL },
+            // Wall 1,4 to 3,4
+            { x: 1, y: 4, type: CELL_TYPES.WALL }, { x: 2, y: 4, type: CELL_TYPES.WALL }, { x: 3, y: 4, type: CELL_TYPES.WALL },
+            // fm1dr = 0,3 (x=0, y=3, rot=1)
+            { x: 0, y: 3, type: CELL_TYPES.MIRROR_TRIANGLE, rotation: 2, locked: true, fixedRotation: true },
+            // fm1ld = 4,1 (x=4, y=1, rot=2)
+            { x: 4, y: 1, type: CELL_TYPES.MIRROR_TRIANGLE, rotation: 1, locked: true, fixedRotation: true }
+        ],
+        emitters: [
+            { x: -1, y: 5, direction: DIRECTIONS.RIGHT } // x=-1, y=5
+        ],
+        inventory: { mirror1: 2, mirror2: 0 }
     }
 ];

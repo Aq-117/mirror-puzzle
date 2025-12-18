@@ -54,6 +54,12 @@ export class InputHandler {
                     this.game.audioSystem.playError();
                 }
             } else if (cell.type === CELL_TYPES.MIRROR_LINE || cell.type === CELL_TYPES.MIRROR || cell.type === CELL_TYPES.MIRROR_TRIANGLE) {
+                // Check if rotation is fixed
+                if (cell.fixedRotation) {
+                    this.game.audioSystem.playError();
+                    return;
+                }
+
                 // Rotate mirror
                 this.game.pushHistory(x, y);
                 if (cell.type === CELL_TYPES.MIRROR_LINE || cell.type === CELL_TYPES.MIRROR) {
@@ -87,17 +93,17 @@ export class InputHandler {
         const cell = this.game.grid.getCell(x, y);
 
         if (cell && (cell.type === CELL_TYPES.MIRROR || cell.type === CELL_TYPES.MIRROR_LINE || cell.type === CELL_TYPES.MIRROR_TRIANGLE)) {
+            // Check if locked (Fixed position)
+            if (cell.locked) {
+                this.game.audioSystem.playError();
+                return;
+            }
+
             this.game.pushHistory(x, y);
 
             // Return to inventory
             if (cell.type === CELL_TYPES.MIRROR_TRIANGLE) this.game.inventory.mirror1++;
-            else if (cell.type === CELL_TYPES.MIRROR_LINE || cell.type === CELL_TYPES.MIRROR) this.game.inventory.mirror2++; // Treat old mirrors as M2 if removed? Or M1?
-            // Actually old levels use MIRROR. If we replace them with M1, they become M1.
-            // If we remove a legacy MIRROR, what do we get back?
-            // Since we are converting levels to use M1/M2, we shouldn't see generic MIRROR much.
-            // But if we do, let's assume it maps to M1 for now as per plan "Update Levels 1-6 to use M1".
-            // Wait, if I place M1, it is MIRROR_TRIANGLE.
-            // If I place M2, it is MIRROR_LINE.
+            else if (cell.type === CELL_TYPES.MIRROR_LINE || cell.type === CELL_TYPES.MIRROR) this.game.inventory.mirror2++;
 
             this.game.grid.clearCell(x, y);
             this.game.updateInventoryUI();
