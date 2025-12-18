@@ -360,6 +360,43 @@ export class Renderer {
                         this.ctx.lineTo(cx + size / 3, cy);
                     }
                     this.ctx.stroke();
+                } else if (cell.type === CELL_TYPES.MIRROR_OCTAGON) {
+
+                    // Diagonal Mirror (M3) - Triangle
+                    let hue = '#00f3ff'; // Cyan
+                    if (cell.locked) hue = '#ff3333';
+
+                    this.ctx.strokeStyle = hue;
+                    this.ctx.fillStyle = hue + '33'; // Semi-transparent
+                    this.ctx.lineWidth = 2;
+                    this.ctx.beginPath();
+
+                    const rot = cell.rotation % 4;
+                    // Draw Triangle pointing to corner
+                    const half = size / 2;
+                    if (rot === 0) { // NE
+                        this.ctx.moveTo(cx - half, cy - half);
+                        this.ctx.lineTo(cx + half, cy - half);
+                        this.ctx.lineTo(cx + half, cy + half);
+                        this.ctx.lineTo(cx - half, cy - half);
+                    } else if (rot === 1) { // SE
+                        this.ctx.moveTo(cx + half, cy - half);
+                        this.ctx.lineTo(cx + half, cy + half);
+                        this.ctx.lineTo(cx - half, cy + half);
+                        this.ctx.lineTo(cx + half, cy - half);
+                    } else if (rot === 2) { // SW
+                        this.ctx.moveTo(cx + half, cy + half);
+                        this.ctx.lineTo(cx - half, cy + half);
+                        this.ctx.lineTo(cx - half, cy - half);
+                        this.ctx.lineTo(cx + half, cy + half);
+                    } else if (rot === 3) { // NW
+                        this.ctx.moveTo(cx - half, cy + half);
+                        this.ctx.lineTo(cx - half, cy - half);
+                        this.ctx.lineTo(cx + half, cy - half);
+                        this.ctx.lineTo(cx - half, cy + half);
+                    }
+                    this.ctx.fill();
+                    this.ctx.stroke();
                 }
             }
         }
