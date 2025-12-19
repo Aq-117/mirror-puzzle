@@ -5,6 +5,7 @@ import { InputHandler } from './InputHandler.js';
 import { ParticleSystem } from './ParticleSystem.js';
 import { AudioSystem } from './AudioSystem.js';
 import { levels } from '../levels.js';
+import { LevelGenerator } from '../generator/LevelGenerator.js';
 
 export class Game {
     constructor(canvas) {
@@ -38,6 +39,9 @@ export class Game {
         // Home Screen Buttons
         document.getElementById('home-levels-btn').addEventListener('click', () => this.showLevels());
         document.getElementById('home-settings-btn').addEventListener('click', () => this.showSettings());
+
+        const genBtn = document.getElementById('generate-btn');
+        if (genBtn) genBtn.addEventListener('click', () => this.generateLevel());
 
         // Level Select Buttons
         document.getElementById('back-home-btn').addEventListener('click', () => this.showHome());
@@ -113,11 +117,11 @@ export class Game {
 
     selectMirror(type) {
         // Check if locked
-        if (type === CELL_TYPES.MIRROR_LINE && this.currentLevel < 8) { // Level 9 is index 8
+        if (type === CELL_TYPES.MIRROR_LINE && this.currentLevel !== -1 && this.currentLevel < 8) { // Level 9 is index 8
             this.audioSystem.playError();
             return;
         }
-        if (type === CELL_TYPES.MIRROR_OCTAGON && this.currentLevel < 33) { // Level 34 is index 33
+        if (type === CELL_TYPES.MIRROR_OCTAGON && this.currentLevel !== -1 && this.currentLevel < 33) { // Level 34 is index 33
             this.audioSystem.playError();
             return;
         }
@@ -224,7 +228,8 @@ export class Game {
         const m3Lock = m3El ? m3El.querySelector('.icon-lock') : null;
         const m3Icon = m3El ? m3El.querySelector('.icon-m3') : null;
 
-        if (this.currentLevel < 8) { // Lock M2
+        // Unlock all for generated levels (id -1)
+        if (this.currentLevel !== -1 && this.currentLevel < 8) { // Lock M2
             m2El.classList.add('locked');
             if (m2Lock) m2Lock.classList.remove('hidden');
             if (m2Icon) m2Icon.classList.add('hidden');
@@ -234,7 +239,7 @@ export class Game {
             if (m2Icon) m2Icon.classList.remove('hidden');
         }
 
-        if (this.currentLevel < 33) { // Lock M3
+        if (this.currentLevel !== -1 && this.currentLevel < 33) { // Lock M3
             if (m3El) m3El.classList.add('locked');
             if (m3Lock) m3Lock.classList.remove('hidden');
             if (m3Icon) m3Icon.classList.add('hidden');
@@ -255,13 +260,16 @@ export class Game {
         // Logic updates
         // Only update if in game mode (UI layer visible)
         if (!document.getElementById('ui-layer').classList.contains('hidden')) {
-            const currentLevelData = levels[this.currentLevel];
-            this.laserSystem.update(this.particleSystem, this.renderer, currentLevelData.emitters);
-            this.particleSystem.update();
-            this.checkWinCondition();
+            const currentLevelData = (this.currentLevel === -1) ? this.generatedLevel : levels[this.currentLevel];
 
-            // Render
-            this.renderer.draw(this.grid, this.laserSystem, this.particleSystem, currentLevelData.emitters);
+            if (currentLevelData) {
+                this.laserSystem.update(this.particleSystem, this.renderer, currentLevelData.emitters);
+                this.particleSystem.update();
+                this.checkWinCondition();
+
+                // Render
+                this.renderer.draw(this.grid, this.laserSystem, this.particleSystem, currentLevelData.emitters);
+            }
         } else {
             // Render background or something?
             // Just clear
@@ -314,6 +322,50 @@ export class Game {
             // Victory
             document.getElementById('victory-popup').classList.remove('hidden');
             this.audioSystem.playLevelComplete(); // Or a victory sound
+        }
+    }
+
+    generateLevel() {
+        try {
+            const generator = new LevelGenerator();
+            // Difficulty curve based on maxLevelReached?
+            // For now, random or medium
+            const level = generator.generate({
+                width: 7,
+                height: 7,
+                minPathLength: 4,
+                maxReceivers: 2
+            });
+
+            console.log("Generated Level:", level);
+
+            // Hack: inject into levels array or just load it directly
+            // We'll load it as a temporary level.
+            this.currentLevel = -1; // Specific ID for generated?
+            this.generatedLevel = level;
+
+            this.grid.initialize(level);
+            this.renderer.calculateLayout(this.grid);
+
+            this.inventory = {
+                mirror1: level.inventory.mirror1,
+                mirror2: level.inventory.mirror2,
+                mirror3: level.inventory.mirror3
+            };
+            this.selectedMirrorType = CELL_TYPES.MIRROR_TRIANGLE;
+            this.updateInventoryUI();
+            this.history = [];
+
+            // UI Changes
+            document.getElementById('home-screen').classList.add('hidden');
+            document.getElementById('ui-layer').classList.remove('hidden');
+            const titleEl = document.getElementById('level-title');
+            if (titleEl) titleEl.innerText = "Generated Level";
+            document.getElementById('next-level-btn').disabled = true;
+
+        } catch (e) {
+            console.error("Generation Failed:", e);
+            alert("Generation failed, trying again...");
         }
     }
 }
