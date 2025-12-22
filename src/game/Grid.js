@@ -25,7 +25,9 @@ export class Grid {
     constructor(width, height) {
         this.width = width;
         this.height = height;
-        this.cells = Array(height).fill().map(() => Array(width).fill(null));
+        this.cells = Array(height).fill().map(() =>
+            Array(width).fill().map(() => ({ type: CELL_TYPES.EMPTY }))
+        );
         this.cellSize = 50; // Default, will be resized based on canvas
     }
 
@@ -42,11 +44,25 @@ export class Grid {
         }
 
         // Place items
-        levelData.items.forEach(item => {
-            if (this.isValid(item.x, item.y)) {
-                this.cells[item.y][item.x] = { ...item };
-            }
-        });
+        if (levelData.items) {
+            levelData.items.forEach(item => {
+                if (this.isValid(item.x, item.y)) {
+                    this.cells[item.y][item.x] = { ...item };
+                }
+            });
+        }
+
+        // Place emitters (internal ones need to be interactable)
+        if (levelData.emitters) {
+            levelData.emitters.forEach(emitter => {
+                if (this.isValid(emitter.x, emitter.y)) {
+                    this.cells[emitter.y][emitter.x] = {
+                        type: CELL_TYPES.EMITTER,
+                        ...emitter
+                    };
+                }
+            });
+        }
     }
 
     isValid(x, y) {

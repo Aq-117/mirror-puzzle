@@ -716,5 +716,87 @@ export const levels = [
             { x: 3, y: -1, direction: DIRECTIONS.DOWN }
         ],
         inventory: { mirror1: 3, mirror2: 0, mirror3: 4 }
-    }
+    },
+    {
+        "id": 39,
+        "name": "Level 39",
+        "grid": {
+            "width": 7,
+            "height": 7
+        },
+        "items": [
+            {
+                "x": 3,
+                "y": 2,
+                "type": 1,
+                "rotation": 0
+            },
+            {
+                "x": 1,
+                "y": 3,
+                "type": 1,
+                "rotation": 0
+            },
+            {
+                "x": 3,
+                "y": 3,
+                "type": 1,
+                "rotation": 0
+            },
+            {
+                "x": 5,
+                "y": 3,
+                "type": 1,
+                "rotation": 0
+            },
+            {
+                "x": 1,
+                "y": 4,
+                "type": 3,
+                "rotation": 0
+            },
+            {
+                "x": 3,
+                "y": 4,
+                "type": 1,
+                "rotation": 0
+            },
+            {
+                "x": 5,
+                "y": 4,
+                "type": 3,
+                "rotation": 0
+            },
+            {
+                "x": 1,
+                "y": 5,
+                "type": 1,
+                "rotation": 0
+            },
+            {
+                "x": 3,
+                "y": 5,
+                "type": 1,
+                "rotation": 0
+            },
+            {
+                "x": 5,
+                "y": 5,
+                "type": 1,
+                "rotation": 0
+            }
+        ],
+        "emitters": [
+            {
+                "x": 3,
+                "y": 1,
+                "direction": 2
+            }
+        ],
+        "inventory": {
+            "mirror1": 1,
+            "mirror2": 0,
+            "mirror3": 2
+        }
+    },
 ];

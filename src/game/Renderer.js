@@ -22,9 +22,9 @@ export class Renderer {
         const gridAspect = grid.width / grid.height;
 
         if (aspect > gridAspect) {
-            this.cellSize = (this.height * 0.8) / grid.height;
+            this.cellSize = (this.height * 0.7) / grid.height;
         } else {
-            this.cellSize = (this.width * 0.8) / grid.width;
+            this.cellSize = (this.width * 0.7) / grid.width;
         }
 
         this.offsetX = (this.width - grid.width * this.cellSize) / 2;
@@ -78,7 +78,7 @@ export class Renderer {
     }
 
     drawGrid(grid) {
-        this.ctx.strokeStyle = '#1a1a2e';
+        this.ctx.strokeStyle = 'rgba(0, 243, 255, 0.2)'; // Brighter Neon Cyan
         this.ctx.lineWidth = 1;
 
         for (let y = 0; y <= grid.height; y++) {
@@ -360,46 +360,11 @@ export class Renderer {
                         this.ctx.lineTo(cx + size / 3, cy);
                     }
                     this.ctx.stroke();
-                } else if (cell.type === CELL_TYPES.MIRROR_OCTAGON) {
 
-                    // Diagonal Mirror (M3) - Triangle
-                    let hue = '#00f3ff'; // Cyan
-                    if (cell.locked) hue = '#ff3333';
-
-                    this.ctx.strokeStyle = hue;
-                    this.ctx.fillStyle = hue + '33'; // Semi-transparent
-                    this.ctx.lineWidth = 2;
-                    this.ctx.beginPath();
-
-                    const rot = cell.rotation % 4;
-                    // Draw Triangle pointing to corner
-                    const half = size / 2;
-                    if (rot === 0) { // NE
-                        this.ctx.moveTo(cx - half, cy - half);
-                        this.ctx.lineTo(cx + half, cy - half);
-                        this.ctx.lineTo(cx + half, cy + half);
-                        this.ctx.lineTo(cx - half, cy - half);
-                    } else if (rot === 1) { // SE
-                        this.ctx.moveTo(cx + half, cy - half);
-                        this.ctx.lineTo(cx + half, cy + half);
-                        this.ctx.lineTo(cx - half, cy + half);
-                        this.ctx.lineTo(cx + half, cy - half);
-                    } else if (rot === 2) { // SW
-                        this.ctx.moveTo(cx + half, cy + half);
-                        this.ctx.lineTo(cx - half, cy + half);
-                        this.ctx.lineTo(cx - half, cy - half);
-                        this.ctx.lineTo(cx + half, cy + half);
-                    } else if (rot === 3) { // NW
-                        this.ctx.moveTo(cx - half, cy + half);
-                        this.ctx.lineTo(cx - half, cy - half);
-                        this.ctx.lineTo(cx + half, cy - half);
-                        this.ctx.lineTo(cx - half, cy + half);
-                    }
-                    this.ctx.fill();
-                    this.ctx.stroke();
                 }
             }
         }
+
     }
 
     drawDirection(x, y, dir, len, color) {
@@ -451,5 +416,21 @@ export class Renderer {
             this.ctx.fill();
         });
         this.ctx.globalAlpha = 1.0;
+    }
+    drawExternalEmitters(emitters) {
+        emitters.forEach(emitter => {
+            const x = emitter.x;
+            const y = emitter.y;
+            const cx = this.offsetX + x * this.cellSize + this.cellSize / 2;
+            const cy = this.offsetY + y * this.cellSize + this.cellSize / 2;
+            const size = this.cellSize * 0.8;
+
+            this.ctx.fillStyle = '#00f3ff';
+            this.ctx.beginPath();
+            this.ctx.arc(cx, cy, size / 3, 0, Math.PI * 2);
+            this.ctx.fill();
+            // Direction indicator
+            this.drawDirection(cx, cy, emitter.direction, size / 2, '#00f3ff');
+        });
     }
 }

@@ -6,6 +6,7 @@ import { ParticleSystem } from './ParticleSystem.js';
 import { AudioSystem } from './AudioSystem.js';
 import { levels } from '../levels.js';
 import { LevelGenerator } from '../generator/LevelGenerator.js';
+import { LevelEditor } from '../editor/LevelEditor.js';
 
 export class Game {
     constructor(canvas) {
@@ -21,7 +22,9 @@ export class Game {
         this.maxLevelReached = parseInt(localStorage.getItem('maxLevelReached')) || 0;
         this.inventory = { mirror1: 0, mirror2: 0 };
         this.selectedMirrorType = CELL_TYPES.MIRROR_TRIANGLE; // Default to M1
+        this.selectedMirrorType = CELL_TYPES.MIRROR_TRIANGLE; // Default to M1
         this.history = []; // Undo stack
+        this.editor = new LevelEditor(this);
 
         this.resize();
         window.addEventListener('resize', () => this.resize());
@@ -39,6 +42,7 @@ export class Game {
         // Home Screen Buttons
         document.getElementById('home-levels-btn').addEventListener('click', () => this.showLevels());
         document.getElementById('home-settings-btn').addEventListener('click', () => this.showSettings());
+        document.getElementById('home-editor-btn').addEventListener('click', () => this.showEditor());
 
         const genBtn = document.getElementById('generate-btn');
         if (genBtn) genBtn.addEventListener('click', () => this.generateLevel());
@@ -82,6 +86,11 @@ export class Game {
     showSettings() {
         document.getElementById('home-screen').classList.add('hidden');
         document.getElementById('settings-screen').classList.remove('hidden');
+    }
+
+    showEditor() {
+        this.editor.init(); // Ensure events are bound
+        this.editor.show();
     }
 
     renderLevelGrid() {
@@ -257,6 +266,12 @@ export class Game {
     loop() {
         requestAnimationFrame(() => this.loop());
 
+        // Check Priority: Editor -> Game -> Home
+        if (this.editor && this.editor.isVisible) {
+            this.editor.draw();
+            return;
+        }
+
         // Logic updates
         // Only update if in game mode (UI layer visible)
         if (!document.getElementById('ui-layer').classList.contains('hidden')) {
@@ -271,7 +286,6 @@ export class Game {
                 this.renderer.draw(this.grid, this.laserSystem, this.particleSystem, currentLevelData.emitters);
             }
         } else {
-            // Render background or something?
             // Just clear
             this.ctx.fillStyle = '#050510';
             this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);

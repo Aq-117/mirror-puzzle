@@ -16,6 +16,7 @@
       <div class="menu-buttons">
         <button id="home-levels-btn">LEVELS</button>
         <button id="home-settings-btn">SETTINGS</button>
+        <button id="home-editor-btn">LEVEL EDITOR</button>
         <button id="generate-btn" style="margin-top: 10px; font-size: 0.8em; opacity: 0.8;">GENERATE RANDOM
           LEVEL</button>
       </div>
@@ -40,6 +41,54 @@
         <input type="range" id="sfx-vol" min="0" max="1" step="0.1" value="0.5">
       </div>
       <button id="back-home-settings-btn" class="back-btn">BACK</button>
+    </div>
+
+    <!-- Level Editor Screen -->
+    <div id="editor-screen" class="screen hidden">
+      <div class="editor-top-bar">
+        <h2>LEVEL EDITOR</h2>
+        <div class="grid-controls">
+          <label>W:</label> <input type="number" id="editor-width" value="8" min="3" max="20">
+          <label>H:</label> <input type="number" id="editor-height" value="8" min="3" max="20">
+          <button id="editor-update-grid">RESIZE</button>
+        </div>
+        <div class="editor-actions">
+          <button id="editor-test-btn">TEST</button>
+          <button id="editor-export-btn">EXPORT</button>
+          <button id="editor-exit-btn">EXIT</button>
+        </div>
+      </div>
+
+      <div class="editor-overlay">
+        <div class="palette-left">
+          <!-- CELL_TYPES mapped manually to ensure they match Grid.js -->
+          <button class="editor-tool selected" data-type="1" title="Wall">WALL</button>
+          <button class="editor-tool" data-type="2" title="Source/Emitter">EMIT</button>
+          <button class="editor-tool" data-type="3" title="Receiver">RECV</button>
+          <button class="editor-tool" data-type="6" title="Mirror 1 (Triangle)">M1</button>
+          <button class="editor-tool" data-type="7" title="Mirror 2 (Line)">M2</button>
+          <button class="editor-tool" data-type="8" title="Mirror 3 (Octagon)">M3</button>
+          <button class="editor-tool" data-type="0" title="Eraser">ERASE</button>
+        </div>
+
+        <div class="palette-bottom">
+          <label>Inventory:</label>
+          <div class="inv-input">M1: <input type="number" id="editor-m1-count" value="0" min="0"></div>
+          <div class="inv-input">M2: <input type="number" id="editor-m2-count" value="0" min="0"></div>
+          <div class="inv-input">M3: <input type="number" id="editor-m3-count" value="0" min="0"></div>
+        </div>
+      </div>
+
+      <!-- Code Modal -->
+      <div id="code-modal" class="modal hidden">
+        <div class="modal-content">
+          <h3>Level JSON</h3>
+          <textarea id="level-json-code" readonly></textarea>
+          <button id="close-modal-btn"
+            onclick="document.getElementById('code-modal').classList.add('hidden')">CLOSE</button>
+          <p class="hint">Copy this code and paste it into src/levels.js</p>
+        </div>
+      </div>
     </div>
 
     <div id="ui-layer" class="hidden">

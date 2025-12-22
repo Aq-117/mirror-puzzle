@@ -27,6 +27,7 @@ export class InputHandler {
     }
 
     handleMouseDown(e) {
+        if (this.game.editor && this.game.editor.isVisible) return;
         if (e.button !== 0) return; // Only left click
 
         const { x, y } = this.getGridPos(e);
