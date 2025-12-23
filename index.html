@@ -69,6 +69,7 @@
           <button class="editor-tool" data-type="7" title="Mirror 2 (Line)">M2</button>
           <button class="editor-tool" data-type="8" title="Mirror 3 (Octagon)">M3</button>
           <button class="editor-tool" data-type="9" title="Mirror 4 (Square)">M4</button>
+          <button class="editor-tool" data-type="10" title="Mirror 5 (Omni)">M5</button>
           <button class="editor-tool" data-type="0" title="Eraser">ERASE</button>
         </div>
 
@@ -78,6 +79,7 @@
           <div class="inv-input">M2: <input type="number" id="editor-m2-count" value="0" min="0"></div>
           <div class="inv-input">M3: <input type="number" id="editor-m3-count" value="0" min="0"></div>
           <div class="inv-input">M4: <input type="number" id="editor-m4-count" value="0" min="0"></div>
+          <div class="inv-input">M5: <input type="number" id="editor-m5-count" value="0" min="0"></div>
         </div>
       </div>
 
@@ -128,6 +130,13 @@
             <div class="icon-lock hidden"></div>
           </div>
           <span id="m4-count">0</span>
+        </div>
+        <div class="inventory-item" id="select-m5">
+          <div class="icon-box">
+            <div class="icon-m5"></div>
+            <div class="icon-lock hidden"></div>
+          </div>
+          <span id="m5-count">0</span>
         </div>
         <button id="undo-btn">Undo</button>
         <button id="reset-btn">Reset</button>

@@ -907,4 +907,228 @@ export const levels = [
         ],
         inventory: { mirror1: 2, mirror2: 0, mirror3: 1, mirror4: 1 }
     },
+    {
+        id: 45,
+        name: "Level 45",
+        grid: { width: 7, height: 7 },
+        items: [
+            { x: 2, y: 0, type: 1 },
+            { x: 5, y: 0, type: 1 },
+            { x: 3, y: 1, type: 1 },
+            { x: 4, y: 1, type: 3 },
+            { x: 6, y: 1, type: 1 },
+            { x: 0, y: 2, type: 1 },
+            { x: 3, y: 2, type: 3 },
+            { x: 4, y: 2, type: 1 },
+            { x: 5, y: 2, type: 3 },
+            { x: 1, y: 3, type: 1 },
+            { x: 2, y: 3, type: 3 },
+            { x: 4, y: 3, type: 3 },
+            { x: 5, y: 3, type: 1 },
+            { x: 1, y: 4, type: 3 },
+            { x: 2, y: 4, type: 1 },
+            { x: 3, y: 4, type: 3 },
+            { x: 5, y: 4, type: 3 },
+            { x: 6, y: 4, type: 1 },
+            { x: 0, y: 5, type: 1 },
+            { x: 2, y: 5, type: 3 },
+            { x: 3, y: 5, type: 1 },
+            { x: 4, y: 5, type: 3 },
+            { x: 1, y: 6, type: 1 },
+            { x: 4, y: 6, type: 1 }
+        ],
+        emitters: [
+            { x: -1, y: 0, direction: 1 }
+        ],
+        inventory: { mirror1: 0, mirror2: 0, mirror3: 7, mirror4: 0, mirror5: 0 }
+    },
+    {
+        id: 46,
+        name: "Level 46",
+        grid: { width: 7, height: 7 },
+        items: [
+            { x: 3, y: 3, type: 1 },
+            { x: 4, y: 3, type: 1 },
+            { x: 5, y: 3, type: 1 },
+            { x: 6, y: 3, type: 9, locked: true, fixedRotation: false },
+            { x: 6, y: 4, type: 3 },
+            { x: 3, y: 5, type: 1 },
+            { x: 4, y: 5, type: 1 },
+            { x: 5, y: 5, type: 1 },
+            { x: 4, y: 6, type: 3 },
+            { x: 1, y: 5, type: 3 },
+            { x: 5, y: 6, type: 9, locked: true, fixedRotation: false }
+        ],
+        emitters: [
+            { x: -1, y: 0, direction: 1 }
+        ],
+        inventory: { mirror1: 1, mirror2: 0, mirror3: 2, mirror4: 1, mirror5: 0 }
+    },
+    {
+        id: 47,
+        name: "Level 47",
+        grid: { width: 8, height: 8 },
+        items: [
+            { x: 0, y: 1, type: 1 },
+            { x: 1, y: 1, type: 1 },
+            { x: 2, y: 1, type: 1 },
+            { x: 3, y: 1, type: 1 },
+            { x: 4, y: 1, type: 1 },
+            { x: 1, y: 2, type: 1 },
+            { x: 2, y: 2, type: 3 },
+            { x: 4, y: 2, type: 3 },
+            { x: 5, y: 2, type: 3 },
+            { x: 1, y: 3, type: 1 },
+            { x: 4, y: 3, type: 3 },
+            { x: 3, y: 4, type: 3 },
+            { x: 6, y: 4, type: 1 },
+            { x: 2, y: 5, type: 3 },
+            { x: 3, y: 5, type: 3 },
+            { x: 5, y: 5, type: 3 },
+            { x: 6, y: 5, type: 1 },
+            { x: 3, y: 6, type: 1 },
+            { x: 4, y: 6, type: 1 },
+            { x: 5, y: 6, type: 1 },
+            { x: 6, y: 6, type: 1 },
+            { x: 7, y: 6, type: 1 }
+        ],
+        emitters: [
+            { x: -1, y: 6, direction: 1 },
+            { x: 8, y: 1, direction: 3 },
+            { x: -1, y: 7, direction: 1 },
+            { x: 8, y: 0, direction: 3 }
+        ],
+        inventory: { mirror1: 0, mirror2: 0, mirror3: 3, mirror4: 2, mirror5: 0 }
+    },
+    {
+        id: 48,
+        name: "Level 48",
+        grid: { width: 7, height: 7 },
+        items: [
+            { x: 1, y: 0, type: 3 },
+            { x: 2, y: 0, type: 3 },
+            { x: 3, y: 0, type: 3 },
+            { x: 4, y: 0, type: 3 },
+            { x: 5, y: 0, type: 3 },
+            { x: 1, y: 1, type: 7, locked: true, fixedRotation: false },
+            { x: 2, y: 1, type: 7, rotation: 1, locked: true, fixedRotation: false },
+            { x: 3, y: 1, type: 7, locked: true, fixedRotation: false },
+            { x: 4, y: 1, type: 7, rotation: 1, locked: true, fixedRotation: false },
+            { x: 5, y: 1, type: 7, locked: true, fixedRotation: false },
+            { x: 1, y: 2, type: 7, rotation: 1, locked: true, fixedRotation: false },
+            { x: 2, y: 2, type: 7, locked: true, fixedRotation: false },
+            { x: 3, y: 2, type: 7, rotation: 1, locked: true, fixedRotation: false },
+            { x: 4, y: 2, type: 7, locked: true, fixedRotation: false },
+            { x: 5, y: 2, type: 7, rotation: 1, locked: true, fixedRotation: false },
+            { x: 1, y: 3, type: 7, locked: true, fixedRotation: false },
+            { x: 2, y: 3, type: 7, rotation: 1, locked: true, fixedRotation: false },
+            { x: 3, y: 3, type: 7, locked: true, fixedRotation: false },
+            { x: 4, y: 3, type: 7, rotation: 1, locked: true, fixedRotation: false },
+            { x: 5, y: 3, type: 7, locked: true, fixedRotation: false },
+            { x: 1, y: 4, type: 7, rotation: 1, locked: true, fixedRotation: false },
+            { x: 2, y: 4, type: 7, locked: true, fixedRotation: false },
+            { x: 3, y: 4, type: 7, rotation: 1, locked: true, fixedRotation: false },
+            { x: 4, y: 4, type: 7, locked: true, fixedRotation: false },
+            { x: 5, y: 4, type: 7, rotation: 1, locked: true, fixedRotation: false },
+            { x: 1, y: 5, type: 7, locked: true, fixedRotation: false },
+            { x: 2, y: 5, type: 7, rotation: 1, locked: true, fixedRotation: false },
+            { x: 3, y: 5, type: 7, locked: true, fixedRotation: false },
+            { x: 4, y: 5, type: 7, rotation: 1, locked: true, fixedRotation: false },
+            { x: 5, y: 5, type: 7, locked: true, fixedRotation: false },
+            { x: 1, y: 6, type: 3 },
+            { x: 2, y: 6, type: 3 },
+            { x: 3, y: 6, type: 3 },
+            { x: 4, y: 6, type: 3 },
+            { x: 5, y: 6, type: 3 }
+        ],
+        emitters: [
+            { x: -1, y: 1, direction: 1 },
+            { x: -1, y: 2, direction: 1 },
+            { x: -1, y: 3, direction: 1 },
+            { x: -1, y: 4, direction: 1 },
+            { x: -1, y: 5, direction: 1 },
+            { x: 7, y: 1, direction: 3 },
+            { x: 7, y: 2, direction: 3 },
+            { x: 7, y: 3, direction: 3 },
+            { x: 7, y: 4, direction: 3 },
+            { x: 7, y: 5, direction: 3 }
+        ],
+        inventory: { mirror1: 0, mirror2: 0, mirror3: 0, mirror4: 0, mirror5: 0 }
+    },
+    {
+        id: 49,
+        name: "Level 49",
+        grid: { width: 7, height: 7 },
+        items: [
+            { x: 4, y: 0, type: 3 },
+            { x: 3, y: 1, type: 3 },
+            { x: 4, y: 1, type: 1 },
+            { x: 1, y: 2, type: 1 },
+            { x: 3, y: 2, type: 7, locked: true, fixedRotation: false },
+            { x: 2, y: 3, type: 7, locked: true, fixedRotation: false },
+            { x: 3, y: 3, type: 7, rotation: 1, locked: true, fixedRotation: false },
+            { x: 4, y: 3, type: 7, locked: true, fixedRotation: false },
+            { x: 3, y: 4, type: 7, locked: true, fixedRotation: false },
+            { x: 5, y: 4, type: 1 },
+            { x: 2, y: 5, type: 1 },
+            { x: 3, y: 5, type: 3 },
+            { x: 2, y: 6, type: 3 },
+            { x: 3, y: 6, type: 1 }
+        ],
+        emitters: [
+            { x: -1, y: 2, direction: 1 },
+            { x: -1, y: 4, direction: 1 },
+            { x: 7, y: 4, direction: 3 },
+            { x: 7, y: 2, direction: 3 }
+        ],
+        inventory: { mirror1: 2, mirror2: 0, mirror3: 1, mirror4: 1, mirror5: 0 }
+    },
+    {
+        id: 50,
+        name: "Level 50",
+        grid: { width: 7, height: 7 },
+        items: [
+            { x: 3, y: 1, type: 3 },
+            { x: 4, y: 1, type: 3 },
+            { x: 2, y: 3, type: 1 },
+            { x: 3, y: 3, type: 1 },
+            { x: 4, y: 3, type: 1 },
+            { x: 5, y: 3, type: 3 },
+            { x: 2, y: 4, type: 1 },
+            { x: 4, y: 4, type: 1 },
+            { x: 1, y: 5, type: 1 },
+            { x: 5, y: 5, type: 1 },
+            { x: 0, y: 6, type: 1 },
+            { x: 1, y: 6, type: 1 },
+            { x: 2, y: 6, type: 1 },
+            { x: 3, y: 6, type: 3 },
+            { x: 4, y: 6, type: 1 },
+            { x: 5, y: 6, type: 1 },
+            { x: 6, y: 6, type: 1 }
+        ],
+        emitters: [
+            { x: -1, y: 3, direction: 1 }
+        ],
+        inventory: { mirror1: 0, mirror2: 0, mirror3: 0, mirror4: 0, mirror5: 4 }
+    },
+    {
+        id: 51,
+        name: "Level 51",
+        grid: { width: 7, height: 7 },
+        items: [
+            { x: 3, y: 0, type: 3 },
+            { x: 2, y: 2, type: 1 },
+            { x: 3, y: 2, type: 3 },
+            { x: 4, y: 2, type: 1 },
+            { x: 3, y: 3, type: 1 },
+            { x: 2, y: 4, type: 1 },
+            { x: 3, y: 4, type: 3 },
+            { x: 4, y: 4, type: 1 },
+            { x: 3, y: 6, type: 3 }
+        ],
+        emitters: [
+            { x: -1, y: 3, direction: 1 }
+        ],
+        inventory: { mirror1: 0, mirror2: 0, mirror3: 0, mirror4: 0, mirror5: 5 }
+    },
 ];

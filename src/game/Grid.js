@@ -8,6 +8,7 @@ export const CELL_TYPES = {
     MIRROR_LINE: 7,
     MIRROR_OCTAGON: 8, // M3 - Diagonal Mirror
     MIRROR_SQUARE: 9, // M4 - Diagonal to Orthogonal
+    MIRROR_OMNI: 10, // M5 - Omni-directional (8-way)
     BLOCK: 5
 };
 
@@ -48,7 +49,11 @@ export class Grid {
         if (levelData.items) {
             levelData.items.forEach(item => {
                 if (this.isValid(item.x, item.y)) {
-                    this.cells[item.y][item.x] = { ...item };
+                    this.cells[item.y][item.x] = {
+                        rotation: 0,
+                        direction: DIRECTIONS.RIGHT,
+                        ...item
+                    };
                 }
             });
         }

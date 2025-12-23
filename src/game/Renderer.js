@@ -149,6 +149,7 @@ export class Renderer {
                     this.ctx.beginPath();
                     this.ctx.arc(cx, cy, size / 3, 0, Math.PI * 2);
                     this.ctx.stroke();
+
                 } else if (cell.type === CELL_TYPES.MIRROR || cell.type === CELL_TYPES.MIRROR_LINE) {
                     // Line Mirror (M2)
                     let hue = '#ff00ff'; // Default Magenta
@@ -323,8 +324,10 @@ export class Renderer {
                 } else if (cell.type === CELL_TYPES.MIRROR_OCTAGON) {
                     // Octagon Mirror (M3)
                     let hue = '#00f3ff'; // Cyan
-                    if (cell.locked) hue = '#ff3333'; // Red if locked
-                    else if (cell.locked === false && cell.fixedRotation) hue = '#ffaaaa'; // Not standard but fallback
+                    if (cell.locked) {
+                        if (cell.fixedRotation) hue = '#ff3333'; // Red
+                        else hue = '#ffff00'; // Yellow
+                    }
 
                     this.ctx.strokeStyle = hue;
                     this.ctx.lineWidth = 2;
@@ -389,6 +392,34 @@ export class Renderer {
                     // Draw Direction Indicator (Arrow pointing to output)
                     // 0=UP, 1=RIGHT, 2=DOWN, 3=LEFT
                     this.drawDirection(cx, cy, cell.rotation % 4, size * 0.4, hue);
+                } else if (cell.type === CELL_TYPES.MIRROR_OMNI) {
+                    // M5 (Omni) - Gold Star
+                    let hue = '#FFD700'; // Gold
+                    if (cell.locked) {
+                        if (cell.fixedRotation) hue = '#ff3333';
+                        else hue = '#ffff00';
+                    }
+
+                    this.ctx.strokeStyle = hue;
+                    this.ctx.lineWidth = 2;
+
+                    // Draw 8-pointed star or simple Octagon with spokes
+                    const rOut = size * 0.5;
+                    const rIn = size * 0.25;
+                    this.ctx.beginPath();
+                    for (let i = 0; i < 8; i++) {
+                        const angle = (i * Math.PI) / 4; // 0, 45, 90...
+                        // Outer point
+                        this.ctx.lineTo(cx + Math.cos(angle - Math.PI / 2) * rOut, cy + Math.sin(angle - Math.PI / 2) * rOut);
+                        // Inner point
+                        const angleIn = angle + Math.PI / 8;
+                        this.ctx.lineTo(cx + Math.cos(angleIn - Math.PI / 2) * rIn, cy + Math.sin(angleIn - Math.PI / 2) * rIn);
+                    }
+                    this.ctx.closePath();
+                    this.ctx.stroke();
+
+                    // Direction Indicator
+                    this.drawDirection(cx, cy, cell.rotation % 8, size * 0.6, hue);
                 }
             }
         }

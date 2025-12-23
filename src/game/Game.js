@@ -65,6 +65,9 @@ export class Game {
         const m4Btn = document.getElementById('select-m4');
         if (m4Btn) m4Btn.addEventListener('click', () => this.selectMirror(CELL_TYPES.MIRROR_SQUARE));
 
+        const m5Btn = document.getElementById('select-m5');
+        if (m5Btn) m5Btn.addEventListener('click', () => this.selectMirror(CELL_TYPES.MIRROR_OMNI));
+
         const homeBtn = document.getElementById('game-home-btn');
         if (homeBtn) homeBtn.addEventListener('click', () => this.showHome());
 
@@ -143,6 +146,11 @@ export class Game {
             this.audioSystem.playError();
             return;
         }
+        // M5 Locking Logic (e.g. unlock at Level 50?)
+        if (type === CELL_TYPES.MIRROR_OMNI && this.currentLevel !== -1 && this.currentLevel < 49) { // Unlock at Level 50
+            this.audioSystem.playError();
+            return;
+        }
 
         this.selectedMirrorType = type;
         this.updateInventoryUI();
@@ -194,7 +202,8 @@ export class Game {
                 mirror1: level.inventory.mirror1 || 0,
                 mirror2: level.inventory.mirror2 || 0,
                 mirror3: level.inventory.mirror3 || 0,
-                mirror4: level.inventory.mirror4 || 0
+                mirror4: level.inventory.mirror4 || 0,
+                mirror5: level.inventory.mirror5 || 0
             };
 
             // If old format (mirrors), map to mirror1
@@ -224,11 +233,13 @@ export class Game {
         const m2Count = document.getElementById('m2-count');
         const m3Count = document.getElementById('m3-count');
         const m4Count = document.getElementById('m4-count');
+        const m5Count = document.getElementById('m5-count');
 
         if (m1Count) m1Count.textContent = this.inventory.mirror1;
         if (m2Count) m2Count.textContent = this.inventory.mirror2;
         if (m3Count) m3Count.textContent = this.inventory.mirror3 || 0;
         if (m4Count) m4Count.textContent = this.inventory.mirror4 || 0;
+        if (m5Count) m5Count.textContent = this.inventory.mirror5 || 0;
 
         // Highlight selected
         document.querySelectorAll('.inventory-item').forEach(el => el.classList.remove('selected'));
@@ -241,6 +252,9 @@ export class Game {
             if (el) el.classList.add('selected');
         } else if (this.selectedMirrorType === CELL_TYPES.MIRROR_SQUARE) {
             const el = document.getElementById('select-m4');
+            if (el) el.classList.add('selected');
+        } else if (this.selectedMirrorType === CELL_TYPES.MIRROR_OMNI) {
+            const el = document.getElementById('select-m5');
             if (el) el.classList.add('selected');
         }
 
@@ -256,6 +270,10 @@ export class Game {
         const m4El = document.getElementById('select-m4');
         const m4Lock = m4El ? m4El.querySelector('.icon-lock') : null;
         const m4Icon = m4El ? m4El.querySelector('.icon-m4') : null;
+
+        const m5El = document.getElementById('select-m5');
+        const m5Lock = m5El ? m5El.querySelector('.icon-lock') : null;
+        const m5Icon = m5El ? m5El.querySelector('.icon-m5') : null;
 
         // Unlock logic
         // M2
@@ -289,6 +307,17 @@ export class Game {
             if (m4El) m4El.classList.remove('locked');
             if (m4Lock) m4Lock.classList.add('hidden');
             if (m4Icon) m4Icon.classList.remove('hidden');
+        }
+
+        // M5
+        if (this.currentLevel !== -1 && this.currentLevel < 49) {
+            if (m5El) m5El.classList.add('locked');
+            if (m5Lock) m5Lock.classList.remove('hidden');
+            if (m5Icon) m5Icon.classList.add('hidden');
+        } else {
+            if (m5El) m5El.classList.remove('locked');
+            if (m5Lock) m5Lock.classList.add('hidden');
+            if (m5Icon) m5Icon.classList.remove('hidden');
         }
     }
 

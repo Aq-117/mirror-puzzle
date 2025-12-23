@@ -200,6 +200,15 @@ canvas {
   background: rgba(191, 0, 255, 0.1);
 }
 
+.icon-m5 {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #FFD700;
+  border-radius: 50%;
+  /* Just round for now in UI */
+  background: rgba(255, 215, 0, 0.1);
+}
+
 /* Lock Icon */
 .icon-lock {
   width: 16px;

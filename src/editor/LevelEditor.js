@@ -13,7 +13,8 @@ export class LevelEditor {
             mirror1: 0,
             mirror2: 0,
             mirror3: 0,
-            mirror4: 0
+            mirror4: 0,
+            mirror5: 0
         };
         this.externalEmitters = []; // Store emitters outside grid
         this.isVisible = false;
@@ -64,7 +65,6 @@ export class LevelEditor {
         // Exit
         document.getElementById('editor-exit-btn').addEventListener('click', () => {
             this.hide();
-            this.game.showHome();
         });
 
         this.canvas.addEventListener('mousedown', (e) => this.handleInput(e));
@@ -79,22 +79,25 @@ export class LevelEditor {
         document.getElementById('editor-m2-count').addEventListener('change', (e) => this.inventoryConfig.mirror2 = parseInt(e.target.value));
         document.getElementById('editor-m3-count').addEventListener('change', (e) => this.inventoryConfig.mirror3 = parseInt(e.target.value));
         document.getElementById('editor-m4-count').addEventListener('change', (e) => this.inventoryConfig.mirror4 = parseInt(e.target.value));
+        document.getElementById('editor-m5-count').addEventListener('change', (e) => this.inventoryConfig.mirror5 = parseInt(e.target.value));
     }
 
     show() {
         this.isVisible = true;
-        document.getElementById('home-screen').classList.add('hidden');
         document.getElementById('editor-screen').classList.remove('hidden');
+        document.getElementById('home-screen').classList.add('hidden');
         document.getElementById('ui-layer').classList.add('hidden');
 
         // Initial render
         this.game.renderer.calculateLayout(this.grid);
         // We rely on Game.loop to call this.draw()
+        this.draw();
     }
 
     hide() {
         this.isVisible = false;
         document.getElementById('editor-screen').classList.add('hidden');
+        document.getElementById('home-screen').classList.remove('hidden');
     }
 
     handleInput(e) {
@@ -132,7 +135,8 @@ export class LevelEditor {
         // Check external border (allow generous hit area for usability, e.g. -2 to width+1)
         else if (gridX >= -2 && gridX <= this.grid.width + 1 && gridY >= -2 && gridY <= this.grid.height + 1) {
             // Only emitters allowed outside
-            if (this.selectedTool === CELL_TYPES.EMITTER || e.button === 2) {
+            // Emitters or Eraser allowed outside
+            if (this.selectedTool === CELL_TYPES.EMITTER || this.selectedTool === CELL_TYPES.EMPTY || e.button === 2) {
                 // Snap to closest border
                 let targetX = gridX;
                 let targetY = gridY;
@@ -196,7 +200,7 @@ export class LevelEditor {
             if (isShiftClick) {
                 // Toggle Fixed/Rotatable State
                 // Only relevant for mirrors
-                if ([CELL_TYPES.MIRROR_TRIANGLE, CELL_TYPES.MIRROR_LINE, CELL_TYPES.MIRROR_OCTAGON, CELL_TYPES.MIRROR_SQUARE].includes(current.type)) {
+                if ([CELL_TYPES.MIRROR_TRIANGLE, CELL_TYPES.MIRROR_LINE, CELL_TYPES.MIRROR_OCTAGON, CELL_TYPES.MIRROR_SQUARE, CELL_TYPES.MIRROR_OMNI].includes(current.type)) {
                     current.fixedRotation = !current.fixedRotation;
                 }
             } else {
@@ -212,6 +216,8 @@ export class LevelEditor {
                     current.direction = (next !== undefined) ? next : DIRECTIONS.RIGHT;
                 } else if ([CELL_TYPES.MIRROR_TRIANGLE, CELL_TYPES.MIRROR_LINE, CELL_TYPES.MIRROR_OCTAGON, CELL_TYPES.MIRROR_SQUARE].includes(this.selectedTool)) {
                     current.rotation = (current.rotation + 1) % 4;
+                } else if (this.selectedTool === CELL_TYPES.MIRROR_OMNI) {
+                    current.rotation = (current.rotation + 1) % 8; // 8-way
                 }
             }
         } else {
@@ -222,7 +228,7 @@ export class LevelEditor {
                 direction: DIRECTIONS.RIGHT,
                 rotation: 0,
                 locked: true, // Items in level file are usually locked
-                fixedRotation: true // Default to fixed (Red)
+                fixedRotation: !isShiftClick // Shift-Click creates Rotatable (Yellow)
             };
             this.grid.setCell(x, y, newItem);
         }
@@ -302,7 +308,7 @@ export class LevelEditor {
                     if (cell.rotation !== undefined && cell.rotation !== 0) item.rotation = cell.rotation;
 
                     // Locks
-                    if ([CELL_TYPES.MIRROR_TRIANGLE, CELL_TYPES.MIRROR_LINE, CELL_TYPES.MIRROR_OCTAGON, CELL_TYPES.MIRROR_SQUARE].includes(cell.type)) {
+                    if ([CELL_TYPES.MIRROR_TRIANGLE, CELL_TYPES.MIRROR_LINE, CELL_TYPES.MIRROR_OCTAGON, CELL_TYPES.MIRROR_SQUARE, CELL_TYPES.MIRROR_OMNI].includes(cell.type)) {
                         item.locked = true;
                         if (!cell.fixedRotation) item.fixedRotation = false; // Default true (red)
                     }
@@ -326,7 +332,7 @@ export class LevelEditor {
 
         let output = `{\n`;
         output += `    id: 999,\n`;
-        output += `    name: "Level -",\n`;
+        output += `    name: "Custom Level",\n`;
         output += `    grid: { width: ${grid.width}, height: ${grid.height} },\n`;
         output += `    items: [\n`;
         items.forEach((item, i) => {
@@ -338,7 +344,7 @@ export class LevelEditor {
             output += `        ${stringifyItem(em)}${i < emitters.length - 1 ? ',' : ''}\n`;
         });
         output += `    ],\n`;
-        output += `    inventory: { mirror1: ${this.inventoryConfig.mirror1}, mirror2: ${this.inventoryConfig.mirror2}, mirror3: ${this.inventoryConfig.mirror3}, mirror4: ${this.inventoryConfig.mirror4} }\n`;
+        output += `    inventory: { mirror1: ${this.inventoryConfig.mirror1}, mirror2: ${this.inventoryConfig.mirror2}, mirror3: ${this.inventoryConfig.mirror3}, mirror4: ${this.inventoryConfig.mirror4}, mirror5: ${this.inventoryConfig.mirror5} }\n`;
         output += `}`;
 
         // Show in Modal
