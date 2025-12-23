@@ -73,11 +73,14 @@ export class InputHandler {
                     cell.rotation = (cell.rotation + 1) % 2;
                 } else if (cell.type === CELL_TYPES.MIRROR_OMNI) {
                     // M5 is 8-way
-                    cell.rotation = (cell.rotation + 7) % 8; // CCW
-                } else {
-                    // M1, M3, M4 are 4-way
-                    // Reverse rotation (Counter-Clockwise)
+                    cell.rotation = (cell.rotation + 1) % 8; // Clockwise
+                } else if (cell.type === CELL_TYPES.MIRROR_TRIANGLE) {
+                    // M1 is 4-way, rotate Counter-Clockwise
                     cell.rotation = (cell.rotation + 3) % 4;
+                } else {
+                    // M3, M4 are 4-way
+                    // Rotate Clockwise
+                    cell.rotation = (cell.rotation + 1) % 4;
                 }
                 this.game.audioSystem.playMirrorRotate();
             } else if ([CELL_TYPES.EMITTER, CELL_TYPES.EMITTER_DIAGONAL, CELL_TYPES.EMITTER_OMNI].includes(cell.type)) {

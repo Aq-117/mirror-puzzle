@@ -118,7 +118,7 @@ export class LaserSystem {
                     if (Math.random() < 0.3) particleSystem.emit(px, py, '#ffaa00', 2);
                 }
                 break;
-            } else if (cell.type === CELL_TYPES.EMITTER) {
+            } else if ([CELL_TYPES.EMITTER, CELL_TYPES.EMITTER_DIAGONAL, CELL_TYPES.EMITTER_OMNI].includes(cell.type)) {
                 // Block lasers from passing through other emitters
                 break;
             } else if (cell.type === CELL_TYPES.RECEIVER) {

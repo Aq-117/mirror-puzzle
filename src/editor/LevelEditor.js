@@ -261,8 +261,12 @@ export class LevelEditor {
                     };
                     const next = map[current.direction];
                     current.direction = (next !== undefined) ? next : DIRECTIONS.RIGHT;
-                } else if ([CELL_TYPES.MIRROR_TRIANGLE, CELL_TYPES.MIRROR_LINE, CELL_TYPES.MIRROR_OCTAGON, CELL_TYPES.MIRROR_SQUARE].includes(this.selectedTool)) {
-                    current.rotation = (current.rotation + 1) % 4;
+                } else if (this.selectedTool === CELL_TYPES.MIRROR_LINE) {
+                    current.rotation = (current.rotation + 1) % 2; // 2-way
+                } else if (this.selectedTool === CELL_TYPES.MIRROR_TRIANGLE) {
+                    current.rotation = (current.rotation + 3) % 4; // CCW for M1
+                } else if ([CELL_TYPES.MIRROR_OCTAGON, CELL_TYPES.MIRROR_SQUARE].includes(this.selectedTool)) {
+                    current.rotation = (current.rotation + 1) % 4; // CW for M3, M4
                 } else if (this.selectedTool === CELL_TYPES.MIRROR_OMNI) {
                     current.rotation = (current.rotation + 1) % 8; // 8-way
                 }
@@ -353,6 +357,7 @@ export class LevelEditor {
                 } else if (cell.type !== CELL_TYPES.EMPTY) {
                     const item = { x, y, type: cell.type };
                     if (cell.rotation !== undefined && cell.rotation !== 0) item.rotation = cell.rotation;
+                    if (cell.direction !== undefined) item.direction = cell.direction; // Copy direction
 
                     // Locks
                     if ([CELL_TYPES.MIRROR_TRIANGLE, CELL_TYPES.MIRROR_LINE, CELL_TYPES.MIRROR_OCTAGON, CELL_TYPES.MIRROR_SQUARE, CELL_TYPES.MIRROR_OMNI].includes(cell.type)) {
@@ -419,9 +424,10 @@ export class LevelEditor {
                 } else {
                     const item = { x, y, type: cell.type };
                     if (cell.rotation !== undefined) item.rotation = cell.rotation;
-                    if ([CELL_TYPES.MIRROR_TRIANGLE, CELL_TYPES.MIRROR_LINE, CELL_TYPES.MIRROR_OCTAGON].includes(cell.type)) {
+                    if (cell.direction !== undefined) item.direction = cell.direction; // Copy direction
+                    if ([CELL_TYPES.MIRROR_TRIANGLE, CELL_TYPES.MIRROR_LINE, CELL_TYPES.MIRROR_OCTAGON, CELL_TYPES.MIRROR_SQUARE, CELL_TYPES.MIRROR_OMNI].includes(cell.type)) {
                         item.locked = true;
-                        item.fixedRotation = false;
+                        item.fixedRotation = cell.fixedRotation;
                     }
                     items.push(item);
                 }
