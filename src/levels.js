@@ -799,4 +799,64 @@ export const levels = [
             "mirror3": 2
         }
     },
+    {
+        id: 40,
+        name: "Level 40",
+        grid: { width: 7, height: 7 },
+        items: [
+            { x: 0, y: 0, type: 3 },
+            { x: 6, y: 0, type: 3 },
+            { x: 1, y: 1, type: 1 },
+            { x: 5, y: 1, type: 1 },
+            { x: 1, y: 2, type: 1 },
+            { x: 2, y: 2, type: 3 },
+            { x: 4, y: 2, type: 3 },
+            { x: 5, y: 2, type: 1 },
+            { x: 3, y: 3, type: 1 },
+            { x: 1, y: 4, type: 1 },
+            { x: 2, y: 4, type: 3 },
+            { x: 4, y: 4, type: 3 },
+            { x: 5, y: 4, type: 1 },
+            { x: 1, y: 5, type: 1 },
+            { x: 5, y: 5, type: 1 },
+            { x: 0, y: 6, type: 3 },
+            { x: 6, y: 6, type: 3 }
+        ],
+        emitters: [
+            { x: 7, y: 1, direction: 3 },
+            { x: 7, y: 5, direction: 3 },
+            { x: -1, y: 1, direction: 1 },
+            { x: -1, y: 5, direction: 1 },
+            { x: -1, y: 3, direction: 1 },
+            { x: 7, y: 3, direction: 3 }
+        ],
+        inventory: { mirror1: 4, mirror2: 0, mirror3: 4 }
+    },
+    {
+        id: 41,
+        name: "Level 41",
+        grid: { width: 7, height: 7 },
+        items: [
+            { x: 2, y: 0, type: 1 },
+            { x: 4, y: 0, type: 1 },
+            { x: 2, y: 1, type: 1 },
+            { x: 3, y: 1, type: 3 },
+            { x: 4, y: 1, type: 1 },
+            { x: 4, y: 2, type: 7, rotation: 1, locked: true, fixedRotation: false },
+            { x: 2, y: 3, type: 7, rotation: 1, locked: true, fixedRotation: false },
+            { x: 3, y: 3, type: 7, rotation: 1, locked: true, fixedRotation: false },
+            { x: 4, y: 3, type: 7, rotation: 1, locked: true, fixedRotation: false },
+            { x: 2, y: 4, type: 7, rotation: 1, locked: true, fixedRotation: false },
+            { x: 2, y: 5, type: 1 },
+            { x: 3, y: 5, type: 3 },
+            { x: 4, y: 5, type: 1 },
+            { x: 2, y: 6, type: 1 },
+            { x: 4, y: 6, type: 1 }
+        ],
+        emitters: [
+            { x: -1, y: 5, direction: 1 },
+            { x: 7, y: 1, direction: 3 }
+        ],
+        inventory: { mirror1: 0, mirror2: 4, mirror3: 0 }
+    },
 ];

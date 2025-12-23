@@ -126,6 +126,23 @@ export class LevelEditor {
             this.lastGridX = gridX;
             this.lastGridY = gridY;
         }
+        // Check external border (allow generous hit area for usability, e.g. -2 to width+1)
+        else if (gridX >= -2 && gridX <= this.grid.width + 1 && gridY >= -2 && gridY <= this.grid.height + 1) {
+            // Only emitters allowed outside
+            if (this.selectedTool === CELL_TYPES.EMITTER || e.button === 2) {
+                // Snap to closest border
+                let targetX = gridX;
+                let targetY = gridY;
+
+                if (targetX < 0) targetX = -1;
+                if (targetX >= this.grid.width) targetX = this.grid.width;
+                if (targetY < 0) targetY = -1;
+                if (targetY >= this.grid.height) targetY = this.grid.height;
+
+                const isRightClick = e.button === 2;
+                this.toggleExternalEmitter(targetX, targetY, isRightClick);
+            }
+        }
     }
 
     handleMouseMove(e) {
@@ -213,7 +230,8 @@ export class LevelEditor {
         // Find existing
         const index = this.externalEmitters.findIndex(e => e.x === x && e.y === y);
 
-        if (isRightClick) {
+        // Erase if Right Click OR Eraser Tool
+        if (isRightClick || this.selectedTool === CELL_TYPES.EMPTY) {
             if (index !== -1) {
                 this.externalEmitters.splice(index, 1);
                 this.draw();
@@ -221,25 +239,18 @@ export class LevelEditor {
             return;
         }
 
+        // Determine Direction based on Side (Strict Auto-Orient)
+        let dir = DIRECTIONS.RIGHT;
+        if (x === -1) dir = DIRECTIONS.RIGHT;
+        else if (x === this.grid.width) dir = DIRECTIONS.LEFT;
+        else if (y === -1) dir = DIRECTIONS.DOWN;
+        else if (y === this.grid.height) dir = DIRECTIONS.UP;
+
         if (index !== -1) {
-            // Rotate existing
-            const em = this.externalEmitters[index];
-            const nextDir = {
-                [DIRECTIONS.UP]: DIRECTIONS.RIGHT,
-                [DIRECTIONS.RIGHT]: DIRECTIONS.DOWN,
-                [DIRECTIONS.DOWN]: DIRECTIONS.LEFT,
-                [DIRECTIONS.LEFT]: DIRECTIONS.UP
-            };
-            em.direction = nextDir[em.direction] || DIRECTIONS.RIGHT;
+            // Already exists. Ensure orientation is correct (Fix if wrong)
+            this.externalEmitters[index].direction = dir;
         } else {
             // Add new
-            // Smart default direction logic
-            let dir = DIRECTIONS.RIGHT;
-            if (x === -1) dir = DIRECTIONS.RIGHT;
-            else if (x === this.grid.width) dir = DIRECTIONS.LEFT;
-            else if (y === -1) dir = DIRECTIONS.DOWN;
-            else if (y === this.grid.height) dir = DIRECTIONS.UP;
-
             this.externalEmitters.push({ x, y, direction: dir });
         }
         this.draw();
@@ -271,10 +282,10 @@ export class LevelEditor {
     }
 
     exportLevel() {
-        // Construct JSON
+        // Construct Concise Level Object
+        const grid = { width: this.grid.width, height: this.grid.height };
         const items = [];
         const emitters = [...this.externalEmitters];
-        const grid = { width: this.grid.width, height: this.grid.height };
 
         for (let y = 0; y < this.grid.height; y++) {
             for (let x = 0; x < this.grid.width; x++) {
@@ -284,39 +295,58 @@ export class LevelEditor {
                 if (cell.type === CELL_TYPES.EMITTER) {
                     emitters.push({ x, y, direction: cell.direction });
                 } else if (cell.type !== CELL_TYPES.EMPTY) {
-                    // Generic Item
                     const item = { x, y, type: cell.type };
-                    if (cell.rotation !== undefined) item.rotation = cell.rotation;
-                    // Add locks/fixed logic if we add UI for it
+                    if (cell.rotation !== undefined && cell.rotation !== 0) item.rotation = cell.rotation;
+
+                    // Locks
                     if ([CELL_TYPES.MIRROR_TRIANGLE, CELL_TYPES.MIRROR_LINE, CELL_TYPES.MIRROR_OCTAGON].includes(cell.type)) {
                         item.locked = true;
-                        item.fixedRotation = false; // Default
+                        if (!cell.fixedRotation) item.fixedRotation = false; // Default true (red)
                     }
                     items.push(item);
                 }
             }
         }
 
-        const levelObj = {
-            id: 999, // Placeholder
-            name: "Custom Level",
-            grid,
-            items,
-            emitters,
-            inventory: { ...this.inventoryConfig }
+        // Helper to stringify item compactly
+        const stringifyItem = (obj) => {
+            const parts = [];
+            parts.push(`x: ${obj.x}`);
+            parts.push(`y: ${obj.y}`);
+            if (obj.type !== undefined) parts.push(`type: ${obj.type}`);
+            if (obj.direction !== undefined) parts.push(`direction: ${obj.direction}`);
+            if (obj.rotation !== undefined) parts.push(`rotation: ${obj.rotation}`);
+            if (obj.locked === true) parts.push(`locked: true`);
+            if (obj.fixedRotation === false) parts.push(`fixedRotation: false`);
+            return `{ ${parts.join(', ')} }`;
         };
 
-        const json = JSON.stringify(levelObj, null, 4);
+        let output = `{\n`;
+        output += `    id: 999,\n`;
+        output += `    name: "Level -",\n`;
+        output += `    grid: { width: ${grid.width}, height: ${grid.height} },\n`;
+        output += `    items: [\n`;
+        items.forEach((item, i) => {
+            output += `        ${stringifyItem(item)}${i < items.length - 1 ? ',' : ''}\n`;
+        });
+        output += `    ],\n`;
+        output += `    emitters: [\n`;
+        emitters.forEach((em, i) => {
+            output += `        ${stringifyItem(em)}${i < emitters.length - 1 ? ',' : ''}\n`;
+        });
+        output += `    ],\n`;
+        output += `    inventory: { mirror1: ${this.inventoryConfig.mirror1}, mirror2: ${this.inventoryConfig.mirror2}, mirror3: ${this.inventoryConfig.mirror3} }\n`;
+        output += `}`;
 
         // Show in Modal
-        const modal = document.getElementById('code-modal');
+        const modal = document.getElementById('code-modal'); // Assuming standard modal ID
         const codeBlock = document.getElementById('level-json-code');
         if (modal && codeBlock) {
-            codeBlock.textContent = json + ","; // Add comma for easy array pasting
+            codeBlock.textContent = output + ",";
             modal.classList.remove('hidden');
         } else {
-            console.log(json);
-            alert("Check console for JSON");
+            console.log(output);
+            alert("Check console for Code");
         }
     }
 

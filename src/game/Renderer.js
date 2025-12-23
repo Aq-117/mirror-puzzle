@@ -94,6 +94,17 @@ export class Renderer {
             this.ctx.lineTo(this.offsetX + x * this.cellSize, this.offsetY + grid.height * this.cellSize);
             this.ctx.stroke();
         }
+
+        // Draw External Margin Guide (Faint)
+        this.ctx.strokeStyle = 'rgba(0, 243, 255, 0.05)';
+        this.ctx.beginPath();
+        this.ctx.rect(
+            this.offsetX - this.cellSize,
+            this.offsetY - this.cellSize,
+            (grid.width + 2) * this.cellSize,
+            (grid.height + 2) * this.cellSize
+        );
+        this.ctx.stroke();
     }
 
     drawItems(grid) {
