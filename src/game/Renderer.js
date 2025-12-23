@@ -143,6 +143,35 @@ export class Renderer {
                     this.ctx.fill();
                     // Direction indicator
                     this.drawDirection(cx, cy, cell.direction, size / 2, '#00f3ff');
+                } else if (cell.type === CELL_TYPES.EMITTER_DIAGONAL) {
+                    // Dark Blue Emitter Hint
+                    this.ctx.fillStyle = '#00f3ff'; // Uniform Body
+                    this.ctx.beginPath();
+                    this.ctx.arc(cx, cy, size / 3, 0, Math.PI * 2);
+                    this.ctx.fill();
+
+                    // Hint: Dark Blue Center Square
+                    this.ctx.fillStyle = '#00008b';
+                    this.ctx.fillRect(cx - size / 8, cy - size / 8, size / 4, size / 4);
+
+                    // Direction indicator (Matches Laser Color)
+                    this.drawDirection(cx, cy, cell.direction, size / 2, '#00008b');
+                } else if (cell.type === CELL_TYPES.EMITTER_OMNI) {
+                    // Omni Emitter Hint
+                    this.ctx.fillStyle = '#00f3ff'; // Uniform Body
+                    this.ctx.beginPath();
+                    this.ctx.arc(cx, cy, size / 3, 0, Math.PI * 2);
+                    this.ctx.fill();
+
+                    // Hint: Royal Blue Center Circle
+                    this.ctx.fillStyle = '#ff0055ff';
+                    // '#4169e1';
+                    this.ctx.beginPath();
+                    this.ctx.arc(cx, cy, size / 6, 0, Math.PI * 2);
+                    this.ctx.fill();
+
+                    // Direction indicator (Matches Laser Color)
+                    this.drawDirection(cx, cy, cell.direction, size / 2, '#4169e1');
                 } else if (cell.type === CELL_TYPES.RECEIVER) {
                     this.ctx.strokeStyle = '#00ff9d';
                     this.ctx.lineWidth = 2;
@@ -394,7 +423,7 @@ export class Renderer {
                     this.drawDirection(cx, cy, cell.rotation % 4, size * 0.4, hue);
                 } else if (cell.type === CELL_TYPES.MIRROR_OMNI) {
                     // M5 (Omni) - Gold Star
-                    let hue = '#FFD700'; // Gold
+                    let hue = '#ff0055ff'; // Gold - changed color.
                     if (cell.locked) {
                         if (cell.fixedRotation) hue = '#ff3333';
                         else hue = '#ffff00';
@@ -433,9 +462,14 @@ export class Renderer {
         this.ctx.moveTo(x, y);
         let dx = 0, dy = 0;
         if (dir === DIRECTIONS.UP) dy = -1;
-        if (dir === DIRECTIONS.RIGHT) dx = 1;
-        if (dir === DIRECTIONS.DOWN) dy = 1;
-        if (dir === DIRECTIONS.LEFT) dx = -1;
+        else if (dir === DIRECTIONS.RIGHT) dx = 1;
+        else if (dir === DIRECTIONS.DOWN) dy = 1;
+        else if (dir === DIRECTIONS.LEFT) dx = -1;
+        else if (dir === DIRECTIONS.UP_RIGHT) { dx = 0.7; dy = -0.7; }
+        else if (dir === DIRECTIONS.DOWN_RIGHT) { dx = 0.7; dy = 0.7; }
+        else if (dir === DIRECTIONS.DOWN_LEFT) { dx = -0.7; dy = 0.7; }
+        else if (dir === DIRECTIONS.UP_LEFT) { dx = -0.7; dy = -0.7; }
+
         this.ctx.lineTo(x + dx * len, y + dy * len);
         this.ctx.stroke();
     }

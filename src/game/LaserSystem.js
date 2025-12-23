@@ -26,13 +26,17 @@ export class LaserSystem {
             for (let x = 0; x < this.grid.width; x++) {
                 const cell = this.grid.cells[y][x];
                 if (cell.type === CELL_TYPES.EMITTER) {
-                    this.castRay(x, y, cell.direction, particleSystem, renderer);
+                    this.castRay(x, y, cell.direction, particleSystem, renderer, '#00f3ff');
+                } else if (cell.type === CELL_TYPES.EMITTER_DIAGONAL) {
+                    this.castRay(x, y, cell.direction, particleSystem, renderer, '#00f3ff'); // Revert to Cyan
+                } else if (cell.type === CELL_TYPES.EMITTER_OMNI) {
+                    this.castRay(x, y, cell.direction, particleSystem, renderer, '#00f3ff'); // Revert to Cyan
                 }
             }
         }
     }
 
-    castRay(startX, startY, startDir, particleSystem, renderer) {
+    castRay(startX, startY, startDir, particleSystem, renderer, color = '#00f3ff') {
         let x = startX;
         let y = startY;
         let dir = startDir;
@@ -88,7 +92,7 @@ export class LaserSystem {
                     y1: y + 0.5,
                     x2: nextX + 0.5,
                     y2: nextY + 0.5,
-                    color: '#00f3ff'
+                    color: color
                 });
                 break;
             }
@@ -100,7 +104,7 @@ export class LaserSystem {
                 y1: y + 0.5,
                 x2: nextX + 0.5,
                 y2: nextY + 0.5,
-                color: '#00f3ff'
+                color: color
             });
 
             const cell = this.grid.cells[nextY][nextX];

@@ -9,6 +9,8 @@ export const CELL_TYPES = {
     MIRROR_OCTAGON: 8, // M3 - Diagonal Mirror
     MIRROR_SQUARE: 9, // M4 - Diagonal to Orthogonal
     MIRROR_OMNI: 10, // M5 - Omni-directional (8-way)
+    EMITTER_DIAGONAL: 11, // Dark Blue, diagonal only
+    EMITTER_OMNI: 12, // Medium Blue, 8-way
     BLOCK: 5
 };
 
@@ -49,9 +51,13 @@ export class Grid {
         if (levelData.items) {
             levelData.items.forEach(item => {
                 if (this.isValid(item.x, item.y)) {
+                    let defaultDir = DIRECTIONS.RIGHT;
+                    // Fix: Default Diagonal Emitters to a diagonal direction
+                    if (item.type === CELL_TYPES.EMITTER_DIAGONAL) defaultDir = DIRECTIONS.DOWN_LEFT;
+
                     this.cells[item.y][item.x] = {
                         rotation: 0,
-                        direction: DIRECTIONS.RIGHT,
+                        direction: defaultDir,
                         ...item
                     };
                 }

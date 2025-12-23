@@ -1,4 +1,4 @@
-import { CELL_TYPES } from './Grid.js';
+import { CELL_TYPES, DIRECTIONS } from './Grid.js';
 
 export class InputHandler {
     constructor(canvas, game) {
@@ -80,13 +80,47 @@ export class InputHandler {
                     cell.rotation = (cell.rotation + 3) % 4;
                 }
                 this.game.audioSystem.playMirrorRotate();
-            } else if (cell.type === CELL_TYPES.EMITTER) {
+            } else if ([CELL_TYPES.EMITTER, CELL_TYPES.EMITTER_DIAGONAL, CELL_TYPES.EMITTER_OMNI].includes(cell.type)) {
                 // Rotate emitter
                 this.game.pushHistory(x, y);
-                // Rotate clockwise: UP -> RIGHT -> DOWN -> LEFT
-                // DIRECTIONS: UP=0, RIGHT=1, DOWN=2, LEFT=3
-                cell.direction = (cell.direction + 1) % 4;
-                this.game.audioSystem.playMirrorRotate(); // Reuse sound
+
+                if (cell.type === CELL_TYPES.EMITTER) {
+                    // Orthogonal Only: UP -> RIGHT -> DOWN -> LEFT
+                    const nextDir = {
+                        [DIRECTIONS.UP]: DIRECTIONS.RIGHT,
+                        [DIRECTIONS.RIGHT]: DIRECTIONS.DOWN,
+                        [DIRECTIONS.DOWN]: DIRECTIONS.LEFT,
+                        [DIRECTIONS.LEFT]: DIRECTIONS.UP
+                    };
+                    const next = nextDir[cell.direction];
+                    cell.direction = (next !== undefined) ? next : DIRECTIONS.RIGHT;
+                } else if (cell.type === CELL_TYPES.EMITTER_DIAGONAL) {
+                    // Diagonal Only
+                    const nextDir = {
+                        [DIRECTIONS.UP_RIGHT]: DIRECTIONS.DOWN_RIGHT,
+                        [DIRECTIONS.DOWN_RIGHT]: DIRECTIONS.DOWN_LEFT,
+                        [DIRECTIONS.DOWN_LEFT]: DIRECTIONS.UP_LEFT,
+                        [DIRECTIONS.UP_LEFT]: DIRECTIONS.UP_RIGHT
+                    };
+                    const next = nextDir[cell.direction];
+                    cell.direction = (next !== undefined) ? next : DIRECTIONS.DOWN_LEFT;
+                } else if (cell.type === CELL_TYPES.EMITTER_OMNI) {
+                    // 8-Way Clockwise
+                    const map = {
+                        [DIRECTIONS.UP]: DIRECTIONS.UP_RIGHT,
+                        [DIRECTIONS.UP_RIGHT]: DIRECTIONS.RIGHT,
+                        [DIRECTIONS.RIGHT]: DIRECTIONS.DOWN_RIGHT,
+                        [DIRECTIONS.DOWN_RIGHT]: DIRECTIONS.DOWN,
+                        [DIRECTIONS.DOWN]: DIRECTIONS.DOWN_LEFT,
+                        [DIRECTIONS.DOWN_LEFT]: DIRECTIONS.LEFT,
+                        [DIRECTIONS.LEFT]: DIRECTIONS.UP_LEFT,
+                        [DIRECTIONS.UP_LEFT]: DIRECTIONS.UP
+                    };
+                    const next = map[cell.direction];
+                    cell.direction = (next !== undefined) ? next : DIRECTIONS.RIGHT;
+                }
+
+                this.game.audioSystem.playMirrorRotate();
             }
         }
     }

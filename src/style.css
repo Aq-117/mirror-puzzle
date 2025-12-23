@@ -203,7 +203,8 @@ canvas {
 .icon-m5 {
   width: 24px;
   height: 24px;
-  border: 2px solid #FFD700;
+  border: 2px solid #ff0055ff;
+  /*#FFD700*/
   border-radius: 50%;
   /* Just round for now in UI */
   background: rgba(255, 215, 0, 0.1);

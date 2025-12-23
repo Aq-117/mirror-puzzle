@@ -195,17 +195,35 @@ export class LevelEditor {
             return;
         }
 
-        if (current && current.type === this.selectedTool) {
-            // Interaction with existing item of same type
+        if (current && (current.type === this.selectedTool ||
+            (this.selectedTool === CELL_TYPES.EMITTER && [CELL_TYPES.EMITTER, CELL_TYPES.EMITTER_DIAGONAL, CELL_TYPES.EMITTER_OMNI].includes(current.type)))) {
+
+            // Interaction with existing item
             if (isShiftClick) {
-                // Toggle Fixed/Rotatable State
-                // Only relevant for mirrors
+                // Shift-Click: Toggle Properties / Types
+
+                // MIRRORS: Toggle Fixed Logic
                 if ([CELL_TYPES.MIRROR_TRIANGLE, CELL_TYPES.MIRROR_LINE, CELL_TYPES.MIRROR_OCTAGON, CELL_TYPES.MIRROR_SQUARE, CELL_TYPES.MIRROR_OMNI].includes(current.type)) {
                     current.fixedRotation = !current.fixedRotation;
                 }
+                // EMITTERS: Cycle Type (Normal -> Diagonal -> Omni -> Normal)
+                else if ([CELL_TYPES.EMITTER, CELL_TYPES.EMITTER_DIAGONAL, CELL_TYPES.EMITTER_OMNI].includes(current.type)) {
+                    if (current.type === CELL_TYPES.EMITTER) {
+                        current.type = CELL_TYPES.EMITTER_DIAGONAL;
+                        current.direction = DIRECTIONS.DOWN_LEFT; // Default diagonal
+                    } else if (current.type === CELL_TYPES.EMITTER_DIAGONAL) {
+                        current.type = CELL_TYPES.EMITTER_OMNI;
+                        current.direction = DIRECTIONS.RIGHT; // Reset to standard
+                    } else {
+                        current.type = CELL_TYPES.EMITTER;
+                        current.direction = DIRECTIONS.RIGHT;
+                    }
+                }
+
             } else {
-                // Rotate / Change Direction
-                if (this.selectedTool === CELL_TYPES.EMITTER) {
+                // Regular Click: Rotate / Change Direction
+                if (current.type === CELL_TYPES.EMITTER) {
+                    // Orthogonal Only
                     const nextDir = {
                         [DIRECTIONS.UP]: DIRECTIONS.RIGHT,
                         [DIRECTIONS.RIGHT]: DIRECTIONS.DOWN,
@@ -213,6 +231,35 @@ export class LevelEditor {
                         [DIRECTIONS.LEFT]: DIRECTIONS.UP
                     };
                     const next = nextDir[current.direction];
+                    current.direction = (next !== undefined) ? next : DIRECTIONS.RIGHT;
+                } else if (current.type === CELL_TYPES.EMITTER_DIAGONAL) {
+                    // Diagonal Only
+                    const nextDir = {
+                        [DIRECTIONS.UP_RIGHT]: DIRECTIONS.DOWN_RIGHT,
+                        [DIRECTIONS.DOWN_RIGHT]: DIRECTIONS.DOWN_LEFT,
+                        [DIRECTIONS.DOWN_LEFT]: DIRECTIONS.UP_LEFT,
+                        [DIRECTIONS.UP_LEFT]: DIRECTIONS.UP_RIGHT
+                    };
+                    const next = nextDir[current.direction];
+                    current.direction = (next !== undefined) ? next : DIRECTIONS.DOWN_LEFT;
+                } else if (current.type === CELL_TYPES.EMITTER_OMNI) {
+                    // 8-Way
+                    // Cycle through: Up -> UpRight -> Right -> DownRight -> Down -> ...
+                    // DIRECTIONS are 0-7 but not in order. 
+                    // 0:UP, 1:RIGHT, 2:DOWN, 3:LEFT
+                    // 4:UP_RIGHT, 5:DOWN_RIGHT, 6:DOWN_LEFT, 7:UP_LEFT
+                    // Let's implement a logical clockwise rotation
+                    const map = {
+                        [DIRECTIONS.UP]: DIRECTIONS.UP_RIGHT,
+                        [DIRECTIONS.UP_RIGHT]: DIRECTIONS.RIGHT,
+                        [DIRECTIONS.RIGHT]: DIRECTIONS.DOWN_RIGHT,
+                        [DIRECTIONS.DOWN_RIGHT]: DIRECTIONS.DOWN,
+                        [DIRECTIONS.DOWN]: DIRECTIONS.DOWN_LEFT,
+                        [DIRECTIONS.DOWN_LEFT]: DIRECTIONS.LEFT,
+                        [DIRECTIONS.LEFT]: DIRECTIONS.UP_LEFT,
+                        [DIRECTIONS.UP_LEFT]: DIRECTIONS.UP
+                    };
+                    const next = map[current.direction];
                     current.direction = (next !== undefined) ? next : DIRECTIONS.RIGHT;
                 } else if ([CELL_TYPES.MIRROR_TRIANGLE, CELL_TYPES.MIRROR_LINE, CELL_TYPES.MIRROR_OCTAGON, CELL_TYPES.MIRROR_SQUARE].includes(this.selectedTool)) {
                     current.rotation = (current.rotation + 1) % 4;
