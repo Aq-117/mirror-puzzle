@@ -182,6 +182,24 @@ canvas {
   transform: rotate(45deg);
 }
 
+/* M3 Icon: Diamond */
+.icon-m3 {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #00f3ff;
+  transform: rotate(45deg);
+  /* Diamond/Octagon proxy */
+  background: rgba(0, 243, 255, 0.1);
+}
+
+.icon-m4 {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #BF00FF;
+  /* Square shape */
+  background: rgba(191, 0, 255, 0.1);
+}
+
 /* Lock Icon */
 .icon-lock {
   width: 16px;

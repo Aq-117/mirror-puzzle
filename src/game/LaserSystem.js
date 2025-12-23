@@ -14,7 +14,10 @@ export class LaserSystem {
         // Process external emitters
         if (emitters) {
             emitters.forEach(emitter => {
-                this.castRay(emitter.x, emitter.y, emitter.direction, particleSystem, renderer);
+                // Only process if it is NOT within the grid (internal ones are handled below)
+                if (!this.grid.isValid(emitter.x, emitter.y)) {
+                    this.castRay(emitter.x, emitter.y, emitter.direction, particleSystem, renderer);
+                }
             });
         }
 
@@ -152,6 +155,18 @@ export class LaserSystem {
                 // But "reflection in all 4 directions" usually implies the ACTIVE role is Orth->Diag.
                 // We will stick to strictly directing to Diagonals for now to satisfy the "all 4 directions" constraint.
                 // If a diagonal enters, it just gets redirected to the new diagonal (or passes through if same).
+            } else if (cell.type === CELL_TYPES.MIRROR_SQUARE) {
+                // M4 (Square Mirror)
+                // Reflects DIAGONAL inputs into ORTHOGONAL outputs
+                const rot = cell.rotation % 4;
+
+                // Only interact if input is diagonal
+                if ([DIRECTIONS.UP_RIGHT, DIRECTIONS.UP_LEFT, DIRECTIONS.DOWN_RIGHT, DIRECTIONS.DOWN_LEFT].includes(dir)) {
+                    if (rot === 0) dir = DIRECTIONS.UP;
+                    else if (rot === 1) dir = DIRECTIONS.RIGHT;
+                    else if (rot === 2) dir = DIRECTIONS.DOWN;
+                    else if (rot === 3) dir = DIRECTIONS.LEFT;
+                }
             }
 
             // Move to next cell

@@ -859,4 +859,52 @@ export const levels = [
         ],
         inventory: { mirror1: 0, mirror2: 4, mirror3: 0 }
     },
+    {
+        id: 42,
+        name: "Level 42",
+        grid: { width: 5, height: 5 },
+        items: [
+            { x: 3, y: 1, type: 3 },
+            { x: 2, y: 2, type: 1 },
+            { x: 3, y: 2, type: 1 }
+        ],
+        emitters: [
+            { x: -1, y: 2, direction: 1 }
+        ],
+        inventory: { mirror1: 1, mirror2: 0, mirror3: 1, mirror4: 1 }
+    },
+    {
+        id: 43,
+        name: "Level 43",
+        grid: { width: 5, height: 5 },
+        items: [
+            { x: 2, y: 1, type: 1 },
+            { x: 2, y: 2, type: 1 },
+            { x: 4, y: 2, type: 3 },
+            { x: 2, y: 3, type: 1 }
+        ],
+        emitters: [
+            { x: -1, y: 2, direction: 1 }
+        ],
+        inventory: { mirror1: 1, mirror2: 0, mirror3: 1, mirror4: 1 }
+    },
+    {
+        id: 44,
+        name: "Level 44",
+        grid: { width: 6, height: 6 },
+        items: [
+            { x: 0, y: 0, type: 1 },
+            { x: 5, y: 0, type: 1 },
+            { x: 2, y: 2, type: 3 },
+            { x: 3, y: 2, type: 1 },
+            { x: 2, y: 3, type: 1 },
+            { x: 3, y: 3, type: 3 },
+            { x: 0, y: 5, type: 1 },
+            { x: 5, y: 5, type: 1 }
+        ],
+        emitters: [
+            { x: 4, y: 4, direction: 2 }
+        ],
+        inventory: { mirror1: 2, mirror2: 0, mirror3: 1, mirror4: 1 }
+    },
 ];

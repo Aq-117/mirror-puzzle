@@ -7,6 +7,7 @@ export const CELL_TYPES = {
     MIRROR_TRIANGLE: 6,
     MIRROR_LINE: 7,
     MIRROR_OCTAGON: 8, // M3 - Diagonal Mirror
+    MIRROR_SQUARE: 9, // M4 - Diagonal to Orthogonal
     BLOCK: 5
 };
 

@@ -46,7 +46,7 @@ export class Renderer {
 
         // Draw External Emitters
         if (emitters) {
-            this.drawExternalEmitters(emitters);
+            this.drawExternalEmitters(emitters, grid);
         }
 
         // Draw Lasers
@@ -371,7 +371,24 @@ export class Renderer {
                         this.ctx.lineTo(cx + size / 3, cy);
                     }
                     this.ctx.stroke();
+                } else if (cell.type === CELL_TYPES.MIRROR_SQUARE) {
+                    // M4 (Square)
+                    let hue = '#BF00FF'; // Electric Purple
+                    if (cell.locked) {
+                        if (cell.fixedRotation) hue = '#ff3333';
+                        else hue = '#ffff00';
+                    }
 
+                    this.ctx.strokeStyle = hue;
+                    this.ctx.lineWidth = 2;
+
+                    // Draw Square
+                    const s = size * 0.6;
+                    this.ctx.strokeRect(cx - s / 2, cy - s / 2, s, s);
+
+                    // Draw Direction Indicator (Arrow pointing to output)
+                    // 0=UP, 1=RIGHT, 2=DOWN, 3=LEFT
+                    this.drawDirection(cx, cy, cell.rotation % 4, size * 0.4, hue);
                 }
             }
         }
@@ -428,8 +445,12 @@ export class Renderer {
         });
         this.ctx.globalAlpha = 1.0;
     }
-    drawExternalEmitters(emitters) {
+    drawExternalEmitters(emitters, grid) {
+        if (!emitters) return;
         emitters.forEach(emitter => {
+            // Skip internal emitters (if grid is provided and valid)
+            if (grid && grid.isValid(emitter.x, emitter.y)) return;
+
             const x = emitter.x;
             const y = emitter.y;
             const cx = this.offsetX + x * this.cellSize + this.cellSize / 2;

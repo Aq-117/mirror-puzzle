@@ -62,6 +62,9 @@ export class Game {
         const m3Btn = document.getElementById('select-m3');
         if (m3Btn) m3Btn.addEventListener('click', () => this.selectMirror(CELL_TYPES.MIRROR_OCTAGON));
 
+        const m4Btn = document.getElementById('select-m4');
+        if (m4Btn) m4Btn.addEventListener('click', () => this.selectMirror(CELL_TYPES.MIRROR_SQUARE));
+
         const homeBtn = document.getElementById('game-home-btn');
         if (homeBtn) homeBtn.addEventListener('click', () => this.showHome());
 
@@ -134,6 +137,13 @@ export class Game {
             this.audioSystem.playError();
             return;
         }
+        // M4 Locking Logic (e.g. unlock at Level 40?)
+        // For now, let's say Level 40 (If exists, or just unlock for custom levels)
+        if (type === CELL_TYPES.MIRROR_SQUARE && this.currentLevel !== -1 && this.currentLevel < 39) { // Unlock at Level 40
+            this.audioSystem.playError();
+            return;
+        }
+
         this.selectedMirrorType = type;
         this.updateInventoryUI();
     }
@@ -183,7 +193,8 @@ export class Game {
             this.inventory = {
                 mirror1: level.inventory.mirror1 || 0,
                 mirror2: level.inventory.mirror2 || 0,
-                mirror3: level.inventory.mirror3 || 0
+                mirror3: level.inventory.mirror3 || 0,
+                mirror4: level.inventory.mirror4 || 0
             };
 
             // If old format (mirrors), map to mirror1
@@ -212,10 +223,12 @@ export class Game {
         const m1Count = document.getElementById('m1-count');
         const m2Count = document.getElementById('m2-count');
         const m3Count = document.getElementById('m3-count');
+        const m4Count = document.getElementById('m4-count');
 
         if (m1Count) m1Count.textContent = this.inventory.mirror1;
         if (m2Count) m2Count.textContent = this.inventory.mirror2;
         if (m3Count) m3Count.textContent = this.inventory.mirror3 || 0;
+        if (m4Count) m4Count.textContent = this.inventory.mirror4 || 0;
 
         // Highlight selected
         document.querySelectorAll('.inventory-item').forEach(el => el.classList.remove('selected'));
@@ -225,6 +238,9 @@ export class Game {
             document.getElementById('select-m2').classList.add('selected');
         } else if (this.selectedMirrorType === CELL_TYPES.MIRROR_OCTAGON) {
             const el = document.getElementById('select-m3');
+            if (el) el.classList.add('selected');
+        } else if (this.selectedMirrorType === CELL_TYPES.MIRROR_SQUARE) {
+            const el = document.getElementById('select-m4');
             if (el) el.classList.add('selected');
         }
 
@@ -237,8 +253,13 @@ export class Game {
         const m3Lock = m3El ? m3El.querySelector('.icon-lock') : null;
         const m3Icon = m3El ? m3El.querySelector('.icon-m3') : null;
 
-        // Unlock all for generated levels (id -1)
-        if (this.currentLevel !== -1 && this.currentLevel < 8) { // Lock M2
+        const m4El = document.getElementById('select-m4');
+        const m4Lock = m4El ? m4El.querySelector('.icon-lock') : null;
+        const m4Icon = m4El ? m4El.querySelector('.icon-m4') : null;
+
+        // Unlock logic
+        // M2
+        if (this.currentLevel !== -1 && this.currentLevel < 8) {
             m2El.classList.add('locked');
             if (m2Lock) m2Lock.classList.remove('hidden');
             if (m2Icon) m2Icon.classList.add('hidden');
@@ -248,7 +269,8 @@ export class Game {
             if (m2Icon) m2Icon.classList.remove('hidden');
         }
 
-        if (this.currentLevel !== -1 && this.currentLevel < 33) { // Lock M3
+        // M3
+        if (this.currentLevel !== -1 && this.currentLevel < 33) {
             if (m3El) m3El.classList.add('locked');
             if (m3Lock) m3Lock.classList.remove('hidden');
             if (m3Icon) m3Icon.classList.add('hidden');
@@ -256,6 +278,17 @@ export class Game {
             if (m3El) m3El.classList.remove('locked');
             if (m3Lock) m3Lock.classList.add('hidden');
             if (m3Icon) m3Icon.classList.remove('hidden');
+        }
+
+        // M4
+        if (this.currentLevel !== -1 && this.currentLevel < 39) {
+            if (m4El) m4El.classList.add('locked');
+            if (m4Lock) m4Lock.classList.remove('hidden');
+            if (m4Icon) m4Icon.classList.add('hidden');
+        } else {
+            if (m4El) m4El.classList.remove('locked');
+            if (m4Lock) m4Lock.classList.add('hidden');
+            if (m4Icon) m4Icon.classList.remove('hidden');
         }
     }
 

@@ -42,6 +42,7 @@ export class InputHandler {
                 if (selectedType === CELL_TYPES.MIRROR_TRIANGLE) available = this.game.inventory.mirror1;
                 else if (selectedType === CELL_TYPES.MIRROR_LINE) available = this.game.inventory.mirror2;
                 else if (selectedType === CELL_TYPES.MIRROR_OCTAGON) available = this.game.inventory.mirror3;
+                else if (selectedType === CELL_TYPES.MIRROR_SQUARE) available = this.game.inventory.mirror4;
 
                 if (available > 0) {
                     this.game.pushHistory(x, y);
@@ -50,13 +51,14 @@ export class InputHandler {
                     if (selectedType === CELL_TYPES.MIRROR_TRIANGLE) this.game.inventory.mirror1--;
                     else if (selectedType === CELL_TYPES.MIRROR_LINE) this.game.inventory.mirror2--;
                     else if (selectedType === CELL_TYPES.MIRROR_OCTAGON) this.game.inventory.mirror3--;
+                    else if (selectedType === CELL_TYPES.MIRROR_SQUARE) this.game.inventory.mirror4--;
 
                     this.game.updateInventoryUI();
                     this.game.audioSystem.playMirrorRotate();
                 } else {
                     this.game.audioSystem.playError();
                 }
-            } else if (cell.type === CELL_TYPES.MIRROR_LINE || cell.type === CELL_TYPES.MIRROR || cell.type === CELL_TYPES.MIRROR_TRIANGLE || cell.type === CELL_TYPES.MIRROR_OCTAGON) {
+            } else if (cell.type === CELL_TYPES.MIRROR_LINE || cell.type === CELL_TYPES.MIRROR || cell.type === CELL_TYPES.MIRROR_TRIANGLE || cell.type === CELL_TYPES.MIRROR_OCTAGON || cell.type === CELL_TYPES.MIRROR_SQUARE) {
                 // Check if rotation is fixed
                 if (cell.fixedRotation) {
                     this.game.audioSystem.playError();
@@ -95,7 +97,7 @@ export class InputHandler {
         const { x, y } = this.getGridPos(e);
         const cell = this.game.grid.getCell(x, y);
 
-        if (cell && (cell.type === CELL_TYPES.MIRROR || cell.type === CELL_TYPES.MIRROR_LINE || cell.type === CELL_TYPES.MIRROR_TRIANGLE)) {
+        if (cell && (cell.type === CELL_TYPES.MIRROR || cell.type === CELL_TYPES.MIRROR_LINE || cell.type === CELL_TYPES.MIRROR_TRIANGLE || cell.type === CELL_TYPES.MIRROR_OCTAGON || cell.type === CELL_TYPES.MIRROR_SQUARE)) {
             // Check if locked (Fixed position)
             if (cell.locked) {
                 this.game.audioSystem.playError();
@@ -107,6 +109,8 @@ export class InputHandler {
             // Return to inventory
             if (cell.type === CELL_TYPES.MIRROR_TRIANGLE) this.game.inventory.mirror1++;
             else if (cell.type === CELL_TYPES.MIRROR_LINE || cell.type === CELL_TYPES.MIRROR) this.game.inventory.mirror2++;
+            else if (cell.type === CELL_TYPES.MIRROR_OCTAGON) this.game.inventory.mirror3++;
+            else if (cell.type === CELL_TYPES.MIRROR_SQUARE) this.game.inventory.mirror4++;
 
             this.game.grid.clearCell(x, y);
             this.game.updateInventoryUI();

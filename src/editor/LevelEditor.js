@@ -9,7 +9,12 @@ export class LevelEditor {
         this.selectedTool = CELL_TYPES.WALL;
         this.selectedDirection = DIRECTIONS.RIGHT;
         this.selectedRotation = 0;
-        this.inventoryConfig = { mirror1: 0, mirror2: 0, mirror3: 0 };
+        this.inventoryConfig = {
+            mirror1: 0,
+            mirror2: 0,
+            mirror3: 0,
+            mirror4: 0
+        };
         this.externalEmitters = []; // Store emitters outside grid
         this.isVisible = false;
 
@@ -70,12 +75,10 @@ export class LevelEditor {
         });
 
         // Inventory Inputs
-        ['m1', 'm2', 'm3'].forEach(k => {
-            document.getElementById(`editor-${k}-count`).addEventListener('change', (e) => {
-                const key = k === 'm1' ? 'mirror1' : k === 'm2' ? 'mirror2' : 'mirror3';
-                this.inventoryConfig[key] = parseInt(e.target.value) || 0;
-            });
-        });
+        document.getElementById('editor-m1-count').addEventListener('change', (e) => this.inventoryConfig.mirror1 = parseInt(e.target.value));
+        document.getElementById('editor-m2-count').addEventListener('change', (e) => this.inventoryConfig.mirror2 = parseInt(e.target.value));
+        document.getElementById('editor-m3-count').addEventListener('change', (e) => this.inventoryConfig.mirror3 = parseInt(e.target.value));
+        document.getElementById('editor-m4-count').addEventListener('change', (e) => this.inventoryConfig.mirror4 = parseInt(e.target.value));
     }
 
     show() {
@@ -193,7 +196,7 @@ export class LevelEditor {
             if (isShiftClick) {
                 // Toggle Fixed/Rotatable State
                 // Only relevant for mirrors
-                if ([CELL_TYPES.MIRROR_TRIANGLE, CELL_TYPES.MIRROR_LINE, CELL_TYPES.MIRROR_OCTAGON].includes(current.type)) {
+                if ([CELL_TYPES.MIRROR_TRIANGLE, CELL_TYPES.MIRROR_LINE, CELL_TYPES.MIRROR_OCTAGON, CELL_TYPES.MIRROR_SQUARE].includes(current.type)) {
                     current.fixedRotation = !current.fixedRotation;
                 }
             } else {
@@ -207,7 +210,7 @@ export class LevelEditor {
                     };
                     const next = nextDir[current.direction];
                     current.direction = (next !== undefined) ? next : DIRECTIONS.RIGHT;
-                } else if ([CELL_TYPES.MIRROR_TRIANGLE, CELL_TYPES.MIRROR_LINE, CELL_TYPES.MIRROR_OCTAGON].includes(this.selectedTool)) {
+                } else if ([CELL_TYPES.MIRROR_TRIANGLE, CELL_TYPES.MIRROR_LINE, CELL_TYPES.MIRROR_OCTAGON, CELL_TYPES.MIRROR_SQUARE].includes(this.selectedTool)) {
                     current.rotation = (current.rotation + 1) % 4;
                 }
             }
@@ -299,7 +302,7 @@ export class LevelEditor {
                     if (cell.rotation !== undefined && cell.rotation !== 0) item.rotation = cell.rotation;
 
                     // Locks
-                    if ([CELL_TYPES.MIRROR_TRIANGLE, CELL_TYPES.MIRROR_LINE, CELL_TYPES.MIRROR_OCTAGON].includes(cell.type)) {
+                    if ([CELL_TYPES.MIRROR_TRIANGLE, CELL_TYPES.MIRROR_LINE, CELL_TYPES.MIRROR_OCTAGON, CELL_TYPES.MIRROR_SQUARE].includes(cell.type)) {
                         item.locked = true;
                         if (!cell.fixedRotation) item.fixedRotation = false; // Default true (red)
                     }
@@ -335,7 +338,7 @@ export class LevelEditor {
             output += `        ${stringifyItem(em)}${i < emitters.length - 1 ? ',' : ''}\n`;
         });
         output += `    ],\n`;
-        output += `    inventory: { mirror1: ${this.inventoryConfig.mirror1}, mirror2: ${this.inventoryConfig.mirror2}, mirror3: ${this.inventoryConfig.mirror3} }\n`;
+        output += `    inventory: { mirror1: ${this.inventoryConfig.mirror1}, mirror2: ${this.inventoryConfig.mirror2}, mirror3: ${this.inventoryConfig.mirror3}, mirror4: ${this.inventoryConfig.mirror4} }\n`;
         output += `}`;
 
         // Show in Modal
