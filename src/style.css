@@ -665,3 +665,25 @@ textarea#level-json-code {
 .hidden {
   display: none !important;
 }
+
+#remove-btn {
+  background: transparent;
+  border: 1px solid #ff3333;
+  color: #ff3333;
+  padding: 5px 15px;
+  font-family: 'Segoe UI', sans-serif;
+  cursor: pointer;
+  margin-right: 5px;
+  transition: all 0.3s ease;
+}
+
+#remove-btn:hover {
+  background: rgba(255, 51, 51, 0.1);
+  box-shadow: 0 0 10px #ff3333;
+}
+
+#remove-btn.selected {
+  background: #ff3333 !important;
+  color: #fff !important;
+  box-shadow: 0 0 15px #ff3333;
+}

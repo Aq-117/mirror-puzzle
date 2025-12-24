@@ -32,6 +32,7 @@ export class Game {
         // Game UI Buttons
         document.getElementById('next-level-btn').addEventListener('click', () => this.nextLevel());
         document.getElementById('reset-btn').addEventListener('click', () => this.loadLevel(this.currentLevel));
+        document.getElementById('remove-btn').addEventListener('click', () => this.toggleRemoveMode());
         document.getElementById('undo-btn').addEventListener('click', () => this.undo());
         document.getElementById('restart-game-btn').addEventListener('click', () => {
             document.getElementById('victory-popup').classList.add('hidden');
@@ -44,8 +45,8 @@ export class Game {
         document.getElementById('home-settings-btn').addEventListener('click', () => this.showSettings());
         document.getElementById('home-editor-btn').addEventListener('click', () => this.showEditor());
 
-        const genBtn = document.getElementById('generate-btn');
-        if (genBtn) genBtn.addEventListener('click', () => this.generateLevel());
+        // const genBtn = document.getElementById('generate-btn');
+        // if (genBtn) genBtn.addEventListener('click', () => this.generateLevel());
 
         // Level Select Buttons
         document.getElementById('back-home-btn').addEventListener('click', () => this.showHome());
@@ -130,7 +131,27 @@ export class Game {
         }
     }
 
+    toggleRemoveMode() {
+        this.isRemoveMode = !this.isRemoveMode;
+        const btn = document.getElementById('remove-btn');
+        if (this.isRemoveMode) {
+            btn.classList.add('selected');
+            btn.style.backgroundColor = '#ff3333'; // Red indicator
+            // Deselect any mirror tool
+            this.selectedMirrorType = null;
+            this.updateInventoryUI(); // Remove selection highlight
+        } else {
+            btn.classList.remove('selected');
+            btn.style.backgroundColor = '';
+            // Default back to M1 if needed, or leave null. Let's leave null or user clicks mirror.
+            this.selectedMirrorType = CELL_TYPES.MIRROR_TRIANGLE;
+            this.updateInventoryUI();
+        }
+    }
+
     selectMirror(type) {
+        // Turn off remove mode if selecting a mirror
+        if (this.isRemoveMode) this.toggleRemoveMode();
         // Check if locked
         if (type === CELL_TYPES.MIRROR_LINE && this.currentLevel !== -1 && this.currentLevel < 8) { // Level 9 is index 8
             this.audioSystem.playError();
@@ -181,7 +202,7 @@ export class Game {
             prevCell: cell ? { ...cell } : null,
             prevInventory: { ...this.inventory }
         });
-        if (this.history.length > 10) this.history.shift();
+        if (this.history.length > 50) this.history.shift();
     }
 
     resize() {
@@ -190,56 +211,89 @@ export class Game {
     }
 
     loadLevel(index) {
-        if (index >= 0 && index < levels.length) {
-            this.currentLevel = index;
-            const level = levels[index];
-            this.grid.initialize(level);
-            this.renderer.calculateLayout(this.grid);
+        let level;
 
-            // Inventory
-            // Default to 0 if not specified
-            this.inventory = {
-                mirror1: level.inventory.mirror1 || 0,
-                mirror2: level.inventory.mirror2 || 0,
-                mirror3: level.inventory.mirror3 || 0,
-                mirror4: level.inventory.mirror4 || 0,
-                mirror5: level.inventory.mirror5 || 0
-            };
-
-            // If old format (mirrors), map to mirror1
-            if (level.inventory.mirrors !== undefined) {
-                this.inventory.mirror1 = level.inventory.mirrors;
+        // Handle test/generated levels
+        if (index === -1) {
+            if (!this.generatedLevel) {
+                console.error("No generated level available");
+                return;
             }
-
-            // Reset selection to M1
-            this.selectedMirrorType = CELL_TYPES.MIRROR_TRIANGLE;
-
-            this.updateInventoryUI();
-            this.history = []; // Clear history
-
-            // Update UI
-            const titleEl = document.getElementById('level-title');
-            const descEl = document.getElementById('level-desc');
-            if (titleEl) titleEl.innerText = level.name;
-            if (descEl) descEl.innerText = "Guide the laser to the target.";
-            document.getElementById('next-level-btn').disabled = true;
+            this.currentLevel = -1;
+            level = this.generatedLevel;
+        } else if (index >= 0 && index < levels.length) {
+            this.currentLevel = index;
+            level = levels[index];
+        } else {
+            console.error("Invalid level index");
+            return;
         }
+
+        this.grid.initialize(level);
+        this.renderer.calculateLayout(this.grid);
+
+        // Inventory
+        // Default to 0 if not specified
+        this.inventory = {
+            mirror1: level.inventory.mirror1 || 0,
+            mirror2: level.inventory.mirror2 || 0,
+            mirror3: level.inventory.mirror3 || 0,
+            mirror4: level.inventory.mirror4 || 0,
+            mirror5: level.inventory.mirror5 || 0
+        };
+        this.initialInventory = { ...this.inventory };
+
+        // If old format (mirrors), map to mirror1
+        if (level.inventory.mirrors !== undefined) {
+            this.inventory.mirror1 = level.inventory.mirrors;
+            this.initialInventory.mirror1 = level.inventory.mirrors;
+        }
+
+        // Reset selection to M1
+        this.selectedMirrorType = CELL_TYPES.MIRROR_TRIANGLE;
+
+        // Reset Remove Mode
+        this.isRemoveMode = false;
+        const removeBtn = document.getElementById('remove-btn');
+        if (removeBtn) {
+            removeBtn.classList.remove('selected');
+            removeBtn.style.backgroundColor = '';
+        }
+
+        this.updateInventoryUI();
+        this.history = []; // Clear history
+
+        // Update UI
+        const titleEl = document.getElementById('level-title');
+        const descEl = document.getElementById('level-desc');
+        if (titleEl) titleEl.innerText = level.name || `Level ${index + 1}`;
+        if (descEl) descEl.innerText = "Guide the laser to the target.";
+        document.getElementById('next-level-btn').disabled = true;
     }
 
     updateInventoryUI() {
         if (!this.inventory) return;
 
-        const m1Count = document.getElementById('m1-count');
-        const m2Count = document.getElementById('m2-count');
-        const m3Count = document.getElementById('m3-count');
-        const m4Count = document.getElementById('m4-count');
-        const m5Count = document.getElementById('m5-count');
+        // Safety check for initialInventory (e.g. if loaded via generator or editor test without setting it)
+        if (!this.initialInventory) this.initialInventory = { ...this.inventory };
 
-        if (m1Count) m1Count.textContent = this.inventory.mirror1;
-        if (m2Count) m2Count.textContent = this.inventory.mirror2;
-        if (m3Count) m3Count.textContent = this.inventory.mirror3 || 0;
-        if (m4Count) m4Count.textContent = this.inventory.mirror4 || 0;
-        if (m5Count) m5Count.textContent = this.inventory.mirror5 || 0;
+        const updateItem = (id, countId, current, total) => {
+            const el = document.getElementById(countId);
+            const parent = document.getElementById(id);
+            if (el && parent) {
+                el.innerText = `${current}/${total}`;
+
+                // Dim if 0 remaining
+                if (current <= 0) parent.style.opacity = '0.5';
+                else parent.style.opacity = '1.0';
+            }
+        };
+
+        updateItem('select-m1', 'm1-count', this.inventory.mirror1, this.initialInventory.mirror1);
+        updateItem('select-m2', 'm2-count', this.inventory.mirror2, this.initialInventory.mirror2);
+        updateItem('select-m3', 'm3-count', this.inventory.mirror3, this.initialInventory.mirror3);
+        updateItem('select-m4', 'm4-count', this.inventory.mirror4, this.initialInventory.mirror4);
+        updateItem('select-m5', 'm5-count', this.inventory.mirror5, this.initialInventory.mirror5);
 
         // Highlight selected
         document.querySelectorAll('.inventory-item').forEach(el => el.classList.remove('selected'));

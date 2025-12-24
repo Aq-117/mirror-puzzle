@@ -450,7 +450,16 @@ export class LevelEditor {
         this.game.grid.initialize(level);
         this.game.renderer.calculateLayout(this.game.grid);
         this.game.inventory = { ...level.inventory };
+        this.game.initialInventory = { ...level.inventory }; // Set initial for UI
         this.game.selectedMirrorType = CELL_TYPES.MIRROR_TRIANGLE;
+
+        // Reset Remove Mode
+        this.game.isRemoveMode = false;
+        const removeBtn = document.getElementById('remove-btn');
+        if (removeBtn) {
+            removeBtn.classList.remove('selected');
+            removeBtn.style.backgroundColor = '';
+        }
         this.game.updateInventoryUI();
         this.game.history = [];
 

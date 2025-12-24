@@ -34,6 +34,36 @@ export class InputHandler {
         const cell = this.game.grid.getCell(x, y);
 
         if (cell) {
+            // Remove Mode Logic
+            if (this.game.isRemoveMode) {
+                if (cell.type !== CELL_TYPES.EMPTY && cell.type !== CELL_TYPES.WALL &&
+                    cell.type !== CELL_TYPES.EMITTER && cell.type !== CELL_TYPES.RECEIVER &&
+                    cell.type !== CELL_TYPES.EMITTER_DIAGONAL && cell.type !== CELL_TYPES.EMITTER_OMNI) {
+
+                    if (cell.locked) {
+                        this.game.audioSystem.playError();
+                        return;
+                    }
+
+                    // Return to inventory
+                    if (cell.type === CELL_TYPES.MIRROR_TRIANGLE) this.game.inventory.mirror1++;
+                    else if (cell.type === CELL_TYPES.MIRROR_LINE) this.game.inventory.mirror2++;
+                    else if (cell.type === CELL_TYPES.MIRROR_OCTAGON) this.game.inventory.mirror3++;
+                    else if (cell.type === CELL_TYPES.MIRROR_SQUARE) this.game.inventory.mirror4++;
+                    else if (cell.type === CELL_TYPES.MIRROR_OMNI) this.game.inventory.mirror5++;
+
+                    // Clear cell
+                    this.game.pushHistory(x, y);
+                    this.game.grid.setCell(x, y, { type: CELL_TYPES.EMPTY });
+                    this.game.updateInventoryUI();
+                    this.game.audioSystem.playClick(); // Or similar sound
+                } else {
+                    // Clicking empty or non-removable
+                    // Do nothing or play error?
+                }
+                return;
+            }
+
             if (cell.type === CELL_TYPES.EMPTY) {
                 // Place mirror if available
                 const selectedType = this.game.selectedMirrorType;
