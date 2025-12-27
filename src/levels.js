@@ -1082,6 +1082,7 @@ export const levels = [
             { x: 7, y: 2, direction: 3 }
         ],
         inventory: { mirror1: 2, mirror2: 0, mirror3: 1, mirror4: 1, mirror5: 0 }
+        // one extra m1, one extra m4
     },
     {
         id: 50,
@@ -1279,7 +1280,7 @@ export const levels = [
         ],
         emitters: [
         ],
-        inventory: { mirror1: 0, mirror2: 0, mirror3: 1, mirror4: 0, mirror5: 1 }
+        inventory: { mirror1: 0, mirror2: 0, mirror3: 1, mirror4: 1, mirror5: 1 }
     },
     {
         id: 60,
@@ -1358,7 +1359,7 @@ export const levels = [
         ],
         emitters: [
         ],
-        inventory: { mirror1: 2, mirror2: 4, mirror3: 3, mirror4: 2, mirror5: 4 }
+        inventory: { mirror1: 2, mirror2: 2, mirror3: 3, mirror4: 2, mirror5: 4 }
     },
     {
         id: 63,
@@ -1389,7 +1390,7 @@ export const levels = [
     },
     {
         id: 64,
-        name: "Level 64: Break Your Head",
+        name: "Level 64: Tricky :)",
         grid: { width: 9, height: 9 },
         items: [
             { x: 1, y: 0, type: 1, direction: 1 },
@@ -1443,7 +1444,7 @@ export const levels = [
     },
     {
         id: 65,
-        name: "Level 65: Tricky :)",
+        name: "Level 65: Break Your Head",
         grid: { width: 9, height: 9 },
         items: [
             { x: 0, y: 0, type: 1, direction: 1 },
@@ -1591,7 +1592,7 @@ export const levels = [
         ],
         emitters: [
         ],
-        inventory: { mirror1: 0, mirror2: 0, mirror3: 2, mirror4: 5, mirror5: 3 }
+        inventory: { mirror1: 0, mirror2: 0, mirror3: 2, mirror4: 4, mirror5: 3 }
     },
     {
         id: 68,
@@ -1619,6 +1620,715 @@ export const levels = [
             { x: -1, y: 2, direction: 1 },
             { x: 9, y: 6, direction: 3 }
         ],
-        inventory: { mirror1: 0, mirror2: 0, mirror3: 2, mirror4: 0, mirror5: 3 }
+        inventory: { mirror1: 0, mirror2: 0, mirror3: 1, mirror4: 0, mirror5: 3 }
+        // even tougher with one less mirror3
+    },
+    {
+        id: 69,
+        name: "Level 69",
+        grid: { width: 9, height: 9 },
+        items: [
+            { x: 0, y: 1, type: 3, direction: 1 },
+            { x: 5, y: 1, type: 3, direction: 1 },
+            { x: 7, y: 1, type: 1, direction: 1 },
+            { x: 2, y: 2, type: 1, direction: 1 },
+            { x: 3, y: 2, type: 1, direction: 1 },
+            { x: 4, y: 2, type: 1, direction: 1 },
+            { x: 5, y: 2, type: 1, direction: 1 },
+            { x: 7, y: 2, type: 1, direction: 1 },
+            { x: 8, y: 2, type: 3, direction: 1 },
+            { x: 1, y: 3, type: 1, direction: 1 },
+            { x: 3, y: 3, type: 3, direction: 1 },
+            { x: 5, y: 3, type: 1, direction: 1 },
+            { x: 7, y: 3, type: 1, direction: 1 },
+            { x: 1, y: 4, type: 1, direction: 1 },
+            { x: 4, y: 4, type: 1, direction: 1 },
+            { x: 6, y: 4, type: 3, direction: 1 },
+            { x: 1, y: 5, type: 1, direction: 1 },
+            { x: 2, y: 5, type: 1, direction: 1 },
+            { x: 3, y: 5, type: 1, direction: 1 },
+            { x: 7, y: 6, type: 1, direction: 1 },
+            { x: 8, y: 6, type: 1, direction: 1 },
+            { x: 1, y: 7, type: 1, direction: 1 },
+            { x: 2, y: 7, type: 1, direction: 1 },
+            { x: 3, y: 7, type: 1, direction: 1 },
+            { x: 6, y: 7, type: 1, direction: 1 },
+            { x: 7, y: 7, type: 3, direction: 1 },
+            { x: 2, y: 8, type: 3, direction: 1 },
+            { x: 6, y: 8, type: 1, direction: 1 }
+        ],
+        emitters: [
+            { x: 3, y: 9, direction: 0 }
+        ],
+        inventory: { mirror1: 3, mirror2: 1, mirror3: 5, mirror4: 3, mirror5: 1 }
+    },
+    {
+        id: 70,
+        name: "Level 70",
+        grid: { width: 9, height: 9 },
+        items: [
+            { x: 2, y: 0, type: 1, direction: 1 },
+            { x: 3, y: 0, type: 1, direction: 1 },
+            { x: 4, y: 0, type: 1, direction: 1 },
+            { x: 0, y: 1, type: 3, direction: 1 },
+            { x: 5, y: 1, type: 3, direction: 1 },
+            { x: 7, y: 1, type: 1, direction: 1 },
+            { x: 2, y: 2, type: 1, direction: 1 },
+            { x: 3, y: 2, type: 1, direction: 1 },
+            { x: 4, y: 2, type: 1, direction: 1 },
+            { x: 5, y: 2, type: 1, direction: 1 },
+            { x: 7, y: 2, type: 1, direction: 1 },
+            { x: 8, y: 2, type: 3, direction: 1 },
+            { x: 1, y: 3, type: 1, direction: 1 },
+            { x: 3, y: 3, type: 3, direction: 1 },
+            { x: 5, y: 3, type: 1, direction: 1 },
+            { x: 7, y: 3, type: 1, direction: 1 },
+            { x: 1, y: 4, type: 1, direction: 1 },
+            { x: 4, y: 4, type: 1, direction: 1 },
+            { x: 6, y: 4, type: 3, direction: 1 },
+            { x: 1, y: 5, type: 1, direction: 1 },
+            { x: 2, y: 5, type: 1, direction: 1 },
+            { x: 3, y: 5, type: 1, direction: 1 },
+            { x: 6, y: 5, type: 1, direction: 1 },
+            { x: 7, y: 6, type: 1, direction: 1 },
+            { x: 8, y: 6, type: 1, direction: 1 },
+            { x: 1, y: 7, type: 1, direction: 1 },
+            { x: 2, y: 7, type: 1, direction: 1 },
+            { x: 3, y: 7, type: 1, direction: 1 },
+            { x: 6, y: 7, type: 1, direction: 1 },
+            { x: 7, y: 7, type: 3, direction: 1 },
+            { x: 2, y: 8, type: 3, direction: 1 },
+            { x: 6, y: 8, type: 1, direction: 1 }
+        ],
+        emitters: [
+            { x: 3, y: 9, direction: 0 }
+        ],
+        inventory: { mirror1: 3, mirror2: 1, mirror3: 5, mirror4: 3, mirror5: 1 }
+    },
+    {
+        id: 71,
+        name: "Level 71",
+        grid: { width: 9, height: 9 },
+        items: [
+            { x: 0, y: 1, type: 3, direction: 1 },
+            { x: 1, y: 1, type: 1, direction: 1 },
+            { x: 5, y: 1, type: 3, direction: 1 },
+            { x: 7, y: 1, type: 1, direction: 1 },
+            { x: 2, y: 2, type: 1, direction: 1 },
+            { x: 3, y: 2, type: 1, direction: 1 },
+            { x: 4, y: 2, type: 1, direction: 1 },
+            { x: 5, y: 2, type: 1, direction: 1 },
+            { x: 7, y: 2, type: 1, direction: 1 },
+            { x: 8, y: 2, type: 3, direction: 1 },
+            { x: 1, y: 3, type: 1, direction: 1 },
+            { x: 3, y: 3, type: 3, direction: 1 },
+            { x: 5, y: 3, type: 1, direction: 1 },
+            { x: 7, y: 3, type: 1, direction: 1 },
+            { x: 1, y: 4, type: 1, direction: 1 },
+            { x: 4, y: 4, type: 1, direction: 1 },
+            { x: 6, y: 4, type: 3, direction: 1 },
+            { x: 1, y: 5, type: 1, direction: 1 },
+            { x: 2, y: 5, type: 1, direction: 1 },
+            { x: 3, y: 5, type: 1, direction: 1 },
+            { x: 7, y: 5, type: 1, direction: 1 },
+            { x: 5, y: 6, type: 1, direction: 1 },
+            { x: 7, y: 6, type: 1, direction: 1 },
+            { x: 8, y: 6, type: 1, direction: 1 },
+            { x: 1, y: 7, type: 1, direction: 1 },
+            { x: 2, y: 7, type: 1, direction: 1 },
+            { x: 3, y: 7, type: 1, direction: 1 },
+            { x: 6, y: 7, type: 1, direction: 1 },
+            { x: 7, y: 7, type: 3, direction: 1 },
+            { x: 2, y: 8, type: 3, direction: 1 },
+            { x: 6, y: 8, type: 1, direction: 1 }
+        ],
+        emitters: [
+            { x: 3, y: 9, direction: 0 }
+        ],
+        inventory: { mirror1: 3, mirror2: 1, mirror3: 5, mirror4: 3, mirror5: 1 }
+    },
+    {
+        id: 72,
+        name: "Level 72",
+        grid: { width: 7, height: 7 },
+        items: [
+            { x: 6, y: 0, type: 3, direction: 1 },
+            { x: 1, y: 1, type: 1, direction: 1 },
+            { x: 2, y: 1, type: 3, direction: 1 },
+            { x: 5, y: 1, type: 1, direction: 1 },
+            { x: 6, y: 2, type: 3, direction: 1 },
+            { x: 3, y: 3, type: 1, direction: 1 },
+            { x: 0, y: 4, type: 3, direction: 1 },
+            { x: 1, y: 5, type: 1, direction: 1 },
+            { x: 4, y: 5, type: 3, direction: 1 },
+            { x: 5, y: 5, type: 1, direction: 1 }
+        ],
+        emitters: [
+            { x: 7, y: 1, direction: 3 }
+        ],
+        inventory: { mirror1: 0, mirror2: 0, mirror3: 0, mirror4: 0, mirror5: 6 }
+    },
+    {
+        id: 73,
+        name: "Level 73",
+        grid: { width: 6, height: 6 },
+        items: [
+            { x: 1, y: 0, type: 1, direction: 1 },
+            { x: 4, y: 0, type: 3, direction: 1 },
+            { x: 3, y: 1, type: 1, direction: 1 },
+            { x: 0, y: 2, type: 1, direction: 1 },
+            { x: 1, y: 2, type: 1, direction: 1 },
+            { x: 3, y: 2, type: 3, direction: 1 },
+            { x: 4, y: 3, type: 1, direction: 1 },
+            { x: 4, y: 4, type: 12, direction: 1 },
+            { x: 0, y: 5, type: 1, direction: 1 },
+            { x: 1, y: 5, type: 3, direction: 1 },
+            { x: 2, y: 5, type: 1, direction: 1 }
+        ],
+        emitters: [
+        ],
+        inventory: { mirror1: 0, mirror2: 0, mirror3: 1, mirror4: 1, mirror5: 2 }
+    },
+    {
+        id: 74,
+        name: "Level 74",
+        grid: { width: 6, height: 5 },
+        items: [
+            { x: 1, y: 0, type: 3, direction: 1 },
+            { x: 3, y: 0, type: 3, direction: 1 },
+            { x: 5, y: 0, type: 3, direction: 1 },
+            { x: 2, y: 1, type: 3, direction: 1 },
+            { x: 4, y: 1, type: 3, direction: 1 },
+            { x: 1, y: 2, type: 3, direction: 1 },
+            { x: 3, y: 2, type: 3, direction: 1 },
+            { x: 5, y: 2, type: 3, direction: 1 },
+            { x: 2, y: 3, type: 3, direction: 1 },
+            { x: 4, y: 3, type: 3, direction: 1 },
+            { x: 1, y: 4, type: 3, direction: 1 },
+            { x: 3, y: 4, type: 3, direction: 1 },
+            { x: 5, y: 4, type: 3, direction: 1 }
+        ],
+        emitters: [
+            { x: 5, y: -1, direction: 2 },
+            { x: 0, y: -1, direction: 2 }
+        ],
+        inventory: { mirror1: 8, mirror2: 0, mirror3: 0, mirror4: 0, mirror5: 0 }
+    },
+    {
+        id: 75,
+        name: "Level 75",
+        grid: { width: 6, height: 5 },
+        items: [
+            { x: 1, y: 0, type: 3, direction: 1 },
+            { x: 3, y: 0, type: 3, direction: 1 },
+            { x: 5, y: 0, type: 3, direction: 1 },
+            { x: 2, y: 1, type: 3, direction: 1 },
+            { x: 4, y: 1, type: 3, direction: 1 },
+            { x: 1, y: 2, type: 3, direction: 1 },
+            { x: 2, y: 2, type: 1, direction: 1 },
+            { x: 3, y: 2, type: 3, direction: 1 },
+            { x: 5, y: 2, type: 3, direction: 1 },
+            { x: 2, y: 3, type: 3, direction: 1 },
+            { x: 4, y: 3, type: 3, direction: 1 },
+            { x: 1, y: 4, type: 3, direction: 1 },
+            { x: 3, y: 4, type: 3, direction: 1 },
+            { x: 5, y: 4, type: 3, direction: 1 }
+        ],
+        emitters: [
+            { x: 3, y: 9, direction: 0 },
+            { x: 0, y: -1, direction: 2 },
+            { x: 5, y: -1, direction: 2 }
+        ],
+        inventory: { mirror1: 8, mirror2: 0, mirror3: 0, mirror4: 0, mirror5: 0 }
+    },
+    {
+        id: 76,
+        name: "Level 76",
+        grid: { width: 6, height: 5 },
+        items: [
+            { x: 1, y: 0, type: 3, direction: 1 },
+            { x: 3, y: 0, type: 3, direction: 1 },
+            { x: 5, y: 0, type: 3, direction: 1 },
+            { x: 0, y: 1, type: 1, direction: 1 },
+            { x: 2, y: 1, type: 3, direction: 1 },
+            { x: 4, y: 1, type: 3, direction: 1 },
+            { x: 0, y: 2, type: 1, direction: 1 },
+            { x: 1, y: 2, type: 3, direction: 1 },
+            { x: 2, y: 2, type: 1, direction: 1 },
+            { x: 3, y: 2, type: 3, direction: 1 },
+            { x: 5, y: 2, type: 3, direction: 1 },
+            { x: 2, y: 3, type: 3, direction: 1 },
+            { x: 4, y: 3, type: 3, direction: 1 },
+            { x: 1, y: 4, type: 3, direction: 1 },
+            { x: 3, y: 4, type: 3, direction: 1 },
+            { x: 5, y: 4, type: 3, direction: 1 }
+        ],
+        emitters: [
+            { x: 3, y: 9, direction: 0 },
+            { x: 0, y: -1, direction: 2 },
+            { x: 5, y: -1, direction: 2 }
+        ],
+        inventory: { mirror1: 6, mirror2: 0, mirror3: 0, mirror4: 0, mirror5: 2 }
+    },
+    {
+        id: 77,
+        name: "Level 77",
+        grid: { width: 7, height: 5 },
+        items: [
+            { x: 1, y: 0, type: 3, direction: 1 },
+            { x: 4, y: 0, type: 3, direction: 1 },
+            { x: 6, y: 0, type: 3, direction: 1 },
+            { x: 2, y: 1, type: 3, direction: 1 },
+            { x: 4, y: 1, type: 1, direction: 1 },
+            { x: 5, y: 1, type: 3, direction: 1 },
+            { x: 1, y: 2, type: 3, direction: 1 },
+            { x: 2, y: 2, type: 1, direction: 1 },
+            { x: 4, y: 2, type: 3, direction: 1 },
+            { x: 6, y: 2, type: 3, direction: 1 },
+            { x: 2, y: 3, type: 3, direction: 1 },
+            { x: 5, y: 3, type: 3, direction: 1 },
+            { x: 1, y: 4, type: 3, direction: 1 },
+            { x: 4, y: 4, type: 3, direction: 1 },
+            { x: 6, y: 4, type: 3, direction: 1 }
+        ],
+        emitters: [
+            { x: 0, y: -1, direction: 2 },
+            { x: 6, y: -1, direction: 2 }
+        ],
+        inventory: { mirror1: 6, mirror2: 0, mirror3: 0, mirror4: 0, mirror5: 2 }
+    },
+    {
+        id: 78,
+        name: "Level 78",
+        grid: { width: 7, height: 5 },
+        items: [
+            { x: 1, y: 0, type: 3, direction: 1 },
+            { x: 4, y: 0, type: 3, direction: 1 },
+            { x: 6, y: 0, type: 3, direction: 1 },
+            { x: 2, y: 1, type: 3, direction: 1 },
+            { x: 4, y: 1, type: 1, direction: 1 },
+            { x: 5, y: 1, type: 3, direction: 1 },
+            { x: 1, y: 2, type: 3, direction: 1 },
+            { x: 2, y: 2, type: 1, direction: 1 },
+            { x: 3, y: 2, type: 1, direction: 1 },
+            { x: 4, y: 2, type: 3, direction: 1 },
+            { x: 6, y: 2, type: 3, direction: 1 },
+            { x: 2, y: 3, type: 3, direction: 1 },
+            { x: 5, y: 3, type: 3, direction: 1 },
+            { x: 1, y: 4, type: 3, direction: 1 },
+            { x: 4, y: 4, type: 3, direction: 1 },
+            { x: 6, y: 4, type: 3, direction: 1 }
+        ],
+        emitters: [
+            { x: 3, y: 9, direction: 0 },
+            { x: 0, y: -1, direction: 2 },
+            { x: 6, y: -1, direction: 2 }
+        ],
+        inventory: { mirror1: 6, mirror2: 0, mirror3: 0, mirror4: 0, mirror5: 1 }
+    },
+    {
+        id: 79,
+        name: "Level 79",
+        grid: { width: 7, height: 5 },
+        items: [
+            { x: 2, y: 0, type: 3, direction: 1 },
+            { x: 4, y: 0, type: 3, direction: 1 },
+            { x: 0, y: 1, type: 3, direction: 1 },
+            { x: 1, y: 1, type: 1, direction: 1 },
+            { x: 2, y: 1, type: 1, direction: 1 },
+            { x: 4, y: 1, type: 1, direction: 1 },
+            { x: 5, y: 1, type: 1, direction: 1 },
+            { x: 6, y: 1, type: 3, direction: 1 },
+            { x: 1, y: 2, type: 3, direction: 1 },
+            { x: 5, y: 2, type: 3, direction: 1 },
+            { x: 0, y: 3, type: 3, direction: 1 },
+            { x: 1, y: 3, type: 1, direction: 1 },
+            { x: 2, y: 3, type: 1, direction: 1 },
+            { x: 4, y: 3, type: 1, direction: 1 },
+            { x: 5, y: 3, type: 1, direction: 1 },
+            { x: 6, y: 3, type: 3, direction: 1 },
+            { x: 2, y: 4, type: 3, direction: 1 },
+            { x: 4, y: 4, type: 3, direction: 1 }
+        ],
+        emitters: [
+            { x: 2, y: 2, direction: 1 },
+            { x: 4, y: 2, direction: 3 }
+        ],
+        inventory: { mirror1: 5, mirror2: 0, mirror3: 0, mirror4: 0, mirror5: 0 }
+    },
+    {
+        id: 80,
+        name: "Level 80",
+        grid: { width: 7, height: 6 },
+        items: [
+            { x: 2, y: 0, type: 3, direction: 1 },
+            { x: 4, y: 0, type: 3, direction: 1 },
+            { x: 1, y: 1, type: 1, direction: 1 },
+            { x: 2, y: 1, type: 1, direction: 1 },
+            { x: 4, y: 1, type: 1, direction: 1 },
+            { x: 5, y: 1, type: 1, direction: 1 },
+            { x: 1, y: 2, type: 3, direction: 1 },
+            { x: 1, y: 3, type: 1, direction: 1 },
+            { x: 2, y: 3, type: 1, direction: 1 },
+            { x: 4, y: 3, type: 1, direction: 1 },
+            { x: 5, y: 3, type: 1, direction: 1 },
+            { x: 2, y: 4, type: 3, direction: 1 },
+            { x: 4, y: 4, type: 3, direction: 1 },
+            { x: 3, y: 5, type: 3, direction: 1 }
+        ],
+        emitters: [
+            { x: 2, y: 2, direction: 1 },
+            { x: 4, y: 2, direction: 3 }
+        ],
+        inventory: { mirror1: 2, mirror2: 3, mirror3: 0, mirror4: 0, mirror5: 0 }
+    },
+    {
+        id: 81,
+        name: "Level 81",
+        grid: { width: 7, height: 6 },
+        items: [
+            { x: 2, y: 0, type: 3, direction: 1 },
+            { x: 4, y: 0, type: 3, direction: 1 },
+            { x: 0, y: 1, type: 3, direction: 1 },
+            { x: 1, y: 1, type: 1, direction: 1 },
+            { x: 2, y: 1, type: 1, direction: 1 },
+            { x: 3, y: 1, type: 3, direction: 1 },
+            { x: 4, y: 1, type: 1, direction: 1 },
+            { x: 5, y: 1, type: 1, direction: 1 },
+            { x: 6, y: 1, type: 3, direction: 1 },
+            { x: 1, y: 2, type: 3, direction: 1 },
+            { x: 5, y: 2, type: 3, direction: 1 },
+            { x: 1, y: 3, type: 1, direction: 1 },
+            { x: 2, y: 3, type: 1, direction: 1 },
+            { x: 3, y: 3, type: 3, direction: 1 },
+            { x: 4, y: 3, type: 1, direction: 1 },
+            { x: 5, y: 3, type: 1, direction: 1 },
+            { x: 6, y: 3, type: 3, direction: 1 },
+            { x: 2, y: 4, type: 3, direction: 1 },
+            { x: 6, y: 4, type: 3, direction: 1 },
+            { x: 1, y: 5, type: 3, direction: 1 },
+            { x: 5, y: 5, type: 3, direction: 1 }
+        ],
+        emitters: [
+            { x: 2, y: 2, direction: 1 },
+            { x: 4, y: 2, direction: 3 }
+        ],
+        inventory: { mirror1: 4, mirror2: 3, mirror3: 0, mirror4: 0, mirror5: 0 }
+    },
+    {
+        id: 82,
+        name: "Level 82",
+        grid: { width: 7, height: 7 },
+        items: [
+            { x: 1, y: 0, type: 3, direction: 1 },
+            { x: 5, y: 0, type: 3, direction: 1 },
+            { x: 3, y: 1, type: 3, direction: 1 },
+            { x: 0, y: 2, type: 3, direction: 1 },
+            { x: 1, y: 2, type: 1, direction: 1 },
+            { x: 2, y: 2, type: 1, direction: 1 },
+            { x: 4, y: 2, type: 1, direction: 1 },
+            { x: 5, y: 2, type: 1, direction: 1 },
+            { x: 6, y: 2, type: 3, direction: 1 },
+            { x: 1, y: 3, type: 3, direction: 1 },
+            { x: 5, y: 3, type: 3, direction: 1 },
+            { x: 0, y: 4, type: 3, direction: 1 },
+            { x: 1, y: 4, type: 1, direction: 1 },
+            { x: 2, y: 4, type: 1, direction: 1 },
+            { x: 4, y: 4, type: 1, direction: 1 },
+            { x: 5, y: 4, type: 1, direction: 1 },
+            { x: 6, y: 4, type: 3, direction: 1 },
+            { x: 3, y: 5, type: 3, direction: 1 },
+            { x: 1, y: 6, type: 3, direction: 1 },
+            { x: 5, y: 6, type: 3, direction: 1 }
+        ],
+        emitters: [
+            { x: 2, y: 3, direction: 1 },
+            { x: 4, y: 3, direction: 3 }
+        ],
+        inventory: { mirror1: 4, mirror2: 4, mirror3: 0, mirror4: 0, mirror5: 5 }
+    },
+    {
+        id: 83,
+        name: "Level 83",
+        grid: { width: 9, height: 7 },
+        items: [
+            { x: 2, y: 0, type: 3, direction: 1 },
+            { x: 6, y: 0, type: 3, direction: 1 },
+            { x: 4, y: 1, type: 3, direction: 1 },
+            { x: 1, y: 2, type: 3, direction: 1 },
+            { x: 2, y: 2, type: 1, direction: 1 },
+            { x: 3, y: 2, type: 1, direction: 1 },
+            { x: 5, y: 2, type: 1, direction: 1 },
+            { x: 6, y: 2, type: 1, direction: 1 },
+            { x: 7, y: 2, type: 3, direction: 1 },
+            { x: 2, y: 3, type: 3, direction: 1 },
+            { x: 6, y: 3, type: 3, direction: 1 },
+            { x: 1, y: 4, type: 3, direction: 1 },
+            { x: 2, y: 4, type: 1, direction: 1 },
+            { x: 3, y: 4, type: 1, direction: 1 },
+            { x: 5, y: 4, type: 1, direction: 1 },
+            { x: 6, y: 4, type: 1, direction: 1 },
+            { x: 7, y: 4, type: 3, direction: 1 },
+            { x: 4, y: 5, type: 3, direction: 1 },
+            { x: 2, y: 6, type: 3, direction: 1 },
+            { x: 6, y: 6, type: 3, direction: 1 }
+        ],
+        emitters: [
+            { x: 3, y: 3, direction: 1 },
+            { x: 5, y: 3, direction: 3 }
+        ],
+        inventory: { mirror1: 3, mirror2: 3, mirror3: 0, mirror4: 0, mirror5: 3 }
+    },
+    {
+        id: 84,
+        name: "Level 84",
+        grid: { width: 9, height: 7 },
+        items: [
+            { x: 2, y: 0, type: 3, direction: 1 },
+            { x: 6, y: 0, type: 3, direction: 1 },
+            { x: 2, y: 1, type: 1, direction: 1 },
+            { x: 4, y: 1, type: 3, direction: 1 },
+            { x: 6, y: 1, type: 1, direction: 1 },
+            { x: 0, y: 2, type: 1, direction: 1 },
+            { x: 1, y: 2, type: 3, direction: 1 },
+            { x: 2, y: 2, type: 1, direction: 1 },
+            { x: 3, y: 2, type: 1, direction: 1 },
+            { x: 5, y: 2, type: 1, direction: 1 },
+            { x: 6, y: 2, type: 1, direction: 1 },
+            { x: 7, y: 2, type: 3, direction: 1 },
+            { x: 8, y: 2, type: 1, direction: 1 },
+            { x: 2, y: 3, type: 3, direction: 1 },
+            { x: 3, y: 3, type: 12, direction: 1 },
+            { x: 5, y: 3, type: 12, direction: 3 },
+            { x: 6, y: 3, type: 3, direction: 1 },
+            { x: 1, y: 4, type: 3, direction: 1 },
+            { x: 2, y: 4, type: 1, direction: 1 },
+            { x: 3, y: 4, type: 1, direction: 1 },
+            { x: 5, y: 4, type: 1, direction: 1 },
+            { x: 6, y: 4, type: 1, direction: 1 },
+            { x: 7, y: 4, type: 3, direction: 1 },
+            { x: 4, y: 5, type: 3, direction: 1 },
+            { x: 2, y: 6, type: 3, direction: 1 },
+            { x: 6, y: 6, type: 3, direction: 1 }
+        ],
+        emitters: [
+            { x: 3, y: 9, direction: 0 }
+        ],
+        inventory: { mirror1: 3, mirror2: 3, mirror3: 0, mirror4: 0, mirror5: 3 }
+    },
+    {
+        id: 85,
+        name: "Level 85",
+        grid: { width: 9, height: 7 },
+        items: [
+            { x: 2, y: 0, type: 3, direction: 1 },
+            { x: 6, y: 0, type: 3, direction: 1 },
+            { x: 4, y: 1, type: 3, direction: 1 },
+            { x: 1, y: 2, type: 3, direction: 1 },
+            { x: 2, y: 2, type: 1, direction: 1 },
+            { x: 3, y: 2, type: 1, direction: 1 },
+            { x: 5, y: 2, type: 1, direction: 1 },
+            { x: 6, y: 2, type: 1, direction: 1 },
+            { x: 7, y: 2, type: 3, direction: 1 },
+            { x: 2, y: 3, type: 3, direction: 1 },
+            { x: 3, y: 3, type: 12, direction: 1 },
+            { x: 4, y: 3, type: 1, direction: 1 },
+            { x: 5, y: 3, type: 12, direction: 3 },
+            { x: 6, y: 3, type: 3, direction: 1 },
+            { x: 0, y: 4, type: 1, direction: 1 },
+            { x: 1, y: 4, type: 3, direction: 1 },
+            { x: 2, y: 4, type: 1, direction: 1 },
+            { x: 3, y: 4, type: 1, direction: 1 },
+            { x: 5, y: 4, type: 1, direction: 1 },
+            { x: 6, y: 4, type: 1, direction: 1 },
+            { x: 7, y: 4, type: 3, direction: 1 },
+            { x: 8, y: 4, type: 1, direction: 1 },
+            { x: 4, y: 5, type: 3, direction: 1 },
+            { x: 2, y: 6, type: 3, direction: 1 },
+            { x: 6, y: 6, type: 3, direction: 1 }
+        ],
+        emitters: [
+            { x: 3, y: 9, direction: 0 }
+        ],
+        inventory: { mirror1: 3, mirror2: 3, mirror3: 0, mirror4: 0, mirror5: 2 }
+    },
+    {
+        id: 86,
+        name: "Level 86",
+        grid: { width: 8, height: 6 },
+        items: [
+            { x: 3, y: 0, type: 1, direction: 1 },
+            { x: 4, y: 0, type: 1, direction: 1 },
+            { x: 1, y: 1, type: 3, direction: 1 },
+            { x: 4, y: 1, type: 7, direction: 1, locked: true, fixedRotation: false },
+            { x: 7, y: 1, type: 1, direction: 1 },
+            { x: 0, y: 2, type: 1, direction: 1 },
+            { x: 1, y: 2, type: 1, direction: 1 },
+            { x: 0, y: 3, type: 12, direction: 5 },
+            { x: 1, y: 3, type: 1, direction: 1 },
+            { x: 2, y: 3, type: 3, direction: 1 },
+            { x: 5, y: 3, type: 1, direction: 1 },
+            { x: 7, y: 3, type: 3, direction: 1 },
+            { x: 1, y: 4, type: 1, direction: 1 }
+        ],
+        emitters: [
+        ],
+        inventory: { mirror1: 2, mirror2: 0, mirror3: 3, mirror4: 2, mirror5: 0 }
+    },
+    {
+        id: 87,
+        name: "Level 87",
+        grid: { width: 7, height: 7 },
+        items: [
+            { x: 0, y: 1, type: 3, direction: 1 },
+            { x: 1, y: 1, type: 1, direction: 1 },
+            { x: 3, y: 1, type: 1, direction: 1 },
+            { x: 5, y: 1, type: 1, direction: 1 },
+            { x: 6, y: 1, type: 3, direction: 1 },
+            { x: 0, y: 2, type: 1, direction: 1 },
+            { x: 1, y: 2, type: 1, direction: 1 },
+            { x: 3, y: 2, type: 1, direction: 1 },
+            { x: 5, y: 2, type: 1, direction: 1 },
+            { x: 6, y: 2, type: 1, direction: 1 },
+            { x: 0, y: 3, type: 1, direction: 1 },
+            { x: 3, y: 3, type: 1, direction: 1 },
+            { x: 3, y: 4, type: 1, direction: 1 },
+            // { x: 5, y: 4, type: 1, direction: 1 },
+            { x: 6, y: 4, type: 1, direction: 1 },
+            { x: 0, y: 5, type: 3, direction: 1 },
+            { x: 1, y: 5, type: 1, direction: 1 },
+            { x: 5, y: 5, type: 3, direction: 1 },
+            // { x: 6, y: 5, type: 1, direction: 1 },
+            { x: 0, y: 6, type: 1, direction: 1 },
+            { x: 1, y: 6, type: 1, direction: 1 },
+            { x: 2, y: 6, type: 1, direction: 1 },
+            { x: 4, y: 6, type: 1, direction: 1 },
+            { x: 6, y: 6, type: 1, direction: 1 }
+        ],
+        emitters: [
+            { x: 7, y: 3, direction: 3 },
+            { x: -1, y: 4, direction: 1 },
+            { x: 3, y: 7, direction: 0 },
+            { x: 2, y: -1, direction: 2 }
+        ],
+        inventory: { mirror1: 0, mirror2: 1, mirror3: 5, mirror4: 2, mirror5: 0 }
+    },
+    {
+        id: 88,
+        name: "Level 88",
+        grid: { width: 7, height: 7 },
+        items: [
+            { x: 2, y: 0, type: 3, direction: 1 },
+            { x: 3, y: 0, type: 3, direction: 1 },
+            { x: 4, y: 0, type: 3, direction: 1 },
+            { x: 1, y: 1, type: 1, direction: 1 },
+            { x: 3, y: 1, type: 1, direction: 1 },
+            { x: 5, y: 1, type: 1, direction: 1 },
+            { x: 2, y: 2, type: 3, direction: 1 },
+            { x: 3, y: 2, type: 1, direction: 1 },
+            { x: 4, y: 2, type: 3, direction: 1 },
+            { x: 1, y: 3, type: 1, direction: 1 },
+            { x: 2, y: 3, type: 3, direction: 1 },
+            { x: 3, y: 3, type: 1, direction: 1 },
+            { x: 4, y: 3, type: 3, direction: 1 },
+            { x: 5, y: 3, type: 1, direction: 1 },
+            { x: 2, y: 4, type: 3, direction: 1 },
+            { x: 4, y: 4, type: 3, direction: 1 },
+            { x: 1, y: 5, type: 1, direction: 1 },
+            { x: 2, y: 5, type: 1, direction: 1 },
+            { x: 4, y: 5, type: 1, direction: 1 },
+            { x: 5, y: 5, type: 1, direction: 1 },
+            { x: 1, y: 6, type: 3, direction: 1 },
+            { x: 2, y: 6, type: 3, direction: 1 },
+            { x: 4, y: 6, type: 3, direction: 1 },
+            { x: 5, y: 6, type: 3, direction: 1 }
+        ],
+        emitters: [
+            { x: 3, y: 7, direction: 0 },
+            { x: 7, y: 2, direction: 3 },
+            { x: -1, y: 2, direction: 1 },
+            { x: -1, y: 3, direction: 1 },
+            { x: 7, y: 3, direction: 3 }
+        ],
+        inventory: { mirror1: 2, mirror2: 2, mirror3: 3, mirror4: 2, mirror5: 0 }
+    },
+    {
+        id: 89,
+        name: "Level 89",
+        grid: { width: 7, height: 7 },
+        items: [
+            { x: 2, y: 0, type: 3, direction: 1 },
+            { x: 3, y: 0, type: 3, direction: 1 },
+            { x: 4, y: 0, type: 3, direction: 1 },
+            { x: 1, y: 1, type: 1, direction: 1 },
+            { x: 3, y: 1, type: 1, direction: 1 },
+            { x: 5, y: 1, type: 1, direction: 1 },
+            { x: 2, y: 2, type: 3, direction: 1 },
+            { x: 3, y: 2, type: 1, direction: 1 },
+            { x: 4, y: 2, type: 3, direction: 1 },
+            { x: 1, y: 3, type: 1, direction: 1 },
+            { x: 2, y: 3, type: 3, direction: 1 },
+            { x: 3, y: 3, type: 1, direction: 1 },
+            { x: 4, y: 3, type: 3, direction: 1 },
+            { x: 5, y: 3, type: 1, direction: 1 },
+            { x: 1, y: 4, type: 3, direction: 1 },
+            { x: 2, y: 4, type: 3, direction: 1 },
+            { x: 4, y: 4, type: 3, direction: 1 },
+            { x: 5, y: 4, type: 3, direction: 1 },
+            { x: 1, y: 5, type: 1, direction: 1 },
+            { x: 2, y: 5, type: 1, direction: 1 },
+            { x: 4, y: 5, type: 1, direction: 1 },
+            { x: 5, y: 5, type: 1, direction: 1 },
+            { x: 1, y: 6, type: 3, direction: 1 },
+            { x: 2, y: 6, type: 3, direction: 1 },
+            { x: 4, y: 6, type: 3, direction: 1 },
+            { x: 5, y: 6, type: 3, direction: 1 }
+        ],
+        emitters: [
+            { x: 3, y: 7, direction: 0 },
+            { x: 7, y: 2, direction: 3 },
+            { x: -1, y: 2, direction: 1 },
+            { x: -1, y: 3, direction: 1 },
+            { x: 7, y: 3, direction: 3 }
+        ],
+        inventory: { mirror1: 2, mirror2: 4, mirror3: 3, mirror4: 2, mirror5: 0 }
+    },
+    {
+        id: 90,
+        name: "Level 90",
+        grid: { width: 7, height: 7 },
+        items: [
+            { x: 2, y: 0, type: 3, direction: 1 },
+            { x: 3, y: 0, type: 3, direction: 1 },
+            { x: 4, y: 0, type: 3, direction: 1 },
+            { x: 1, y: 1, type: 1, direction: 1 },
+            { x: 3, y: 1, type: 1, direction: 1 },
+            { x: 5, y: 1, type: 1, direction: 1 },
+            { x: 2, y: 2, type: 3, direction: 1 },
+            { x: 3, y: 2, type: 1, direction: 1 },
+            { x: 4, y: 2, type: 3, direction: 1 },
+            { x: 1, y: 3, type: 1, direction: 1 },
+            { x: 2, y: 3, type: 3, direction: 1 },
+            { x: 3, y: 3, type: 1, direction: 1 },
+            { x: 4, y: 3, type: 3, direction: 1 },
+            { x: 5, y: 3, type: 1, direction: 1 },
+            { x: 1, y: 4, type: 3, direction: 1 },
+            { x: 2, y: 4, type: 3, direction: 1 },
+            { x: 4, y: 4, type: 3, direction: 1 },
+            { x: 5, y: 4, type: 3, direction: 1 },
+            { x: 1, y: 5, type: 1, direction: 1 },
+            { x: 2, y: 5, type: 1, direction: 1 },
+            { x: 4, y: 5, type: 1, direction: 1 },
+            { x: 5, y: 5, type: 1, direction: 1 },
+            { x: 1, y: 6, type: 3, direction: 1 },
+            { x: 2, y: 6, type: 3, direction: 1 },
+            { x: 4, y: 6, type: 3, direction: 1 },
+            { x: 5, y: 6, type: 3, direction: 1 }
+        ],
+        emitters: [
+            { x: 7, y: 2, direction: 3 },
+            { x: -1, y: 2, direction: 1 }
+        ],
+        inventory: { mirror1: 2, mirror2: 4, mirror3: 2, mirror4: 2, mirror5: 0 }
     },
 ];
