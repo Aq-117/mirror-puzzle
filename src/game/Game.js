@@ -7,6 +7,7 @@ import { AudioSystem } from './AudioSystem.js';
 import { levels } from '../levels.js';
 import { LevelGenerator } from '../generator/LevelGenerator.js';
 import { LevelEditor } from '../editor/LevelEditor.js';
+import { TutorialSimple as Tutorial } from './TutorialSimple.js';
 
 export class Game {
     constructor(canvas) {
@@ -43,7 +44,15 @@ export class Game {
         // Home Screen Buttons
         document.getElementById('home-levels-btn').addEventListener('click', () => this.showLevels());
         document.getElementById('home-settings-btn').addEventListener('click', () => this.showSettings());
-        document.getElementById('home-editor-btn').addEventListener('click', () => this.showEditor());
+
+        const editorBtn = document.getElementById('home-editor-btn');
+        if (editorBtn) {
+            // Show editor button only in development mode
+            if (import.meta.env.DEV) {
+                editorBtn.classList.remove('hidden');
+            }
+            editorBtn.addEventListener('click', () => this.showEditor());
+        }
 
         // const genBtn = document.getElementById('generate-btn');
         // if (genBtn) genBtn.addEventListener('click', () => this.generateLevel());
@@ -72,6 +81,13 @@ export class Game {
         const homeBtn = document.getElementById('game-home-btn');
         if (homeBtn) homeBtn.addEventListener('click', () => this.showHome());
 
+        // Tutorial button
+        const tutorialBtn = document.getElementById('tutorial-btn');
+        if (tutorialBtn) tutorialBtn.addEventListener('click', () => this.startTutorial());
+
+        // Initialize tutorial
+        this.tutorial = new Tutorial(this);
+
         this.showHome(); // Start at home
         window.game = this; // Expose for debugging
     }
@@ -82,6 +98,18 @@ export class Game {
         document.getElementById('settings-screen').classList.add('hidden');
         document.getElementById('ui-layer').classList.add('hidden');
         this.audioSystem.playMusic();
+
+        // Auto-start tutorial on first visit
+        if (localStorage.getItem('tutorialCompleted') !== 'true' &&
+            localStorage.getItem('tutorialSkipped') !== 'true') {
+            setTimeout(() => this.startTutorial(), 500);
+        }
+    }
+
+    startTutorial() {
+        // Allow replaying tutorial
+        localStorage.removeItem('tutorialCompleted');
+        this.tutorial.start();
     }
 
     showLevels() {
@@ -161,9 +189,8 @@ export class Game {
             this.audioSystem.playError();
             return;
         }
-        // M4 Locking Logic (e.g. unlock at Level 40?)
-        // For now, let's say Level 40 (If exists, or just unlock for custom levels)
-        if (type === CELL_TYPES.MIRROR_SQUARE && this.currentLevel !== -1 && this.currentLevel < 39) { // Unlock at Level 40
+        // M4 Locking Logic (e.g. unlock at Level 42)
+        if (type === CELL_TYPES.MIRROR_SQUARE && this.currentLevel !== -1 && this.currentLevel < 41) { // Unlock at Level 42
             this.audioSystem.playError();
             return;
         }
@@ -353,7 +380,7 @@ export class Game {
         }
 
         // M4
-        if (this.currentLevel !== -1 && this.currentLevel < 39) {
+        if (this.currentLevel !== -1 && this.currentLevel < 41) {
             if (m4El) m4El.classList.add('locked');
             if (m4Lock) m4Lock.classList.remove('hidden');
             if (m4Icon) m4Icon.classList.add('hidden');

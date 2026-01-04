@@ -66,6 +66,10 @@ export class AudioSystem {
         this.playTone(600, 'sine', 0.1);
     }
 
+    playClick() {
+        this.playTone(800, 'sine', 0.05);
+    }
+
     playLaserHit() {
         // Skipped
     }

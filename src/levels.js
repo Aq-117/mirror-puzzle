@@ -2846,4 +2846,29 @@ export const levels = [
         ],
         inventory: { mirror1: 0, mirror2: 1, mirror3: 5, mirror4: 2, mirror5: 5 }
     },
+    {
+        id: 108,
+        name: "Level 108",
+        grid: { width: 7, height: 7 },
+        items: [
+            { x: 2, y: 0, type: 3, direction: 1 },
+            { x: 6, y: 0, type: 3, direction: 1 },
+            { x: 0, y: 1, type: 3, direction: 1 },
+            { x: 2, y: 1, type: 1, direction: 1 },
+            { x: 0, y: 2, type: 1, direction: 1 },
+            { x: 4, y: 2, type: 3, direction: 1 },
+            { x: 4, y: 3, type: 1, direction: 1 },
+            { x: 1, y: 4, type: 3, direction: 1 },
+            { x: 4, y: 4, type: 3, direction: 1 },
+            { x: 0, y: 5, type: 3, direction: 1 },
+            { x: 1, y: 5, type: 1, direction: 1 },
+            { x: 2, y: 5, type: 3, direction: 1 },
+            { x: 6, y: 5, type: 3, direction: 1 }
+        ],
+        emitters: [
+            { x: -1, y: 3, direction: 1 },
+            { x: 3, y: 6, direction: 2 }
+        ],
+        inventory: { mirror1: 0, mirror2: 0, mirror3: 0, mirror4: 0, mirror5: 9 }
+    },
 ];
