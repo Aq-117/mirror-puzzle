@@ -7,15 +7,91 @@ export class TutorialSimple {
         this.overlay = null;
 
         this.steps = [
-            { title: "Welcome! 🎮", message: "Guide lasers to green receivers using mirrors!", visual: 'welcome' },
-            { title: "The Goal 🎯", message: "Target: Hit all receivers with lasers.\nWhen lit, they turn BLUE/GREEN.", visual: 'goal' },
-            { title: "How to Build 🏗️", message: "1. Select a mirror from the bottom bar.\n2. Click the grid to Place it.\n3. Click it again to Rotate.", visual: 'placing' },
-            { title: "Walls 🧱", message: "Obstacles: Walls block lasers.\nYou cannot build on top of walls.", visual: 'walls' },
-            { title: "Emitters 💡", message: "Sources: Emitters shoot laser beams.\nArrows show the firing direction.", visual: 'emitters' },
-            { title: "Basic Mirrors 🪞", message: "M1: 90° Reflection (One active face)\nM2: 90° Reflection (Two active faces)", visual: 'mirrors_basic' },
-            { title: "Advanced Mirrors 💎", message: "M3: Diagonal Deflector (Straight ↔ Diagonal)\nM4: Rectifier (Diagonal ↔ Straight)\nM5: Universal Splitter (All angles)", visual: 'mirrors_adv' },
-            { title: "Controls 🎮", message: "• Remove: Delete objects\n• Undo: Revert last action\n• Reset: Restart the level", visual: 'controls' },
-            { title: "Ready! 🚀", message: "Start your journey with Level 1.\nGood luck!", visual: 'finish' }
+            {
+                title: "Welcome! 🎮",
+                message: "Use mirrors to guide laser beams to their targets!",
+                image: "./assets/tutorial.png"
+            },
+            {
+                title: "How to Play 🏗️",
+                message: "1. Select a mirror from the inventory.\n2. Click the grid to place it.\n3. Click it again to rotate.",
+                image: "./assets/select-mirror.png"
+            },
+            {
+                title: "Victory! 🏆",
+                message: "You win if all targets are hit.\nYou can then proceed to the next level.",
+                image: "./assets/victory.png"
+            },
+            {
+                title: "Emitters 💡",
+                message: "They are the source of laser beams.\nWe have different types of emitters.",
+                image: "./assets/emitters.png"
+            },
+            {
+                title: "External Emitters ☀️",
+                message: "Emitters can be outside the grid and emit light into the puzzle.",
+                image: "./assets/emitter-outside.png"
+            },
+            {
+                title: "Internal Emitters 🔄",
+                message: "Emitters can be inside and rotated.\nThey emit in 4 orthogonal directions: Up, Down, Left, Right.",
+                image: "./assets/emitter-inside.png"
+            },
+            {
+                title: "Diagonal Emitters",
+                message: "A special type of emitter.\nOn rotation, it emits lasers in diagonals.",
+                image: "./assets/emitter-diagonal.png"
+            },
+            {
+                title: "Omni-Directional 🌟",
+                message: "The most powerful emitter.\nCan emit lasers in all 8 directions (both diagonals and orthogonal).",
+                image: "./assets/emitter-omni.png"
+            },
+            {
+                title: "Receivers 🎯",
+                message: "These are the targets.\nThe laser must pass through ALL receivers to win a level.",
+                image: "./assets/receiver.png"
+            },
+            {
+                title: "Walls 🧱",
+                message: "Walls block the laser.\nLasers cannot pass through them.",
+                image: "./assets/wall.png"
+            },
+            {
+                title: "Mirrors 🪞",
+                message: "Objects that reflect the laser to the target.\nDifferent mirrors reflect lasers in different directions.",
+                image: "./assets/mirrors.png"
+            },
+            {
+                title: "M1 & M2 Mirrors",
+                message: "M1: Reflects from 1 face.\nM2: Reflects from both faces.\n⚠️ They cannot reflect lasers coming from diagonals.",
+                image: "./assets/m1-m2.png"
+            },
+            {
+                title: "Diagonal Mirror M3",
+                message: "M3: Reflects lasers from orthogonal directions to diagonal directions.",
+                image: "./assets/m3.png"
+            },
+            {
+                title: "Mirror M4",
+                message: "M4: Reflects diagonal lasers into orthogonal directions.\n⛔ It blocks lasers coming from orthogonal directions.",
+                image: "./assets/m4.png"
+            },
+            {
+                title: "Mirror M5 💎",
+                message: "The most powerful mirror.\nReflects BOTH diagonal and orthogonal lasers to all 8 directions.",
+                image: "./assets/m5.png"
+            },
+            {
+                title: "Inventory & Tools 🛠️",
+                message: "Inventory holds your mirrors.\n• Remove: Click mirror to delete\n• Undo: Revert last move\n• Reset: Restart level",
+                image: "./assets/inventory.png"
+            },
+            {
+                title: "All Done! 🚀",
+                message: "You are ready to play.\nLet the game begin!",
+                image: "./assets/lets-go.png"
+            }
         ];
     }
 
